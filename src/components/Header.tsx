@@ -16,7 +16,7 @@ const Header = () => {
         <>
             <header
                 ref={headerRef}
-                className={`fixed w-full top-0 z-50 shadow-lg transition-transform duration-300 ease-in-out `}
+                className={`sticky w-full top-0 z-50 shadow-lg transition-transform duration-300 ease-in-out `}
             >
                 {/* Top Section - Logo and Institution Name */}
                 <div className="bg-mpgin-darkBlue py-3 border-b ">

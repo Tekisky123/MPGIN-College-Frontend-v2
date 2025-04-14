@@ -78,6 +78,7 @@ const Footer = () => {
                 { name: "Placements", path: "/placements" },
                 { name: "Research", path: "/research" },
                 { name: "Contact", path: "/contact" },
+                { name: "Admin login", path: "/login" },
               ].map((link) => (
                 <li key={link.path}>
                   <Link
@@ -116,15 +117,7 @@ const Footer = () => {
               ))}
             </div>
 
-            <motion.button
-                
-                whileHover={{ y: -2 }}
-                className="w-full p-2.5 text-center rounded-lg bg-mpgin-blue text-white hover:bg-blue-400 transition-colors text-lg"
-                onClick={() => navigate(`/login`)}
-               
-              >
-                Admin Login
-              </motion.button>
+         
           </div>
         </div>
 
