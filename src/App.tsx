@@ -26,34 +26,20 @@ import VishwabharatiPolytechnicHome from "./pages/VishwabharatiPolytechnicHome";
 import SchoolOfEngineeringCourses from "./pages/SchoolOfEngineeringCourses";
 import SchoolOfManagementCourses from "./pages/SchoolOfManagementCourses";
 import Departments from "./components/Departments";
-import VishwabhartiPolytechnicNavbar from "./components/VishwabhartiPolytechnicNavbar";
-import SchoolOfManagementNavbar from "./components/SchoolOfManagementNavbar";
-import SchoolOfEngineeringNavbar from "./components/SchoolOfEngineeringNavbar";
+
 import ScrollToTop from "./components/ScrollToTop";
 import ProfilePage from "./pages/ProfilePage";
 import VishwabhartiPolytechnicCourses from "./pages/VishwabhartiPolytechnicCourses";
 import SignInForm from "./components/Login";
 import FileUploadModal from "./components/uploadFiles";
+import Header from "./components/Header";
 
 export default function App() {
-  const RenderNavbar = () => {
-    const location = useLocation();
-
-    if (location.pathname.startsWith("/school-of-engineering/")) {
-      return <SchoolOfEngineeringNavbar />;
-    }
-    if (location.pathname.startsWith("/school-of-management/")) {
-      return <SchoolOfManagementNavbar />;
-    }
-    if (location.pathname.startsWith("/vishwabharati-polytechnic-institute/")) {
-      return <VishwabhartiPolytechnicNavbar />;
-    }
-    return <Navbar />;
-  };
+  const location = useLocation();
   return (
-    <Router>
+   
       <div className="min-h-screen">
-        <RenderNavbar />
+        {location.pathname !== "/" ? <Navbar /> : <Header/>}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<SignInForm />} />
@@ -104,6 +90,6 @@ export default function App() {
         <Footer />
         <ScrollToTop />
       </div>
-    </Router>
+   
   );
 }

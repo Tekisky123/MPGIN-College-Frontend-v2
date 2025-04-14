@@ -9,29 +9,28 @@ interface Slide {
   img: string;
 }
 
-// Custom arrow components
+// Custom arrow components with responsive sizing
 const NextArrow = ({ onClick }: CustomArrowProps) => (
   <button
     onClick={onClick}
-    className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10 bg-black/50 hover:bg-black/80 text-white p-5 rounded-full"
+    className="absolute top-1/2 right-2 md:right-4 transform -translate-y-1/2 z-10 bg-black/50 hover:bg-black/80 text-white p-2 md:p-3 lg:p-5 rounded-full transition-all duration-300"
+    aria-label="Next slide"
   >
-    <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-</svg>
-
-    
+    <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m9 5 7 7-7 7"/>
+    </svg>
   </button>
 );
 
 const PrevArrow = ({ onClick }: CustomArrowProps) => (
   <button
     onClick={onClick}
-    className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10 bg-black/50 hover:bg-black/80 text-white p-5 rounded-full"
+    className="absolute top-1/2 left-2 md:left-4 transform -translate-y-1/2 z-10 bg-black/50 hover:bg-black/80 text-white p-2 md:p-3 lg:p-5 rounded-full transition-all duration-300"
+    aria-label="Previous slide"
   >
-  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
-</svg>
-
+    <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 19-7-7 7-7"/>
+    </svg>
   </button>
 );
 
@@ -53,22 +52,40 @@ const Hero = () => {
     responsive: [
       {
         breakpoint: 1024,
-        settings: { dots: true },
+        settings: {
+          arrows: true,
+          dots: true
+        }
       },
-    ],
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: true,
+          dots: false // Hide dots on very small screens if needed
+        }
+      }
+    ]
   };
 
   return (
-    <div className="w-screen overflow-hidden bg-white">
+    <div className="w-full overflow-hidden bg-white">
       <div className="w-full">
-        <div className="h-[80vh] relative">
+        <div className="h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] relative">
           <Slider {...sliderSettings}>
             {slides.map((slide, index) => (
-              <div key={index} className="relative h-[80vh]">
+              <div key={index} className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh]">
                 <img
                   src={slide.img}
                   alt={`Slide ${index + 1}`}
                   className="w-full h-full object-cover"
+                  loading={index === 0 ? "eager" : "lazy"} // Lazy load non-first images
                 />
                 <div className="absolute inset-0 bg-black/20" />
               </div>
