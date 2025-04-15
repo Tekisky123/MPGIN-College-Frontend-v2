@@ -95,12 +95,12 @@ export default function App() {
 
       <Toaster
         position="top-right" 
-        richColors // adds colored icons
-        expand={true} // show all toasts expanded
-        visibleToasts={3} // max visible toasts
-        duration={5000} // duration in ms
-        closeButton // show close button
-        theme="light" // or "dark", "system"
+        richColors 
+        expand={true}
+        visibleToasts={3} 
+        duration={5000} 
+        closeButton 
+        theme="light" 
         
       />
     </div>
