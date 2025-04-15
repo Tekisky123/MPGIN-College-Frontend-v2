@@ -69,10 +69,10 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-100 p-4">
+    <div className="min-h-screen flex items-center justify-center  p-4">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="bg-indigo-600 py-6 px-8 text-center">
+          <div className="bg-mpgin-blue py-6 px-8 text-center">
             <h1 className="text-2xl font-bold text-white">Admin Portal</h1>
             <p className="text-indigo-100 mt-1">Sign in to your dashboard</p>
           </div>
@@ -124,7 +124,7 @@ const Login: React.FC = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors ${
+                className={`w-full py-3 px-4 bg-mpgin-blue hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors ${
                   loading ? 'opacity-80 cursor-not-allowed' : ''
                 }`}
               >
@@ -142,9 +142,7 @@ const Login: React.FC = () => {
           </form>
         </div>
         
-        <div className="mt-6 text-center text-sm text-gray-600">
-          <p>Don't have an account? <a href="#" className="text-indigo-600 hover:underline">Contact admin</a></p>
-        </div>
+
       </div>
     </div>
   );
