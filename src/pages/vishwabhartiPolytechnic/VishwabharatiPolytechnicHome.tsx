@@ -12,7 +12,7 @@ import {
   BookOpenCheck,
   Factory,
 } from "lucide-react";
-import polytechnicHero from "../assets/images/labs.avif";
+import polytechnicHero from "../../assets/images/labs.avif";
 
 const VishwabharatiPolytechnicHome = () => {
   const programs = [

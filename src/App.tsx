@@ -20,16 +20,15 @@ import FeaturesPage from "./pages/FeaturesPage";
 import Facilities from "./pages/Facilities";
 import TrainingPlacement from "./pages/Trainings";
 import Gallery from "./pages/Gallery";
-import SchoolOfEngineeringHome from "./pages/SchoolOfEngineeringHome";
-import SchoolOfManagementHome from "./pages/SchoolOfManagementHome";
-import VishwabharatiPolytechnicHome from "./pages/VishwabharatiPolytechnicHome";
-import SchoolOfEngineeringCourses from "./pages/SchoolOfEngineeringCourses";
-import SchoolOfManagementCourses from "./pages/SchoolOfManagementCourses";
+import SchoolOfEngineeringHome from "./pages/schoolOfEngineering/SchoolOfEngineeringHome";
+import SchoolOfManagementHome from "./pages/schoolOfManagement/SchoolOfManagementHome";
+import VishwabharatiPolytechnicHome from "./pages/vishwabhartiPolytechnic/VishwabharatiPolytechnicHome";
+import SchoolOfEngineeringCourses from "./pages/schoolOfEngineering/SchoolOfEngineeringCourses";
+import SchoolOfManagementCourses from "./pages/schoolOfManagement/SchoolOfManagementCourses";
 import Departments from "./components/Departments";
-
 import ScrollToTop from "./components/ScrollToTop";
 import ProfilePage from "./pages/ProfilePage";
-import VishwabhartiPolytechnicCourses from "./pages/VishwabhartiPolytechnicCourses";
+import VishwabhartiPolytechnicCourses from "./pages/vishwabhartiPolytechnic/VishwabhartiPolytechnicCourses";
 import FileUploadModal from "./components/uploadFiles";
 import Header from "./components/Header";
 import { Toaster } from "sonner";
@@ -95,7 +94,7 @@ export default function App() {
       <ScrollToTop />
 
       <Toaster
-        position="top-right" // or "top-center", "bottom-right", etc.
+        position="top-right" 
         richColors // adds colored icons
         expand={true} // show all toasts expanded
         visibleToasts={3} // max visible toasts
