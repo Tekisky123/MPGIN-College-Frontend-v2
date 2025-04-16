@@ -1,4 +1,5 @@
 // export const baseUrl = "http://localhost:5000"
+export const baseUrl = "https://mpgin-backend-v2.vercel.app"
 
 
 import axios from 'axios';

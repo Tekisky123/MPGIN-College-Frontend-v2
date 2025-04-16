@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { baseUrl } from '../data/Api';
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -52,7 +53,7 @@ const Login: React.FC = () => {
     setErrors({});
 
     try {
-      const { data } = await axios.post('http://localhost:5000/user/login', formData);
+      const { data } = await axios.post(`${baseUrl}/user/login`, formData);
       
       // Store token and user data
       localStorage.setItem('authToken', data.token);
