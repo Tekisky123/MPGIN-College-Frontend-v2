@@ -282,7 +282,7 @@ const FacultyCard = ({
                 </div>
             </div>
             <div className="flex-1">
-                <h3 className="text-xl font-semibold text-gray-900 truncate">{member.name}</h3>
+                <h3 className="text-md font-semibold text-gray-900 truncate">{member.name}</h3>
                 <p className="text-mpgin-blue font-medium mb-1">{member.designation}</p>
                 <div className="text-sm text-gray-600 space-y-1">
                     <p className="text-gray-500 text-sm font-medium">
