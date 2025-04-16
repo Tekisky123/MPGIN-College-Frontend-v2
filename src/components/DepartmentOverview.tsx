@@ -1,4 +1,3 @@
-// src/components/DepartmentOverview.tsx
 import { useParams } from "react-router-dom";
 import { colleges } from "../data/collegesData";
 

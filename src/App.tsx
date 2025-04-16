@@ -34,6 +34,7 @@ import { Toaster } from "sonner";
 import Login from "./components/Login";
 import Dashboard from "./pages/admin/Dashboard";
 import DepartmentRoutes from "./pages/DepartmentRoutes";
+import Faculty from "./pages/Faculty";
 
 
 export default function App() {
@@ -52,7 +53,8 @@ export default function App() {
         <Route path="/features" element={<FeaturesPage />} />
         <Route path="/facilities" element={<Facilities />} />
         <Route path="/trainings" element={<TrainingPlacement />} />
-        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/:collegeId/gallery" element={<Gallery />} />
+        <Route path="/:collegeId/faculty" element={<Faculty />} />
         <Route path="/programs" element={<Programs />} />
         <Route path="/admissions" element={<Admissions />} />
         <Route path="/student-portal/fees" element={<Fees />} />

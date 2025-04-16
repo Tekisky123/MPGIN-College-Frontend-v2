@@ -21,53 +21,61 @@ type SubmenuPosition = {
   position: DOMRect;
 } | null;
 
+const SCROLL_THRESHOLD = 100;
+const VALID_SCHOOLS = [
+  'school-of-engineering',
+  'school-of-management',
+  'vishwabharati-polytechnic-institute'
+];
+
 const Navbar = () => {
   const { pathname } = useLocation();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-  const [showNavbar, setShowNavbar] = useState<boolean>(true);
-  const [headerHeight, setHeaderHeight] = useState<number>(0);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [headerHeight, setHeaderHeight] = useState(0);
   const [submenuPosition, setSubmenuPosition] = useState<SubmenuPosition>(null);
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Refs
-  const lastScrollYRef = useRef<number>(0);
+  const lastScrollYRef = useRef(0);
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Get school prefix from path
+  // Memoized school prefix calculation
   const schoolPrefix = useMemo(() => {
     const parts = pathname.split('/').filter(p => p);
-    const validSchools = [
-      'school-of-engineering',
-      'school-of-management',
-      'vishwabharati-polytechnic-institute'
-    ];
-    return validSchools.includes(parts[0]) ? parts[0] : null;
+    return VALID_SCHOOLS.find(school => school === parts[0]) || null;
   }, [pathname]);
 
-  // Path prefixing helper
+  // Memoized path prefixing
   const getPrefixedPath = useCallback((originalPath: string, isExternal?: boolean) => {
     if (isExternal || !schoolPrefix) return originalPath;
-    if (originalPath === '/') return `/${schoolPrefix}/home`;
-    return `/${schoolPrefix}${originalPath}`;
+    return originalPath === '/'
+      ? `/${schoolPrefix}/home`
+      : `/${schoolPrefix}${originalPath}`;
   }, [schoolPrefix]);
 
-  // Get school-specific heading
-  const getSchoolHeading = useCallback(() => {
+  // Memoized school heading
+  const schoolHeading = useMemo(() => {
     switch (schoolPrefix) {
-      case 'school-of-management': return "School of Management";
-      case 'school-of-engineering': return "School of Engineering";
-      case 'vishwabharati-polytechnic-institute': return "Vishwabharati Polytechnic Institute";
-      default: return "Matoshri Pratishthan Group of Institutions, Nanded";
+      case 'school-of-management':
+        return "School of Management";
+      case 'school-of-engineering':
+        return "School of Engineering";
+      case 'vishwabharati-polytechnic-institute':
+        return "Vishwabharati Polytechnic Institute";
+      default:
+        return "Matoshri Pratishthan Group of Institutions, Nanded";
     }
   }, [schoolPrefix]);
 
   // Cleanup function
   const cleanup = useCallback(() => {
-    timeoutRef.current && clearTimeout(timeoutRef.current);
-    timeoutRef.current = null;
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
   }, []);
 
   // Close all menus
@@ -83,202 +91,151 @@ const Navbar = () => {
     setOpenSubmenu(prev => prev === name ? null : name);
   }, []);
 
-  // Handle scroll behavior
+  // Scroll handler with throttling
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
-    const scrollThreshold = 100;
-    setIsScrolled(currentScrollY > scrollThreshold);
+    setIsScrolled(currentScrollY > SCROLL_THRESHOLD);
 
     if (isMobileMenuOpen) return;
 
-    setShowNavbar(
-      currentScrollY < scrollThreshold || currentScrollY < lastScrollYRef.current - 10
-    );
+    const scrollDelta = currentScrollY - lastScrollYRef.current;
+    setShowNavbar(currentScrollY < SCROLL_THRESHOLD || scrollDelta < -10);
     lastScrollYRef.current = currentScrollY;
   }, [isMobileMenuOpen]);
 
-  // Handle desktop submenu hover
-  const handleDesktopSubmenuHover = useCallback(
-    (e: React.MouseEvent, item: NavItem) => {
-      if (!item.subItems) return;
-      cleanup();
-      const rect = e.currentTarget.getBoundingClientRect();
-      setSubmenuPosition({ name: item.name, position: rect });
-    },
-    [cleanup]
-  );
+  // Desktop submenu handlers
+  const handleDesktopSubmenuHover = useCallback((e: React.MouseEvent, item: NavItem) => {
+    if (!item.subItems) return;
+    cleanup();
+    const rect = e.currentTarget.getBoundingClientRect();
+    setSubmenuPosition({ name: item.name, position: rect });
+  }, [cleanup]);
 
-  // Handle desktop submenu leave with delay
   const handleDesktopSubmenuLeave = useCallback(() => {
     cleanup();
     timeoutRef.current = setTimeout(() => setSubmenuPosition(null), 200);
   }, [cleanup]);
 
-  // Setup scroll and resize observers
+  // Event listeners setup
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
+  // Resize observer
   useEffect(() => {
     const updateHeaderHeight = () => {
-      headerRef.current && setHeaderHeight(headerRef.current.offsetHeight);
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight);
+      }
     };
 
-    updateHeaderHeight();
     const resizeObserver = new ResizeObserver(updateHeaderHeight);
-    headerRef.current && resizeObserver.observe(headerRef.current);
+    if (headerRef.current) {
+      resizeObserver.observe(headerRef.current);
+    }
+
     return () => {
       resizeObserver.disconnect();
       cleanup();
     };
   }, [cleanup]);
 
-  // Render desktop submenu items
-  const renderDesktopSubmenuItems = useCallback((subItems: NavItem["subItems"]) => {
-    return subItems?.map((subItem) => (
-      <li key={subItem.name}>
-        <Link
-          to={getPrefixedPath(subItem.path || '#', subItem.external)}
-          onClick={closeAllMenus}
-          className={`px-4 py-2 block text-base font-medium ${pathname === getPrefixedPath(subItem.path || '', subItem.external)
-            ? "bg-mpgin-blue/10 text-mpgin-blue"
-            : "text-gray-700 hover:bg-gray-50"
-            }`}
-        >
-          {subItem.name}
-        </Link>
-      </li>
-    ));
-  }, [closeAllMenus, pathname, getPrefixedPath]);
-
-  // Render mobile submenu items
-  const renderMobileSubmenuItems = useCallback((subItems: NavItem["subItems"]) => {
-    return subItems?.map((subItem) => (
-      <li key={subItem.name}>
-        <Link
-          to={getPrefixedPath(subItem.path || '#', subItem.external)}
-          onClick={closeAllMenus}
-          className={`block px-6 py-3 text-sm font-medium ${pathname === getPrefixedPath(subItem.path || '', subItem.external)
-            ? "text-mpgin-blue"
-            : "text-gray-600 hover:text-mpgin-blue"
-            }`}
-        >
-          {subItem.name}
-        </Link>
-      </li>
-    ));
-  }, [closeAllMenus, pathname, getPrefixedPath]);
-
-  // Render desktop nav items
-  const renderDesktopNavItems = useCallback(
-    () => NAV_ITEMS.map((item, index) => (
-      <li
-        key={item.name}
-        className={`group relative ${index !== NAV_ITEMS.length - 1 ? "border-r border-gray-200" : ""
-          }`}
-        onMouseEnter={(e) => handleDesktopSubmenuHover(e, item)}
-        onMouseLeave={handleDesktopSubmenuLeave}
-      >
-        {item.path ? (
+  // Render helpers
+  const renderSubmenuItems = useCallback(
+    (subItems: NavItem["subItems"], isMobile: boolean) =>
+      subItems?.map((subItem) => (
+        <li key={subItem.name}>
           <Link
-            to={getPrefixedPath(item.path, item.external)}
+            to={getPrefixedPath(subItem.path || '#', subItem.external)}
             onClick={closeAllMenus}
-            className={`px-4 py-2.5 flex items-center text-base font-medium ${pathname === getPrefixedPath(item.path, item.external)
-              ? "text-mpgin-blue bg-blue-50"
-              : "text-gray-700 hover:bg-gray-50"
+            className={`block ${isMobile ? 'px-6 py-3 text-sm' : 'px-4 py-2 text-base'
+              } font-medium ${pathname === getPrefixedPath(subItem.path || '', subItem.external)
+                ? `${isMobile ? 'text-mpgin-blue' : 'bg-mpgin-blue/10 text-mpgin-blue'}`
+                : `${isMobile ? 'text-gray-600 hover:text-mpgin-blue' : 'text-gray-700 hover:bg-gray-50'}`
               }`}
           >
-            {item.name}
+            {subItem.name}
           </Link>
-        ) : (
-          <div className="relative">
-            <button
-              className={`px-4 py-2.5 flex items-center gap-1 text-base font-medium ${submenuPosition?.name === item.name
-                ? "text-mpgin-blue bg-blue-50"
-                : "text-gray-700 hover:bg-gray-50"
-                }`}
-              aria-expanded={submenuPosition?.name === item.name}
-              aria-haspopup="true"
-            >
-              {item.name}
-              <ChevronDown
-                className={`w-4 h-4 transition-transform ${submenuPosition?.name === item.name ? "rotate-180" : ""
-                  }`}
-              />
-            </button>
-          </div>
-        )}
-      </li>
-    )),
-    [closeAllMenus, handleDesktopSubmenuHover, handleDesktopSubmenuLeave,
-      pathname, submenuPosition?.name, getPrefixedPath]
+        </li>
+      )),
+    [closeAllMenus, pathname, getPrefixedPath]
   );
 
-  // Render mobile nav items
-  const renderMobileNavItems = useCallback(
-    () => NAV_ITEMS.map((item) => (
-      <li key={item.name} className="hover:bg-gray-50 transition-colors">
-        {item.path ? (
-          <Link
-            to={getPrefixedPath(item.path, item.external)}
-            onClick={closeAllMenus}
-            className={`block px-6 py-3 text-sm font-medium ${pathname === getPrefixedPath(item.path, item.external)
-              ? "bg-mpgin-blue/10 text-mpgin-blue"
-              : "text-gray-700"
-              }`}
-          >
-            {item.name}
-          </Link>
-        ) : (
-          <div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleSubmenu(item.name);
-              }}
-              className={`w-full flex justify-between items-center px-6 py-3 text-sm font-medium ${openSubmenu === item.name
-                ? "bg-mpgin-blue/10 text-mpgin-blue"
-                : "text-gray-700"
-                }`}
-              aria-expanded={openSubmenu === item.name}
-              aria-haspopup="true"
-            >
-              <span>{item.name}</span>
-              <ChevronRight
-                className={`w-5 h-5 transition-transform ${openSubmenu === item.name ? "rotate-90" : ""
-                  }`}
-              />
-            </button>
+  const renderNavItem = useCallback(
+    (item: NavItem, isMobile: boolean) => {
+      const isActive = pathname === getPrefixedPath(item.path || '', item.external);
 
-            {openSubmenu === item.name && item.subItems && (
-              <ul className="bg-gray-50 pl-6 border-t border-gray-200">
-                {renderMobileSubmenuItems(item.subItems)}
-              </ul>
+      return item.path ? (
+        <Link
+          key={item.name}
+          to={getPrefixedPath(item.path, item.external)}
+          onClick={closeAllMenus}
+          className={`${isMobile ? 'px-6 py-3 text-sm' : 'px-4 py-2.5 text-base'
+            } font-medium flex items-center ${isActive
+              ? `${isMobile ? 'bg-mpgin-blue/10 text-mpgin-blue' : 'text-mpgin-blue bg-blue-50'}`
+              : 'text-gray-700 hover:bg-gray-50'
+            }`}
+        >
+          {item.name}
+        </Link>
+      ) : (
+        <div key={item.name} className="relative">
+          <button
+            onClick={isMobile ? () => toggleSubmenu(item.name) : undefined}
+            onMouseEnter={!isMobile ? (e) => handleDesktopSubmenuHover(e, item) : undefined}
+            onMouseLeave={!isMobile ? handleDesktopSubmenuLeave : undefined}
+            className={`${isMobile ? 'w-full px-6 py-3 text-sm' : 'px-4 py-2.5 text-base'
+              } font-medium flex items-center justify-between gap-1 ${(isMobile ? openSubmenu === item.name : submenuPosition?.name === item.name)
+                ? 'text-mpgin-blue bg-blue-50'
+                : 'text-gray-700 hover:bg-gray-50'
+              }`}
+            aria-expanded={Boolean(
+              isMobile ? openSubmenu === item.name : submenuPosition?.name === item.name
             )}
-          </div>
-        )}
-      </li>
-    )),
-    [closeAllMenus, openSubmenu, pathname, renderMobileSubmenuItems, toggleSubmenu, getPrefixedPath]
+          >
+            <span>{item.name}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform ${(isMobile ? openSubmenu === item.name : submenuPosition?.name === item.name)
+                  ? 'rotate-180'
+                  : ''
+                }`}
+            />
+          </button>
+
+          {isMobile && openSubmenu === item.name && item.subItems && (
+            <ul className="bg-gray-50 pl-6 border-t border-gray-200">
+              {renderSubmenuItems(item.subItems, true)}
+            </ul>
+          )}
+        </div>
+      );
+    },
+    [
+      pathname,
+      openSubmenu,
+      submenuPosition,
+      getPrefixedPath,
+      closeAllMenus,
+      toggleSubmenu,
+      handleDesktopSubmenuHover,
+      handleDesktopSubmenuLeave,
+      renderSubmenuItems
+    ]
   );
 
   return (
     <>
       <header
         ref={headerRef}
-        className={`fixed w-full top-0 z-50 shadow-lg transition-all duration-300 ease-in-out ${showNavbar ? "translate-y-0" : "-translate-y-full"
-          } ${isScrolled ? "bg-white" : "bg-white"}`}
+        className={`fixed w-full top-0 z-50 shadow-lg transition-transform duration-300 ease-in-out ${showNavbar ? 'translate-y-0' : '-translate-y-full'
+          } ${isScrolled ? 'bg-white shadow-md' : 'bg-white'}`}
       >
         {/* Top Section - Logo and Institution Name */}
-        <div className={`py-2 ${isScrolled ? "hidden" : "block"} bg-mpgin-darkBlue border-b`}>
+        <div className={`py-2 ${isScrolled ? 'hidden' : 'block'} bg-mpgin-darkBlue border-b`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap items-center justify-between gap-4">
-
-
               <div className="flex items-center gap-4">
-
-
                 <Link to="/">
                   <img
                     src={logo}
@@ -294,33 +251,38 @@ const Navbar = () => {
                   className="flex items-center gap-4"
                 >
                   <h1 className="text-mpgin-blue font-bold text-xl md:text-2xl lg:text-4xl tracking-tight">
-                    {getSchoolHeading()}
+                    {schoolHeading}
                   </h1>
                 </Link>
               </div>
-
-              {/* <Link
-                to="/"
-                className="text-white bg-mpgin-blue hover:bg-blue-700 px-4 py-2 rounded-md text-sm md:text-base transition-colors duration-200"
-              >
-                Go to Main Page
-              </Link> */}
             </div>
           </div>
         </div>
 
         {/* Bottom Navigation - Main Menu */}
-        <nav ref={navRef} className={`bg-white ${isScrolled ? "shadow-md" : ""}`}>
+        <nav ref={navRef} className="bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               {/* Desktop Navigation */}
               <div className="hidden md:block flex-1">
                 <div className="relative whitespace-nowrap">
-                  <ul className="flex items-center">{renderDesktopNavItems()}</ul>
+                  <ul className="flex items-center">
+                    {NAV_ITEMS.map((item, index) => (
+                      <li
+                        key={item.name}
+                        className={`group relative ${index !== NAV_ITEMS.length - 1 ? 'border-r border-gray-200' : ''
+                          }`}
+                        onMouseEnter={(e) => handleDesktopSubmenuHover(e, item)}
+                        onMouseLeave={handleDesktopSubmenuLeave}
+                      >
+                        {renderNavItem(item, false)}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
 
-              {/* Mobile menu button - Right aligned */}
+              {/* Mobile menu button */}
               <div className="md:hidden flex items-center ml-auto">
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -342,7 +304,11 @@ const Navbar = () => {
           {isMobileMenuOpen && (
             <div className="md:hidden bg-white shadow-lg">
               <ul className="divide-y divide-gray-200">
-                {renderMobileNavItems()}
+                {NAV_ITEMS.map((item) => (
+                  <li key={item.name} className="hover:bg-gray-50 transition-colors">
+                    {renderNavItem(item, true)}
+                  </li>
+                ))}
               </ul>
             </div>
           )}
@@ -362,9 +328,9 @@ const Navbar = () => {
             onMouseLeave={handleDesktopSubmenuLeave}
             aria-label={`${submenuPosition.name} submenu`}
           >
-            {renderDesktopSubmenuItems(
-              NAV_ITEMS.find((item) => item.name === submenuPosition.name)
-                ?.subItems
+            {renderSubmenuItems(
+              NAV_ITEMS.find((item) => item.name === submenuPosition.name)?.subItems,
+              false
             )}
           </ul>,
           document.body
@@ -372,7 +338,7 @@ const Navbar = () => {
 
       {/* Header height spacer */}
       {headerHeight > 0 && (
-        <div style={{ height: headerHeight, transition: "height 0.3s ease" }} />
+        <div style={{ height: headerHeight, transition: 'height 0.3s ease' }} />
       )}
     </>
   );

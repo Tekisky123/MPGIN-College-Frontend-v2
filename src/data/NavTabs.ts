@@ -10,16 +10,14 @@ export const NAV_ITEMS = [
     path: "/courses",
   },
   {
-    name: "About",
-    subItems: [
-      { name: "About Us", path: "/about" },
-      { name: "Chairman's Desk", path: "/profile/chairman" },
-      { name: "Principal's Desk", path: "/profile/principal" },
-      { name: "Vice President", path: "/profile/vice-president" },
-      { name: "Secretary", path: "/profile/secretary" },
-      { name: "Facilities", path: "/facilities" },
-    ],
+
+    name: "Gallery", path: "/gallery"
+
   },
+  {
+    name: "Faculty", path: "/faculty"
+  },
+
 
   {
     name: "Academics",
@@ -165,24 +163,6 @@ export const NAV_ITEMS = [
       { name: "Outdoor Sports Achievements", path: "/outdoor" },
       { name: "Aarohan", path: "/aarohan" },
       { name: "Jhankaar", path: "/jhankaar" },
-    ],
-  },
-
-  {
-    name: "Download",
-    subItems: [
-      {
-        name: "Current Advertisement",
-        path: "/download/current-advertisement",
-      },
-      { name: "NIRF", path: "/download/nirf" },
-      {
-        name: "Fees Regulatory Authority",
-        path: "/download/shikshan-shulk-samiti",
-      },
-      { name: "Audited Statements", path: "/download/audited-statements" },
-      { name: "Tender", path: "/download/tender-notice" },
-      { name: "Other Downloads", path: "/download/other" },
     ],
   },
   { name: "Contact", path: "/contact" },
