@@ -31,7 +31,7 @@ const Header = () => {
                                     height={80}
                                     loading="lazy"
                                 />
-                                <h1 className="text-mpgin-blue font-bold text-4xl tracking-tight">
+                                <h1 className="text-mpgin-blue font-bold text-lg md:text-4xl tracking-tight">
                                     Matoshri Pratishthan Group of Institutions, Nanded
                                 </h1>
                             </Link>
