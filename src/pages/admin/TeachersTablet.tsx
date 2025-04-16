@@ -13,6 +13,8 @@ interface Faculty {
   department: string;
   qualification: string;
   experience: string;
+  designation: string; // New field
+  dateOfJoining: string; // New field
   photo: string;
   college: string;
 }
@@ -32,9 +34,12 @@ const TeachersTable = ({ collegeType }: Props) => {
     department: college?.departments[0]?.slug || '',
     qualification: '',
     experience: '',
+    designation: '', // New field
+    dateOfJoining: '', // New field
     photo: null as File | null,
   });
   const [preview, setPreview] = useState('');
+  const [errors, setErrors] = useState<Partial<typeof formData>>({});
 
   // Fetch faculty data
   useEffect(() => {
@@ -71,6 +76,8 @@ const TeachersTable = ({ collegeType }: Props) => {
       department: item.department,
       qualification: item.qualification,
       experience: item.experience,
+      designation: item.designation, // New field
+      dateOfJoining: item.dateOfJoining, // New field
       photo: null,
     });
     setPreview(item.photo);
@@ -86,28 +93,42 @@ const TeachersTable = ({ collegeType }: Props) => {
       department: college?.departments[0]?.slug || '',
       qualification: '',
       experience: '',
+      designation: '', // New field
+      dateOfJoining: '', // New field
       photo: null,
     });
     setPreview('');
+    setErrors({});
+  };
+
+  // Validate form data
+  const validateForm = () => {
+    const newErrors: Partial<typeof formData> = {};
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.department.trim()) newErrors.department = 'Department is required';
+    if (!formData.qualification.trim()) newErrors.qualification = 'Qualification is required';
+    if (!formData.experience.trim()) newErrors.experience = 'Experience is required';
+    if (!formData.designation.trim()) newErrors.designation = 'Designation is required'; // New field
+    if (!formData.dateOfJoining.trim()) newErrors.dateOfJoining = 'Date of joining is required'; // New field
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   // Handle form submission
   const handleSubmit = async () => {
-    const { name, qualification, experience } = formData;
-
-    if (!name.trim() || !qualification.trim() || !experience.trim() || (!formData.photo && !editItem)) {
-      toast.error('Please fill all required fields');
-      return;
-    }
+    if (!validateForm()) return;
 
     try {
       setLoading(true);
       const form = new FormData();
-      form.append('name', name);
+      form.append('name', formData.name);
       form.append('college', college.slug);
       form.append('department', formData.department);
-      form.append('qualification', qualification);
-      form.append('experience', experience);
+      form.append('qualification', formData.qualification);
+      form.append('experience', formData.experience);
+      form.append('designation', formData.designation); // New field
+      form.append('dateOfJoining', formData.dateOfJoining); // New field
       if (formData.photo) form.append('photo', formData.photo);
 
       const endpoint = editItem
@@ -172,6 +193,8 @@ const TeachersTable = ({ collegeType }: Props) => {
             <th className="p-3 text-left">Name</th>
             <th className="p-3 text-left">Qualification</th>
             <th className="p-3 text-left">Experience</th>
+            <th className="p-3 text-left">Designation</th> {/* New column */}
+            <th className="p-3 text-left">Date of Joining</th> {/* New column */}
             <th className="p-3 text-left">Department</th>
             <th className="p-3 text-left">Actions</th>
           </tr>
@@ -189,6 +212,8 @@ const TeachersTable = ({ collegeType }: Props) => {
               <td className="p-3 font-medium text-gray-800">{teacher.name}</td>
               <td className="p-3">{teacher.qualification}</td>
               <td className="p-3">{teacher.experience}</td>
+              <td className="p-3">{teacher.designation}</td> {/* New field */}
+              <td className="p-3">{new Date(teacher.dateOfJoining).toLocaleDateString()}</td> {/* New field */}
               <td className="p-3 capitalize">{getDepartmentName(teacher.department)}</td>
               <td className="p-3 space-x-2">
                 <button
@@ -216,8 +241,8 @@ const TeachersTable = ({ collegeType }: Props) => {
             label="Full Name"
             value={formData.name}
             onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+            error={errors.name}
           />
-
           <Input
             label="Department"
             type="select"
@@ -227,20 +252,33 @@ const TeachersTable = ({ collegeType }: Props) => {
               label: d.displayName,
             }))}
             onChange={(e) => setFormData((prev) => ({ ...prev, department: e.target.value }))}
+            error={errors.department}
           />
-
           <Input
             label="Qualification"
             value={formData.qualification}
             onChange={(e) => setFormData((prev) => ({ ...prev, qualification: e.target.value }))}
+            error={errors.qualification}
           />
-
           <Input
             label="Experience"
             value={formData.experience}
             onChange={(e) => setFormData((prev) => ({ ...prev, experience: e.target.value }))}
+            error={errors.experience}
           />
-
+          <Input
+            label="Designation"
+            value={formData.designation}
+            onChange={(e) => setFormData((prev) => ({ ...prev, designation: e.target.value }))}
+            error={errors.designation} // New field
+          />
+          <Input
+            label="Date of Joining"
+            type="date"
+            value={formData.dateOfJoining}
+            onChange={(e) => setFormData((prev) => ({ ...prev, dateOfJoining: e.target.value }))}
+            error={errors.dateOfJoining} // New field
+          />
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
               {editItem ? 'New Photo (optional)' : 'Photo'}

@@ -20,7 +20,7 @@ const Modal = ({
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-2xl p-6 w-full max-w-xl shadow-xl"
+        className="bg-white rounded-2xl p-6 w-full max-w-xl shadow-xl  h-[80vh] overflow-auto"
       >
         {title && (
           <div className="flex justify-between items-center mb-4">
