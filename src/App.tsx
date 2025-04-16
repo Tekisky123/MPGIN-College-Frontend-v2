@@ -93,9 +93,9 @@ export default function App() {
         />
 
       </Routes>
-        <DepartmentRoutes />
+      <DepartmentRoutes />
       <Footer />
-      {/* <ScrollToTop /> */}
+      <ScrollToTop />
 
       <Toaster
         position="top-right"
