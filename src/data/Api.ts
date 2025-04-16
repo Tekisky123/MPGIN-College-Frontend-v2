@@ -4,7 +4,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://mpgin-backend-v2.vercel.app",
   headers: {
     Authorization: `Bearer ${localStorage.getItem('authToken')}`,
   },
