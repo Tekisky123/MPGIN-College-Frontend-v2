@@ -1,5 +1,4 @@
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
@@ -34,6 +33,7 @@ import Header from "./components/Header";
 import { Toaster } from "sonner";
 import Login from "./components/Login";
 import Dashboard from "./pages/admin/Dashboard";
+import DepartmentRoutes from "./pages/DepartmentRoutes";
 
 
 export default function App() {
@@ -89,19 +89,21 @@ export default function App() {
           path="/vishwabharati-polytechnic-institute/courses"
           element={<VishwabhartiPolytechnicCourses />}
         />
+
       </Routes>
+        <DepartmentRoutes />
       <Footer />
       <ScrollToTop />
 
       <Toaster
-        position="top-right" 
-        richColors 
+        position="top-right"
+        richColors
         expand={true}
-        visibleToasts={3} 
-        duration={5000} 
-        closeButton 
-        theme="light" 
-        
+        visibleToasts={3}
+        duration={5000}
+        closeButton
+        theme="light"
+
       />
     </div>
 

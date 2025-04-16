@@ -1,210 +1,181 @@
 // ManageAdmins.tsx
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { PencilIcon, TrashIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
+import api from '../../data/Api';
 
 interface Admin {
-  id: number;
+  _id: string;
   name: string;
   email: string;
 }
 
+
+
 const ManageAdmins = () => {
   const [admins, setAdmins] = useState<Admin[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [deleteCandidate, setDeleteCandidate] = useState<Admin | null>(null);
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-  const [loading, setLoading] = useState(false);
   const [editData, setEditData] = useState<Partial<Admin>>({});
+  const [loading, setLoading] = useState({ action: '', isLoading: false });
 
-  // Fetch admins on mount
   useEffect(() => {
     fetchAdmins();
   }, []);
 
   const fetchAdmins = async () => {
     try {
-      const response = await fetch('/api/admins');
-      const data = await response.json();
+      const { data } = await api.get('/user/getAllUsers');
       setAdmins(data);
-    } catch (error) {
+    } catch (error: any) {
       toast.error('Failed to fetch admins');
+
     }
   };
 
   const handleAddAdmin = async () => {
-    if (!formData.name || !formData.email || !formData.password) {
+    const { name, email, password } = formData;
+    if (!name || !email || !password) {
       toast.error('Please fill all fields');
       return;
     }
 
+    setLoading({ action: 'add', isLoading: true });
     try {
-      setLoading(true);
-      const response = await fetch('/api/admins', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) throw new Error('Failed to add admin');
-      
+      await api.post('/user/register', formData);
       toast.success('Admin added successfully');
-      setIsModalOpen(false);
       setFormData({ name: '', email: '', password: '' });
+      setIsModalOpen(false);
       await fetchAdmins();
-    } catch (error) {
-      toast.error('Error adding admin');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Error adding admin');
+
     } finally {
-      setLoading(false);
+      setLoading({ action: '', isLoading: false });
     }
   };
 
-  const handleUpdateAdmin = async (id: number) => {
-    if (!editData.name || !editData.email) {
+  const handleUpdateAdmin = async (_id: string) => {
+    const { name, email } = editData;
+    if (!name?.trim() || !email?.trim()) {
       toast.error('Please fill required fields');
       return;
     }
 
+    setLoading({ action: 'update', isLoading: true });
     try {
-      setLoading(true);
-      const response = await fetch(`/api/admins/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(editData),
-      });
-
-      if (!response.ok) throw new Error('Failed to update admin');
-      
+      await api.put(`/user/updateOneUser/${_id}`, editData);
       toast.success('Admin updated successfully');
       setEditingId(null);
       await fetchAdmins();
-    } catch (error) {
-      toast.error('Error updating admin');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Error updating admin');
+
     } finally {
-      setLoading(false);
+      setLoading({ action: '', isLoading: false });
     }
   };
 
   const handleDeleteAdmin = async () => {
     if (!deleteCandidate) return;
 
+    setLoading({ action: 'delete', isLoading: true });
     try {
-      setLoading(true);
-      const response = await fetch(`/api/admins/${deleteCandidate.id}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) throw new Error('Failed to delete admin');
-      
+      await api.delete(`/user/deleteOneUser/${deleteCandidate._id}`);
       toast.success('Admin deleted successfully');
       setDeleteCandidate(null);
       await fetchAdmins();
-    } catch (error) {
-      toast.error('Error deleting admin');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Error deleting admin');
+
     } finally {
-      setLoading(false);
+      setLoading({ action: '', isLoading: false });
     }
   };
 
-  const startEdit = (admin: Admin) => {
-    setEditingId(admin.id);
-    setEditData({ name: admin.name, email: admin.email });
-  };
 
-  const cancelEdit = () => {
-    setEditingId(null);
-    setEditData({});
-  };
+  const renderCell = (admin: Admin, field: 'name' | 'email') =>
+    editingId === admin._id ? (
+      <input
+        value={editData[field] || ''}
+        onChange={(e) => setEditData({ ...editData, [field]: e.target.value })}
+        className="border rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-blue-500"
+      />
+    ) : (
+      <span className="px-2">{admin[field]}</span>
+    );
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 lg:p-8 mt-10">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
             Manage Admins
           </h2>
-          <p className="text-sm text-gray-500">Add, edit, or remove admin accounts</p>
+          <p className="text-sm text-gray-500 mt-1">Add, edit, or remove admin accounts</p>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 transition-all duration-200 hover:shadow-lg disabled:opacity-50"
-          disabled={loading}
+          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 text-white px-6 py-3 rounded-xl flex items-center gap-2 transition-all"
+          disabled={loading.isLoading}
         >
           <PlusIcon className="w-5 h-5" />
-          <span className="hidden sm:inline">Add New Admin</span>
-          <span className="sm:hidden">Add New</span>
+          <span className="hidden sm:inline">Add Admin</span>
+          <span className="sm:hidden">Add</span>
         </button>
       </div>
 
-      <div className="overflow-x-auto rounded-xl border border-gray-200">
-        <table className="w-full text-sm text-left">
-          <thead className="bg-gray-50 text-gray-600">
+      <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+        <table className="w-full text-sm">
+          <thead className="bg-gray-50">
             <tr>
-              <th className="px-4 py-3 font-medium">Name</th>
-              <th className="px-4 py-3 font-medium">Email</th>
-              <th className="px-4 py-3 font-medium">Actions</th>
+              <th className="px-4 py-3.5 font-semibold text-gray-600">Name</th>
+              <th className="px-4 py-3.5 font-semibold text-gray-600">Email</th>
+              <th className="px-4 py-3.5 font-semibold text-gray-600">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-200">
             {admins.map((admin) => (
-              <tr key={admin.id} className="border-t hover:bg-gray-50 transition">
-                <td className="px-4 py-3">
-                  {editingId === admin.id ? (
-                    <input
-                      value={editData.name}
-                      onChange={(e) => setEditData({ ...editData, name: e.target.value })}
-                      className="border rounded-lg px-2 py-1"
-                    />
-                  ) : (
-                    admin.name
-                  )}
-                </td>
-                <td className="px-4 py-3">
-                  {editingId === admin.id ? (
-                    <input
-                      value={editData.email}
-                      onChange={(e) => setEditData({ ...editData, email: e.target.value })}
-                      className="border rounded-lg px-2 py-1"
-                    />
-                  ) : (
-                    admin.email
-                  )}
-                </td>
-                <td className="px-4 py-3 flex gap-2">
-                  {editingId === admin.id ? (
-                    <>
+              <tr key={admin._id} className="hover:bg-gray-50 transition-colors">
+                <td className="px-4 py-3.5">{renderCell(admin, 'name')}</td>
+                <td className="px-4 py-3.5">{renderCell(admin, 'email')}</td>
+                <td className="px-4 py-3.5">
+                  {editingId === admin._id ? (
+                    <div className="flex gap-3">
                       <button
-                        onClick={() => handleUpdateAdmin(admin.id)}
-                        className="text-green-600 hover:text-green-800 transition disabled:opacity-50"
-                        disabled={loading}
+                        onClick={() => handleUpdateAdmin(admin._id)}
+                        className="text-green-600 hover:text-green-700 px-3 py-1.5 rounded-lg disabled:opacity-50"
+                        disabled={loading.isLoading}
                       >
-                        Save
+                        {loading.action === 'update' ? 'Saving...' : 'Save'}
                       </button>
                       <button
-                        onClick={cancelEdit}
-                        className="text-gray-600 hover:text-gray-800 transition"
+                        onClick={() => setEditingId(null)}
+                        className="text-gray-600 hover:text-gray-700 px-3 py-1.5 rounded-lg"
                       >
                         Cancel
                       </button>
-                    </>
+                    </div>
                   ) : (
-                    <>
+                    <div className="flex gap-3">
                       <button
-                        onClick={() => startEdit(admin)}
-                        className="text-blue-600 hover:text-blue-800 transition"
-                        disabled={loading}
+                        onClick={() => {
+                          setEditingId(admin._id);
+                          setEditData({ name: admin.name, email: admin.email });
+                        }}
+                        className="text-blue-600 hover:text-blue-700 p-2 rounded-lg hover:bg-blue-50"
                       >
                         <PencilIcon className="w-5 h-5" />
                       </button>
                       <button
                         onClick={() => setDeleteCandidate(admin)}
-                        className="text-red-600 hover:text-red-800 transition"
-                        disabled={loading}
+                        className="text-red-600 hover:text-red-700 p-2 rounded-lg hover:bg-red-50"
                       >
                         <TrashIcon className="w-5 h-5" />
                       </button>
-                    </>
+                    </div>
                   )}
                 </td>
               </tr>
@@ -214,80 +185,117 @@ const ManageAdmins = () => {
       </div>
 
       {/* Add Admin Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Add New Admin</h3>
-            <input
-              type="text"
-              placeholder="Name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-xl disabled:opacity-50"
-                disabled={loading}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleAddAdmin}
-                className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition disabled:opacity-50"
-                disabled={loading}
-              >
-                {loading ? 'Adding...' : 'Save'}
-              </button>
-            </div>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <h3 className="text-xl font-semibold mb-4">Add New Admin</h3>
+        <div className="space-y-4">
+          <Input
+            label="Name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
+          <Input
+            label="Email"
+            type="email"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          />
+          <Input
+            label="Password"
+            type="password"
+            value={formData.password}
+            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          />
+          <div className="flex justify-end gap-3 mt-6">
+            <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleAddAdmin} isLoading={loading.action === 'add'}>
+              {loading.action === 'add' ? 'Adding...' : 'Add Admin'}
+            </Button>
           </div>
         </div>
-      )}
+      </Modal>
 
       {/* Delete Confirmation Modal */}
-      {deleteCandidate && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Confirm Delete</h3>
-            <p className="mb-6">
-              Are you sure you want to delete admin {deleteCandidate.name} ({deleteCandidate.email})?
-            </p>
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setDeleteCandidate(null)}
-                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-xl disabled:opacity-50"
-                disabled={loading}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleDeleteAdmin}
-                className="px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition disabled:opacity-50"
-                disabled={loading}
-              >
-                {loading ? 'Deleting...' : 'Delete'}
-              </button>
-            </div>
-          </div>
+      <Modal isOpen={!!deleteCandidate} onClose={() => setDeleteCandidate(null)}>
+        <h3 className="text-xl font-semibold mb-4">Confirm Delete</h3>
+        <p className="text-gray-600 mb-6">
+          Are you sure you want to delete admin {deleteCandidate?.name} ({deleteCandidate?.email})?
+        </p>
+        <div className="flex justify-end gap-3">
+          <Button variant="secondary" onClick={() => setDeleteCandidate(null)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDeleteAdmin} isLoading={loading.action === 'delete'}>
+            {loading.action === 'delete' ? 'Deleting...' : 'Delete'}
+          </Button>
         </div>
-      )}
+      </Modal>
     </div>
   );
 };
+
+// Modal Component
+const Modal = ({
+  isOpen,
+  children,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}) =>
+  isOpen ? (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl animate-scaleIn">
+        {children}
+      </div>
+    </div>
+  ) : null;
+
+// Input Component
+const Input = ({
+  label,
+  ...props
+}: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) => (
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+    <input
+      {...props}
+      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+    />
+  </div>
+);
+
+// Button Component
+const Button = ({
+  variant = 'primary',
+  isLoading,
+  children,
+  ...props
+}: {
+  variant?: 'primary' | 'secondary' | 'danger';
+  isLoading?: boolean;
+  children: React.ReactNode;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+  <button
+    {...props}
+    className={`px-4 py-2 rounded-xl font-medium transition-all ${variant === 'primary'
+      ? 'bg-blue-600 text-white hover:bg-blue-700'
+      : variant === 'danger'
+        ? 'bg-red-600 text-white hover:bg-red-700'
+        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+      } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+    disabled={isLoading || props.disabled}
+  >
+    {isLoading ? (
+      <span className="flex items-center gap-2">
+        <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span>
+        {children}
+      </span>
+    ) : (
+      children
+    )}
+  </button>
+);
 
 export default ManageAdmins;

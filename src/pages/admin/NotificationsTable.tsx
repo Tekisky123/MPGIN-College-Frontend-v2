@@ -1,4 +1,3 @@
-// NotificationsTable.tsx
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { PencilIcon, TrashIcon, PlusIcon } from '@heroicons/react/24/outline';

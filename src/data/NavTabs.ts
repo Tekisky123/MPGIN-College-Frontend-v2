@@ -1,9 +1,13 @@
 export const NAV_ITEMS = [
   { name: "Home", path: "/" },
- 
+
   {
-    name: "Gallery",
-    path: "/gallery",
+    name: "Departments",
+    path: "/departments",
+  },
+  {
+    name: "Courses",
+    path: "/courses",
   },
   {
     name: "About",
@@ -101,25 +105,25 @@ export const NAV_ITEMS = [
       },
     ],
   },
-  {
-    name: "Admission",
-    subItems: [
-      { name: "Under Graduate (B.Tech)", path: "/under-graduate" },
-      { name: "Post Graduate (M.Tech)", path: "/post-graduate" },
-      { name: "Fee Structure", path: "/fee-structure" },
-      { name: "Student Information", path: "/student-information" },
-      { name: "Undertaking", path: "/undertaking" },
-      {
-        name: "Information Brochure 2024-25",
-        path: "/InformationBrochureAcademicYear2020-21",
-      },
-      {
-        name: "VidyaLaxmi Portal",
-        path: "https://www.vidyalakshmi.co.in/",
-        external: true,
-      },
-    ],
-  },
+  // {
+  //   name: "Admission",
+  //   subItems: [
+  //     { name: "Under Graduate (B.Tech)", path: "/under-graduate" },
+  //     { name: "Post Graduate (M.Tech)", path: "/post-graduate" },
+  //     { name: "Fee Structure", path: "/fee-structure" },
+  //     { name: "Student Information", path: "/student-information" },
+  //     { name: "Undertaking", path: "/undertaking" },
+  //     {
+  //       name: "Information Brochure 2024-25",
+  //       path: "/InformationBrochureAcademicYear2020-21",
+  //     },
+  //     {
+  //       name: "VidyaLaxmi Portal",
+  //       path: "https://www.vidyalakshmi.co.in/",
+  //       external: true,
+  //     },
+  //   ],
+  // },
   {
     name: "Facilities",
     subItems: [
