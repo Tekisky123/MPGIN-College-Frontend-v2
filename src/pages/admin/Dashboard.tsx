@@ -1,17 +1,21 @@
+// Dashboard.tsx
 import { useState } from 'react';
 import ManageAdmins from './ManageAdmins';
 import SchoolComponent from './SchoolComponent';
 import { motion } from 'framer-motion';
+import { collegeConfigs, CollegeType } from '../../data/colleges';
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState('engineering');
+  const [activeTab, setActiveTab] = useState<CollegeType | 'admins'>('engineering');
 
   const tabs = [
-    { id: 'engineering', label: 'School of Engineering' },
-    { id: 'management', label: 'School of Management' },
-    { id: 'polytechnic', label: 'Vishyabharti Polytechnic' },
+    { id: 'engineering', label: collegeConfigs.engineering.displayName },
+    { id: 'management', label: collegeConfigs.management.displayName },
+    { id: 'polytechnic', label: collegeConfigs.polytechnic.displayName },
     { id: 'admins', label: 'Manage Admins' },
   ];
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white p-4 md:p-8">
@@ -27,7 +31,7 @@ const Dashboard = () => {
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => setActiveTab(tab.id as CollegeType | 'admins')}
             className={`relative px-5 py-2.5 rounded-full font-medium transition-all duration-300 ease-in-out focus:outline-none
               ${
                 activeTab === tab.id
@@ -52,7 +56,7 @@ const Dashboard = () => {
         {activeTab === 'admins' ? (
           <ManageAdmins />
         ) : (
-          <SchoolComponent school={activeTab} />
+          <SchoolComponent collegeType={activeTab}  />
         )}
       </div>
     </div>

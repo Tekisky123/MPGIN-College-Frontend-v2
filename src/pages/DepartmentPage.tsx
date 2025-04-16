@@ -1,16 +1,16 @@
-// src/pages/DepartmentPage.tsx
-import { useParams, Outlet, useNavigate } from "react-router-dom";
-import { colleges } from "../data/collegesData";
+import { useParams, Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
 import DepartmentSidebar from "../components/DepartmentSidebar";
+import { colleges } from "../data/collegesData";
 
 const DepartmentPage = () => {
   const { collegeId, departmentId } = useParams();
-  const navigate = useNavigate();
 
-  const college = colleges.find(c => c.id === collegeId);
-  const department = college?.departments.find(d => d.id === departmentId);
+  // Find the college and department based on the URL params
+  const college = colleges.find((c) => c.id === collegeId);
+  const department = college?.departments.find((d) => d.id === departmentId);
 
+  // Handle invalid routes
   if (!college || !department) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100 text-red-600 text-xl font-semibold">
@@ -22,7 +22,12 @@ const DepartmentPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Banner */}
-      <div className="relative h-72 sm:h-80 md:h-[22rem] lg:h-[24rem] bg-darkBlue">
+      <motion.div
+        className="relative h-[22rem] lg:h-[24rem] bg-darkBlue"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
         <img
           src={department.image}
           alt={department.name}
@@ -35,13 +40,11 @@ const DepartmentPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center text-white px-4"
           >
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">
-              {department.name}
-            </h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-2">{department.name}</h1>
             <p className="text-lg md:text-xl font-medium">{college.name}</p>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Content Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-4 gap-8">

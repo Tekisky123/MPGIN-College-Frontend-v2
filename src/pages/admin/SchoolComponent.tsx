@@ -1,14 +1,14 @@
+import { CollegeType } from "../../data/colleges";
 import GalleryTable from "./GalleryTable";
-import NotificationsTable from "./NotificationsTable";
 import TeachersTable from "./TeachersTablet";
 
 
-const SchoolComponent = ({ school }: { school: string }) => {
+
+const SchoolComponent = ({ collegeType }: { collegeType: CollegeType }) => {
   return (
     <div className="space-y-8">
-      <GalleryTable school={school} />
-      <TeachersTable school={school} />
-      <NotificationsTable school={school} />
+      <GalleryTable collegeType={collegeType} />
+      <TeachersTable collegeType={collegeType} />
     </div>
   );
 };

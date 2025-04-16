@@ -1,12 +1,11 @@
-// src/components/TeachersTable.tsx
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
+import { Pencil, Trash2, Plus } from 'lucide-react';
 import api from '../../data/Api';
 import Button from '../../components/ui/Button';
 import Modal from '../../components/ui/Modal';
 import Input from '../../components/ui/Input';
-import { collegeDepartments, CollegeType } from '../../data/colleges';
-import { Pencil, Trash2, Plus } from 'lucide-react';
+import { CollegeType, collegeConfigs } from '../../data/colleges';
 
 interface Faculty {
   _id: string;
@@ -15,47 +14,56 @@ interface Faculty {
   qualification: string;
   experience: string;
   photo: string;
+  college: string;
 }
 
 interface Props {
-  school: CollegeType;
+  collegeType: CollegeType;
 }
 
-const TeachersTable = ({ school }: Props) => {
+const TeachersTable = ({ collegeType }: Props) => {
+  const college = collegeConfigs[collegeType];
   const [faculty, setFaculty] = useState<Faculty[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [editItem, setEditItem] = useState<Faculty | null>(null);
   const [formData, setFormData] = useState({
     name: '',
-    department: collegeDepartments[school][0],
+    department: college?.departments[0]?.slug || '',
     qualification: '',
     experience: '',
     photo: null as File | null,
   });
   const [preview, setPreview] = useState('');
 
+  // Fetch faculty data
   useEffect(() => {
+    if (!college) {
+      toast.error('Invalid college type');
+      return;
+    }
     fetchFaculty();
-  }, [school]);
+  }, [collegeType]);
 
   const fetchFaculty = async () => {
     try {
-      const { data } = await api.get(`/faculty/college/${school}`);
+      const { data } = await api.get(`/faculty/college/${college.slug}`);
       setFaculty(data);
-    } catch {
-      toast.error('Failed to fetch faculty');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Failed to fetch faculty');
     }
   };
 
+  // Handle file input change
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFormData(prev => ({ ...prev, photo: file }));
+      setFormData((prev) => ({ ...prev, photo: file }));
       setPreview(URL.createObjectURL(file));
     }
   };
 
+  // Open modal for editing
   const handleOpenEdit = (item: Faculty) => {
     setEditItem(item);
     setFormData({
@@ -69,12 +77,13 @@ const TeachersTable = ({ school }: Props) => {
     setIsModalOpen(true);
   };
 
+  // Close modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditItem(null);
     setFormData({
       name: '',
-      department: collegeDepartments[school][0],
+      department: college?.departments[0]?.slug || '',
       qualification: '',
       experience: '',
       photo: null,
@@ -82,37 +91,43 @@ const TeachersTable = ({ school }: Props) => {
     setPreview('');
   };
 
+  // Handle form submission
   const handleSubmit = async () => {
-    if (!formData.name.trim() || (!formData.photo && !editItem)) {
-      toast.error('Please fill required fields');
+    const { name, qualification, experience } = formData;
+
+    if (!name.trim() || !qualification.trim() || !experience.trim() || (!formData.photo && !editItem)) {
+      toast.error('Please fill all required fields');
       return;
     }
 
     try {
       setLoading(true);
       const form = new FormData();
-      form.append('college', school);
-      Object.entries(formData).forEach(([key, value]) => {
-        if (value) form.append(key, value);
-      });
+      form.append('name', name);
+      form.append('college', college.slug);
+      form.append('department', formData.department);
+      form.append('qualification', qualification);
+      form.append('experience', experience);
+      if (formData.photo) form.append('photo', formData.photo);
 
-      if (editItem) {
-        await api.put(`/faculty/${editItem._id}`, form);
-        toast.success('Faculty updated successfully');
-      } else {
-        await api.post('/faculty/add', form);
-        toast.success('Faculty added successfully');
-      }
+      const endpoint = editItem
+        ? `/faculty/${editItem._id}`
+        : '/faculty/add';
 
+      const method = editItem ? api.put : api.post;
+
+      await method(endpoint, form);
       await fetchFaculty();
+      toast.success(`Faculty ${editItem ? 'updated' : 'added'} successfully`);
       handleCloseModal();
-    } catch {
-      toast.error(`Error ${editItem ? 'updating' : 'adding'} faculty`);
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || `Error ${editItem ? 'updating' : 'adding'} faculty`);
     } finally {
       setLoading(false);
     }
   };
 
+  // Handle delete action
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this faculty member?')) return;
 
@@ -120,16 +135,30 @@ const TeachersTable = ({ school }: Props) => {
       await api.delete(`/faculty/${id}`);
       await fetchFaculty();
       toast.success('Faculty deleted successfully');
-    } catch {
-      toast.error('Error deleting faculty');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Error deleting faculty');
     }
   };
+
+  // Get department display name
+  const getDepartmentName = (slug: string) => {
+    return college?.departments.find((d) => d.slug === slug)?.displayName || slug;
+  };
+
+  // Render the component
+  if (!college) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-600 text-xl font-semibold">
+        Invalid college type
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 lg:p-8 mt-8 overflow-x-auto">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Faculty - {school}
+          Faculty - {college.displayName}
         </h2>
         <Button onClick={() => setIsModalOpen(true)} className="flex items-center gap-2">
           <Plus size={18} /> Add Faculty
@@ -148,15 +177,19 @@ const TeachersTable = ({ school }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {faculty.map(teacher => (
+          {faculty.map((teacher) => (
             <tr key={teacher._id} className="border-b hover:bg-gray-50 transition-all">
               <td className="p-3">
-                <img src={teacher.photo} alt={teacher.name} className="w-12 h-12 rounded-full object-cover" />
+                <img
+                  src={teacher.photo}
+                  alt={teacher.name}
+                  className="w-12 h-12 rounded-full object-cover"
+                />
               </td>
               <td className="p-3 font-medium text-gray-800">{teacher.name}</td>
               <td className="p-3">{teacher.qualification}</td>
               <td className="p-3">{teacher.experience}</td>
-              <td className="p-3 capitalize">{teacher.department}</td>
+              <td className="p-3 capitalize">{getDepartmentName(teacher.department)}</td>
               <td className="p-3 space-x-2">
                 <button
                   className="text-blue-600 hover:text-blue-800"
@@ -176,37 +209,36 @@ const TeachersTable = ({ school }: Props) => {
         </tbody>
       </table>
 
-      {/* Modal for Add/Edit */}
-      <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        title={`${editItem ? 'Edit' : 'Add'} Faculty`}
-      >
+      {/* Modal for Adding/Editing Faculty */}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title={`${editItem ? 'Edit' : 'Add'} Faculty`}>
         <div className="space-y-4">
           <Input
             label="Full Name"
             value={formData.name}
-            onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+            onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
           />
 
           <Input
             label="Department"
             type="select"
             value={formData.department}
-            options={collegeDepartments[school]}
-            onChange={(e) => setFormData(prev => ({ ...prev, department: e.target.value }))}
+            options={college.departments.map((d) => ({
+              value: d.slug,
+              label: d.displayName,
+            }))}
+            onChange={(e) => setFormData((prev) => ({ ...prev, department: e.target.value }))}
           />
 
           <Input
             label="Qualification"
             value={formData.qualification}
-            onChange={(e) => setFormData(prev => ({ ...prev, qualification: e.target.value }))}
+            onChange={(e) => setFormData((prev) => ({ ...prev, qualification: e.target.value }))}
           />
 
           <Input
             label="Experience"
             value={formData.experience}
-            onChange={(e) => setFormData(prev => ({ ...prev, experience: e.target.value }))}
+            onChange={(e) => setFormData((prev) => ({ ...prev, experience: e.target.value }))}
           />
 
           <div className="space-y-2">

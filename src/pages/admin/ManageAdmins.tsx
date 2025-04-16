@@ -1,16 +1,17 @@
-// ManageAdmins.tsx
 import { useState, useEffect } from 'react';
 import { PencilIcon, TrashIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import api from '../../data/Api';
+import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
+import Modal from '../../components/ui/Modal';
+
 
 interface Admin {
   _id: string;
   name: string;
   email: string;
 }
-
-
 
 const ManageAdmins = () => {
   const [admins, setAdmins] = useState<Admin[]>([]);
@@ -31,7 +32,6 @@ const ManageAdmins = () => {
       setAdmins(data);
     } catch (error: any) {
       toast.error('Failed to fetch admins');
-
     }
   };
 
@@ -41,7 +41,6 @@ const ManageAdmins = () => {
       toast.error('Please fill all fields');
       return;
     }
-
     setLoading({ action: 'add', isLoading: true });
     try {
       await api.post('/user/register', formData);
@@ -51,7 +50,6 @@ const ManageAdmins = () => {
       await fetchAdmins();
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Error adding admin');
-
     } finally {
       setLoading({ action: '', isLoading: false });
     }
@@ -63,7 +61,6 @@ const ManageAdmins = () => {
       toast.error('Please fill required fields');
       return;
     }
-
     setLoading({ action: 'update', isLoading: true });
     try {
       await api.put(`/user/updateOneUser/${_id}`, editData);
@@ -72,7 +69,6 @@ const ManageAdmins = () => {
       await fetchAdmins();
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Error updating admin');
-
     } finally {
       setLoading({ action: '', isLoading: false });
     }
@@ -80,7 +76,6 @@ const ManageAdmins = () => {
 
   const handleDeleteAdmin = async () => {
     if (!deleteCandidate) return;
-
     setLoading({ action: 'delete', isLoading: true });
     try {
       await api.delete(`/user/deleteOneUser/${deleteCandidate._id}`);
@@ -89,12 +84,10 @@ const ManageAdmins = () => {
       await fetchAdmins();
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Error deleting admin');
-
     } finally {
       setLoading({ action: '', isLoading: false });
     }
   };
-
 
   const renderCell = (admin: Admin, field: 'name' | 'email') =>
     editingId === admin._id ? (
@@ -114,7 +107,7 @@ const ManageAdmins = () => {
           <h2 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
             Manage Admins
           </h2>
-          <p className="text-sm text-gray-500 mt-1">Add, edit, or remove admin accounts</p>
+          <p className="text-sm text-gray-600 mt-1">Add, edit, or remove admin accounts</p>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
@@ -126,7 +119,6 @@ const ManageAdmins = () => {
           <span className="sm:hidden">Add</span>
         </button>
       </div>
-
       <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
         <table className="w-full text-sm">
           <thead className="bg-gray-50">
@@ -144,37 +136,37 @@ const ManageAdmins = () => {
                 <td className="px-4 py-3.5">
                   {editingId === admin._id ? (
                     <div className="flex gap-3">
-                      <button
+                      <Button
                         onClick={() => handleUpdateAdmin(admin._id)}
-                        className="text-green-600 hover:text-green-700 px-3 py-1.5 rounded-lg disabled:opacity-50"
-                        disabled={loading.isLoading}
+                        variant="primary"
+                        isLoading={loading.action === 'update'}
                       >
                         {loading.action === 'update' ? 'Saving...' : 'Save'}
-                      </button>
-                      <button
+                      </Button>
+                      <Button
                         onClick={() => setEditingId(null)}
-                        className="text-gray-600 hover:text-gray-700 px-3 py-1.5 rounded-lg"
+                        variant="secondary"
                       >
                         Cancel
-                      </button>
+                      </Button>
                     </div>
                   ) : (
                     <div className="flex gap-3">
-                      <button
+                      <Button
                         onClick={() => {
                           setEditingId(admin._id);
                           setEditData({ name: admin.name, email: admin.email });
                         }}
-                        className="text-blue-600 hover:text-blue-700 p-2 rounded-lg hover:bg-blue-50"
+                        variant="secondary"
                       >
                         <PencilIcon className="w-5 h-5" />
-                      </button>
-                      <button
+                      </Button>
+                      <Button
                         onClick={() => setDeleteCandidate(admin)}
-                        className="text-red-600 hover:text-red-700 p-2 rounded-lg hover:bg-red-50"
+                        variant="danger"
                       >
                         <TrashIcon className="w-5 h-5" />
-                      </button>
+                      </Button>
                     </div>
                   )}
                 </td>
@@ -185,8 +177,7 @@ const ManageAdmins = () => {
       </div>
 
       {/* Add Admin Modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h3 className="text-xl font-semibold mb-4">Add New Admin</h3>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add New Admin">
         <div className="space-y-4">
           <Input
             label="Name"
@@ -217,8 +208,11 @@ const ManageAdmins = () => {
       </Modal>
 
       {/* Delete Confirmation Modal */}
-      <Modal isOpen={!!deleteCandidate} onClose={() => setDeleteCandidate(null)}>
-        <h3 className="text-xl font-semibold mb-4">Confirm Delete</h3>
+      <Modal
+        isOpen={!!deleteCandidate}
+        onClose={() => setDeleteCandidate(null)}
+        title="Confirm Delete"
+      >
         <p className="text-gray-600 mb-6">
           Are you sure you want to delete admin {deleteCandidate?.name} ({deleteCandidate?.email})?
         </p>
@@ -234,68 +228,5 @@ const ManageAdmins = () => {
     </div>
   );
 };
-
-// Modal Component
-const Modal = ({
-  isOpen,
-  children,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-}) =>
-  isOpen ? (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl animate-scaleIn">
-        {children}
-      </div>
-    </div>
-  ) : null;
-
-// Input Component
-const Input = ({
-  label,
-  ...props
-}: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) => (
-  <div>
-    <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
-    <input
-      {...props}
-      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-    />
-  </div>
-);
-
-// Button Component
-const Button = ({
-  variant = 'primary',
-  isLoading,
-  children,
-  ...props
-}: {
-  variant?: 'primary' | 'secondary' | 'danger';
-  isLoading?: boolean;
-  children: React.ReactNode;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-  <button
-    {...props}
-    className={`px-4 py-2 rounded-xl font-medium transition-all ${variant === 'primary'
-      ? 'bg-blue-600 text-white hover:bg-blue-700'
-      : variant === 'danger'
-        ? 'bg-red-600 text-white hover:bg-red-700'
-        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-      } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
-    disabled={isLoading || props.disabled}
-  >
-    {isLoading ? (
-      <span className="flex items-center gap-2">
-        <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span>
-        {children}
-      </span>
-    ) : (
-      children
-    )}
-  </button>
-);
 
 export default ManageAdmins;
