@@ -19,8 +19,7 @@ export const collegeConfigs: Record<string, CollegeConfig> = {
       { slug: 'mech', displayName: 'Mechanical Engineering' },
       { slug: 'eee', displayName: 'Electrical Engineering' },
       { slug: 'civil', displayName: 'Civil Engineering' },
-      { slug: 'silk-tech', displayName: 'Skill Technology' },
-      { slug: 'eee2', displayName: 'Electrical & Electronic Engineering' }
+      { slug: 'ece', displayName: 'Electronics and Telecommunication Engineering' }, 
     ]
   },
   management: {

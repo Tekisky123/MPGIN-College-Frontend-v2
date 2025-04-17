@@ -6,8 +6,7 @@ const SchoolOfEngineeringCourses = () => {
     { name: "Computer Science & Eng.", intake: "60", code: "211624210" },
     { name: "Electrical Engineering", intake: "60", code: "211629310" },
     { name: "Mechanical Engineering", intake: "60", code: "211661210" },
-    { name: "Silk Technology", intake: "30", code: "211692310" },
-    { name: "Electrical & Electronic Eng.", intake: "30", code: "211629710" },
+    { name: "Electronics and Telecommunication Engineering", intake: "60", code: "211629510" }, // Added new department
   ];
 
   const postgraduatePrograms = [
@@ -47,7 +46,8 @@ const SchoolOfEngineeringCourses = () => {
               by Govt. of Maharashtra (DTE) and affiliated to DR BABA SAHEB
               AMBEDKAR TECHNOLOGICA UNIVERSITY LONERE (BATU). Courses offered in
               Bachelor of Civil Engineering, Computer Science Engineering,
-              Mechanical Engineering, Electronics and Electrical Engineering.
+              Mechanical Engineering, Electrical Engineering, and Electronics and
+              Telecommunication Engineering.
             </p>
           </div>
         </div>
