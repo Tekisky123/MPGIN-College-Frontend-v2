@@ -106,6 +106,46 @@ export const colleges: College[] = [
         facultyCount: 9,
         gallery: ["/images/computer-1.jpg", "/images/computer-2.jpg"],
       },
+      {
+        id: "it",
+        name: "Information Technology",
+        description:
+          "Program focusing on software development, cybersecurity, and data analytics.",
+        image: "https://i0.wp.com/www.gniotgroup.edu.in/blog/wp-content/uploads/2024/04/Information-Technology-1-1024x462-1.webp?resize=640%2C289&ssl=1",
+        courses: [
+          "Diploma in Information Technology",
+          "Cybersecurity Fundamentals",
+          "Data Analytics",
+        ],
+        facilities: [
+          "Advanced Cybersecurity Lab",
+          "Cloud-Based Development Environment",
+          "Industry Collaboration Projects",
+          "Hackathons and Coding Competitions",
+        ],
+        facultyCount: 8,
+        gallery: ["/images/it-1.jpg", "/images/it-2.jpg"],
+      },
+      {
+        id: "ece",
+        name: "Electronics and Telecommunication",
+        description:
+          "Program specializing in communication systems, embedded systems, and IoT.",
+        image: "https://georgetelegraphblog.wordpress.com/wp-content/uploads/2021/01/electronics-and-communication.jpg?w=584",
+        courses: [
+          "Diploma in Electronics and Telecommunication",
+          "Wireless Communication",
+          "IoT Applications",
+        ],
+        facilities: [
+          "RF & Microwave Lab",
+          "Digital Signal Processing Lab",
+          "IoT Prototyping Lab",
+          "Industry-Aligned Certification Courses",
+        ],
+        facultyCount: 10,
+        gallery: ["/images/ece-1.jpg", "/images/ece-2.jpg"],
+      },
     ],
   },
   {

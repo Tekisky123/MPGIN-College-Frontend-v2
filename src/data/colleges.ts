@@ -19,8 +19,8 @@ export const collegeConfigs: Record<string, CollegeConfig> = {
       { slug: 'mech', displayName: 'Mechanical Engineering' },
       { slug: 'eee', displayName: 'Electrical Engineering' },
       { slug: 'civil', displayName: 'Civil Engineering' },
-      { slug: 'ece', displayName: 'Electronics and Telecommunication Engineering' }, 
-    ]
+      { slug: 'ece', displayName: 'Electronics and Telecommunication Engineering' },
+    ],
   },
   management: {
     slug: 'school-of-management',
@@ -29,8 +29,8 @@ export const collegeConfigs: Record<string, CollegeConfig> = {
       { slug: 'mba', displayName: 'MBA' },
       { slug: 'bba', displayName: 'BBA' },
       { slug: 'finance-management', displayName: 'Financial Management' },
-      { slug: 'marketing-management', displayName: 'Marketing Management' }
-    ]
+      { slug: 'marketing-management', displayName: 'Marketing Management' },
+    ],
   },
   polytechnic: {
     slug: 'vishwabharati-polytechnic-institute',
@@ -39,9 +39,11 @@ export const collegeConfigs: Record<string, CollegeConfig> = {
       { slug: 'civil', displayName: 'Civil Engineering' },
       { slug: 'computer', displayName: 'Computer Engineering' },
       { slug: 'electrical', displayName: 'Electrical Engineering' },
-      { slug: 'mechanical', displayName: 'Mechanical Engineering' }
-    ]
-  }
+      { slug: 'mechanical', displayName: 'Mechanical Engineering' },
+      { slug: 'it', displayName: 'Information Technology' },
+      { slug: 'ece', displayName: 'Electronics and Telecommunication' },
+    ],
+  },
 };
 
 export type CollegeType = keyof typeof collegeConfigs;
