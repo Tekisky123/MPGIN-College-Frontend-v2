@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import ReactDOM from "react-dom";
 import logo from "../assets/images/logo-circle.png";
 import { NAV_ITEMS } from "../data/NavTabs";
@@ -21,23 +21,45 @@ type SubmenuPosition = {
   position: DOMRect;
 } | null;
 
-const SCROLL_THRESHOLD = 100;
 const VALID_SCHOOLS = [
   'school-of-engineering',
   'school-of-management',
   'vishwabharati-polytechnic-institute'
 ];
 
+// Department mappings for different schools
+const DEPARTMENT_MAPPINGS: Record<string, Array<{ name: string; path: string }>> = {
+  'vishwabharati-polytechnic-institute': [
+    { name: "Mechanical Engineering", path: "/departments/mechanical/overview" },
+    { name: "Civil Engineering", path: "/departments/civil/overview" },
+    { name: "Electrical Engineering", path: "/departments/electrical/overview" },
+    { name: "Computer Engineering", path: "/departments/computer/overview" },
+    { name: "Information Technology", path: "/departments/it/overview" },
+    { name: "Electronics and Telecommunication", path: "/departments/ece/overview" }
+  ],
+  'school-of-management': [
+    { name: "MBA Program", path: "/departments/mba/overview" },
+    { name: "BBA Program", path: "/departments/bba/overview" },
+    { name: "Finance Management", path: "/departments/finance-management/overview" },
+    { name: "Marketing Management", path: "/departments/marketing-management/overview" }
+  ],
+  'school-of-engineering': [
+    { name: "Computer Science & Engineering", path: "/departments/cse/overview" },
+    { name: "Mechanical Engineering", path: "/departments/mech/overview" },
+    { name: "Electrical Engineering", path: "/departments/eee/overview" },
+    { name: "Civil Engineering", path: "/departments/civil/overview" },
+    { name: "Electronics and Telecommunication Engineering", path: "/departments/ece/overview" }
+  ]
+};
+
 const Navbar = () => {
   const { pathname } = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-  const [showNavbar, setShowNavbar] = useState(true);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [submenuPosition, setSubmenuPosition] = useState<SubmenuPosition>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const lastScrollYRef = useRef(0);
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -70,6 +92,25 @@ const Navbar = () => {
     }
   }, [schoolPrefix]);
 
+  // Get department items based on current school
+  const getDepartmentItems = useCallback(() => {
+    if (!schoolPrefix) return NAV_ITEMS.find(item => item.name === "Departments")?.subItems || [];
+    return DEPARTMENT_MAPPINGS[schoolPrefix] || [];
+  }, [schoolPrefix]);
+
+  // Create modified NAV_ITEMS with dynamic departments
+  const modifiedNavItems = useMemo(() => {
+    return NAV_ITEMS.map(item => {
+      if (item.name === "Departments" && schoolPrefix) {
+        return {
+          ...item,
+          subItems: getDepartmentItems()
+        };
+      }
+      return item;
+    });
+  }, [schoolPrefix, getDepartmentItems]);
+
   // Cleanup function
   const cleanup = useCallback(() => {
     if (timeoutRef.current) {
@@ -91,18 +132,6 @@ const Navbar = () => {
     setOpenSubmenu(prev => prev === name ? null : name);
   }, []);
 
-  // Scroll handler with throttling
-  const handleScroll = useCallback(() => {
-    const currentScrollY = window.scrollY;
-    setIsScrolled(currentScrollY > SCROLL_THRESHOLD);
-
-    if (isMobileMenuOpen) return;
-
-    const scrollDelta = currentScrollY - lastScrollYRef.current;
-    setShowNavbar(currentScrollY < SCROLL_THRESHOLD || scrollDelta < -10);
-    lastScrollYRef.current = currentScrollY;
-  }, [isMobileMenuOpen]);
-
   // Desktop submenu handlers
   const handleDesktopSubmenuHover = useCallback((e: React.MouseEvent, item: NavItem) => {
     if (!item.subItems) return;
@@ -116,11 +145,7 @@ const Navbar = () => {
     timeoutRef.current = setTimeout(() => setSubmenuPosition(null), 200);
   }, [cleanup]);
 
-  // Event listeners setup
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+
 
   // Resize observer
   useEffect(() => {
@@ -151,7 +176,7 @@ const Navbar = () => {
             onClick={closeAllMenus}
             className={`block ${isMobile ? 'px-6 py-3 text-sm' : 'px-4 py-2 text-base'
               } font-medium ${pathname === getPrefixedPath(subItem.path || '', subItem.external)
-                ? `${isMobile ? 'text-mpgin-blue' : 'bg-mpgin-blue/10 text-mpgin-blue'}`
+                ? `${isMobile ? 'text-mpgin-darkBlue bg-mpgin-blue underline' : 'text-mpgin-darkBlue bg-mpgin-blue underline'}`
                 : `${isMobile ? 'text-gray-600 hover:text-mpgin-blue' : 'text-gray-700 hover:bg-gray-50'}`
               }`}
           >
@@ -173,7 +198,7 @@ const Navbar = () => {
           onClick={closeAllMenus}
           className={`${isMobile ? 'px-6 py-3 text-sm' : 'px-4 py-2.5 text-base'
             } font-medium flex items-center ${isActive
-              ? `${isMobile ? 'bg-mpgin-blue/10 text-mpgin-blue' : 'text-mpgin-blue bg-blue-50'}`
+              ? `${isMobile ? 'text-mpgin-darkBlue bg-mpgin-blue underline' : 'text-mpgin-darkBlue bg-mpgin-blue underline'}`
               : 'text-gray-700 hover:bg-gray-50'
             }`}
         >
@@ -197,8 +222,8 @@ const Navbar = () => {
             <span>{item.name}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform ${(isMobile ? openSubmenu === item.name : submenuPosition?.name === item.name)
-                  ? 'rotate-180'
-                  : ''
+                ? 'rotate-180'
+                : ''
                 }`}
             />
           </button>
@@ -228,8 +253,7 @@ const Navbar = () => {
     <>
       <header
         ref={headerRef}
-        className={`fixed w-full top-0 z-50 shadow-lg transition-transform duration-300 ease-in-out ${showNavbar ? 'translate-y-0' : '-translate-y-full'
-          } ${isScrolled ? 'bg-white shadow-md' : 'bg-white'}`}
+        className={`fixed w-full top-0 z-50 shadow-lg transition-transform duration-300 ease-in-out`}
       >
         {/* Top Section - Logo and Institution Name */}
         <div className={`py-2 ${isScrolled ? 'hidden' : 'block'} bg-mpgin-darkBlue border-b`}>
@@ -261,16 +285,16 @@ const Navbar = () => {
 
         {/* Bottom Navigation - Main Menu */}
         <nav ref={navRef} className="bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className=" overflow-auto w-full px-4 sm:px-6 lg:px-8 flex justify-end lg:justify-start">
             <div className="flex items-center justify-between h-16">
               {/* Desktop Navigation */}
               <div className="hidden md:block flex-1">
                 <div className="relative whitespace-nowrap">
                   <ul className="flex items-center">
-                    {NAV_ITEMS.map((item, index) => (
+                    {modifiedNavItems.map((item, index) => (
                       <li
                         key={item.name}
-                        className={`group relative ${index !== NAV_ITEMS.length - 1 ? 'border-r border-gray-200' : ''
+                        className={`group relative ${index !== modifiedNavItems.length - 1 ? 'border-r border-gray-200' : ''
                           }`}
                         onMouseEnter={(e) => handleDesktopSubmenuHover(e, item)}
                         onMouseLeave={handleDesktopSubmenuLeave}
@@ -304,7 +328,7 @@ const Navbar = () => {
           {isMobileMenuOpen && (
             <div className="md:hidden bg-white shadow-lg">
               <ul className="divide-y divide-gray-200">
-                {NAV_ITEMS.map((item) => (
+                {modifiedNavItems.map((item) => (
                   <li key={item.name} className="hover:bg-gray-50 transition-colors">
                     {renderNavItem(item, true)}
                   </li>
@@ -329,7 +353,7 @@ const Navbar = () => {
             aria-label={`${submenuPosition.name} submenu`}
           >
             {renderSubmenuItems(
-              NAV_ITEMS.find((item) => item.name === submenuPosition.name)?.subItems,
+              modifiedNavItems.find((item) => item.name === submenuPosition.name)?.subItems,
               false
             )}
           </ul>,

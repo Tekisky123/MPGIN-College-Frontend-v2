@@ -1,91 +1,130 @@
-// QuickLinksPanel.tsx
 import { motion } from 'framer-motion';
-import { ChevronRight } from 'lucide-react';
-import { useState } from 'react';
-import ProfilePage from '../pages/ProfilePage';
+import {  Menu, X } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import ProfilePage from '../pages/ProfilePage'; // Ensure this is correctly imported
 
 const QuickLinksPanel = () => {
-  const [activeId, setActiveId] = useState('chairman');
-  
+  const [activeId, setActiveId] = useState('President');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
   const navItems = [
-    { label: 'Chairman', id: 'chairman' },
-    { label: "Principal's Desk", id: 'principal' },
-    { label: 'President', id: 'president' },
-    { label: 'Vice President', id: 'vice-president' },
-    { label: 'Secretary', id: 'secretary' },
-    { label: 'Board of Directors', id: 'board' },
+    { label: "President", id: 'President' },
+    { label: "Secretary", id: 'secretary' },
+    { label: "Managing Director", id: 'managing-director' },
+    { label: "Board of Directors", id: 'board-directors' },
+    { label: "Vision & Mission", id: 'vision-mission' },
   ];
+
+  // Handle click outside to close sidebar
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node) &&
+        !menuButtonRef.current?.contains(event.target as Node)
+      ) {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Handle ESC key press to close sidebar
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsSidebarOpen(false);
+    };
+
+    document.addEventListener('keydown', handleEsc);
+    return () => document.removeEventListener('keydown', handleEsc);
+  }, []);
 
   return (
     <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Navigation */}
-        <nav className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
-          {navItems.map((item) => (
-            <motion.button
-              key={item.id}
-              whileHover={{ y: -2 }}
-              onClick={() => setActiveId(item.id)}
-              className={`p-2 text-sm md:text-base rounded-lg transition-colors ${
-                activeId === item.id
-                  ? 'bg-mpgin-darkBlue text-white'
-                  : 'bg-mpgin-blue/80 text-white hover:bg-mpgin-darkBlue'
-              }`}
-            >
-              {item.label}
-            </motion.button>
-          ))}
-        </nav>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Profile Section */}
-          <div className="lg:col-span-2">
-            <ProfilePage id={activeId} />
-          </div>
-
-          {/* Info Cards */}
-          <div className="space-y-6">
-            <motion.article 
-              whileHover={{ scale: 1.02 }}
-              className="p-6 bg-gray-50 rounded-xl shadow-sm border border-gray-200"
-            >
-              <h2 className="text-xl font-bold text-gray-800 mb-4">About MPGI</h2>
-              <p className="text-gray-600 mb-4">
-                Matoshri Pratishthan Group of Institutions (MPGI) has been a beacon of excellence 
-                in Engineering & Management Education since 2009. Our integrated campus offers 
-                multidisciplinary programs bridging academic knowledge with industry requirements.
-              </p>
-              <button className="text-mpgin-blue font-medium flex items-center hover:text-blue-400">
-                Read More
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </button>
-            </motion.article>
-
-            <div className="grid gap-4">
-              <motion.article
-                whileHover={{ scale: 1.02 }}
-                className="p-6 bg-gray-200 rounded-xl shadow-xl border border-gray-300"
+      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8">
+        {/* Sidebar - Responsive */}
+        <aside
+          className={`col-span-12 md:col-span-3 bg-gray-50 p-4 rounded-lg shadow-md transition-all duration-300 ${
+            isSidebarOpen
+              ? 'block fixed inset-0 z-50 h-full overflow-y-auto'
+              : 'hidden md:block'
+          }`}
+          ref={sidebarRef}
+        >
+          <button
+            onClick={() => setIsSidebarOpen(false)}
+            className="md:hidden absolute top-4 right-4 text-mpgin-darkBlue"
+          >
+            <X size={24} />
+          </button>
+          <nav className="space-y-2 mt-6 md:mt-0">
+            {navItems.map((item) => (
+              <motion.button
+                key={item.id}
+                whileHover={{ x: 5 }}
+                onClick={() => {
+                  setActiveId(item.id);
+                  setIsSidebarOpen(false);
+                }}
+                className={`block w-full text-left py-3 px-4 transition-all duration-200 font-bold text-lg md:text-base ${
+                  activeId === item.id
+                    ? 'bg-mpgin-darkBlue text-mpgin-blue underline'
+                    : 'bg-mpgin-blue hover:bg-mpgin-darkBlue hover:text-mpgin-blue'
+                }`}
               >
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Our Vision</h2>
-                <p className="text-gray-600">
-                  To be a global center of excellence nurturing innovation and entrepreneurship 
-                  while contributing to sustainable national development.
-                </p>
-              </motion.article>
+                {item.label}
+              </motion.button>
+            ))}
+          </nav>
+        </aside>
 
-              <motion.article
-                whileHover={{ scale: 1.02 }}
-                className="p-6 bg-gray-200 rounded-xl shadow-xl border border-gray-300"
-              >
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Our Mission</h2>
-                <p className="text-gray-600">
-                  To establish world-class institutions delivering quality education in Engineering, 
-                  Management, and IT, fostering socially responsible leaders.
-                </p>
-              </motion.article>
-            </div>
-          </div>
+        {/* Hamburger Icon for Mobile */}
+        <div className="md:hidden col-span-12 flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold text-mpgin-darkBlue">Navigation</h2>
+          <button
+            ref={menuButtonRef}
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="text-mpgin-darkBlue focus:outline-none"
+          >
+            {isSidebarOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
+
+        {/* Main Content Area */}
+        <main className="col-span-12 md:col-span-9 space-y-10">
+          {/* Conditionally render content based on active tab */}
+          {activeId === 'vision-mission' ? (
+            <>
+              <article className="space-y-6">
+                <h2 className="text-3xl font-bold text-mpgin-darkBlue">Our Vision</h2>
+                <p className="text-gray-700 text-lg leading-relaxed ">
+                  To be one of the leading Institutions for Engineering education, developing proficient Engineers with global acceptance in the service of mankind.
+                </p>
+              </article>
+
+              <article className="space-y-6">
+                <h2 className="text-3xl font-bold text-mpgin-darkBlue">Our Mission</h2>
+                <ul className="list-disc pl-6 space-y-3 text-lg  text-gray-700">
+                  <li>
+                    Providing quality Engineering education to cater to the needs of industry and society with a multidisciplinary approach on a sustainable basis.
+                  </li>
+                  <li>
+                    Developing globally competent Engineers having the ability to solve real-life problems, addressing environmental issues through technological innovation.
+                  </li>
+                </ul>
+               
+              </article>
+            </>
+          ) : (
+            <div className="mt-6">
+              <ProfilePage id={activeId} />
+            </div>
+          )}
+        </main>
       </div>
     </section>
   );

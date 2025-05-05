@@ -27,7 +27,7 @@ const GalleryTable = ({ collegeType }: Props) => {
   const [editItem, setEditItem] = useState<GalleryItem | null>(null);
   const [formData, setFormData] = useState({
     title: '',
-    department: college?.departments[0]?.slug || '', // Ensure default department exists
+    department: college?.departments[0]?.slug || '', 
     image: null as File | null,
   });
   const [preview, setPreview] = useState('');

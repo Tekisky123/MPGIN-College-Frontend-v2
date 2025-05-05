@@ -28,9 +28,6 @@ const VishwabhartiPolytechnicCourses = () => {
           <p className="text-lg md:text-xl max-w-3xl">
             MSBTE Approved | Industry-Focused Curriculum | Skill Development
           </p>
-          <button className="mt-6 bg-mpgin-blue text-mpgin-darkBlue px-6 py-3 rounded-lg font-medium hover:bg-white transition-colors flex items-center gap-2">
-            Explore Courses <ArrowRight size={20} />
-          </button>
         </div>
       </div>
 
@@ -161,22 +158,6 @@ const VishwabhartiPolytechnicCourses = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 px-6 lg:px-8 bg-gray-100">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="space-y-4">
-            <h2 className="text-2xl md:text-3xl font-bold">
-              Start Your Technical Journey
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Admissions open for 2024-25 academic year
-            </p>
-            <button className="bg-mpgin-blue text-white px-6 py-3 rounded-lg font-medium hover:bg-mpgin-darkBlue transition-colors">
-              Apply Now
-            </button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

@@ -20,9 +20,7 @@ const SchoolOfManagementCourses = () => {
           <p className="text-lg md:text-xl max-w-3xl">
             AICTE Approved | SRTMU Affiliated | Industry-Aligned Curriculum
           </p>
-          <button className="mt-6 bg-mpgin-blue text-mpgin-darkBlue px-6 py-3 rounded-lg font-medium hover:bg-white transition-colors flex items-center gap-2">
-            Explore Programs <ArrowRight size={20} />
-          </button>
+        
         </div>
       </div>
 

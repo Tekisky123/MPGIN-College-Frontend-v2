@@ -6,7 +6,7 @@ body {
   --sb-track-color: #ffffff;
   --sb-thumb-color: #83c8f2;
   --sb-size: 5px;
-  font-family: "Times New Roman", Times, serif;
+  /* font-family: "Times New Roman", Times, serif; */
 }
 
 body::-webkit-scrollbar {

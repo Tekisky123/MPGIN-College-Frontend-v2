@@ -13,19 +13,18 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-
 const Footer = () => {
   const navigate = useNavigate();
   return (
     <footer className="bg-mpgin-darkBlue text-white">
+      {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Institution Info */}
           <div className="space-y-4">
             <h3 className="text-xl font-bold">MPGI Nanded</h3>
             <p className="text-gray-300">
-              Matoshri Pratishthan Group of Institutions is a premier educational 
+              Matoshri Pratishthan Group of Institutions is a premier educational
               institution committed to excellence in engineering and management education.
             </p>
             <div className="flex items-center space-x-3">
@@ -72,12 +71,6 @@ const Footer = () => {
             <h3 className="text-xl font-bold">Quick Links</h3>
             <ul className="space-y-2">
               {[
-                { name: "About Us", path: "/about" },
-                { name: "Academics", path: "/academics" },
-                { name: "Admissions", path: "/admissions" },
-                { name: "Placements", path: "/placements" },
-                { name: "Research", path: "/research" },
-                { name: "Contact", path: "/contact" },
                 { name: "Admin login", path: "/login" },
               ].map((link) => (
                 <li key={link.path}>
@@ -116,9 +109,22 @@ const Footer = () => {
                 </a>
               ))}
             </div>
-
-         
           </div>
+        </div>
+
+        {/* Google Map Section - Full Width */}
+        <div className="mt-12 w-full rounded-lg overflow-hidden shadow-xl">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.414377297236!2d77.25181457520566!3d19.089468982117882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bce29f6fffffffd%3A0xf705e1b2a364d350!2sMatoshri%20Pratishthan%20Group%20of%20Institutions!5e0!3m2!1sen!2sin!4v1746428538305!5m2!1sen!2sin"
+            width="100%"
+            height="400"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="w-full"
+            title="MPGI Nanded Location"
+          ></iframe>
         </div>
 
         {/* Footer Bottom */}
@@ -127,18 +133,6 @@ const Footer = () => {
             <p className="text-gray-400 text-sm">
               © {new Date().getFullYear()} Matoshri Pratishthan Group of Institutions. All Rights Reserved.
             </p>
-            
-            <div className="flex space-x-6">
-              <Link to="/privacy-policy" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Privacy Policy
-              </Link>
-              <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Terms of Service
-              </Link>
-              <Link to="/sitemap" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Sitemap
-              </Link>
-            </div>
           </div>
         </div>
       </div>

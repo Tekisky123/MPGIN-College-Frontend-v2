@@ -44,6 +44,10 @@ export const collegeConfigs: Record<string, CollegeConfig> = {
       { slug: 'ece', displayName: 'Electronics and Telecommunication' },
     ],
   },
+  mpgin: {
+    slug: 'matoshri-pratishthan-group-of-institutions',
+    displayName: 'Matoshri Pratishthan Group of Institutions',
+  },
 };
 
 export type CollegeType = keyof typeof collegeConfigs;

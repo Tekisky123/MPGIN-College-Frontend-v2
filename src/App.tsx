@@ -35,6 +35,7 @@ import Login from "./components/Login";
 import Dashboard from "./pages/admin/Dashboard";
 import DepartmentRoutes from "./pages/DepartmentRoutes";
 import Faculty from "./pages/Faculty";
+import CellsCommittees from "./pages/CellsCommittees";
 
 
 export default function App() {
@@ -53,7 +54,7 @@ export default function App() {
         <Route path="/features" element={<FeaturesPage />} />
         <Route path="/facilities" element={<Facilities />} />
         <Route path="/trainings" element={<TrainingPlacement />} />
-        <Route path="/:collegeId/gallery" element={<Gallery />} />
+        <Route path="/:collegeId/campus" element={<Gallery />} />
         <Route path="/:collegeId/faculty" element={<Faculty />} />
         <Route path="/programs" element={<Programs />} />
         <Route path="/admissions" element={<Admissions />} />
@@ -91,6 +92,7 @@ export default function App() {
           path="/vishwabharati-polytechnic-institute/courses"
           element={<VishwabhartiPolytechnicCourses />}
         />
+        <Route path="/:collegeId/cells-committees" element={<CellsCommittees />} />
 
       </Routes>
       <DepartmentRoutes />

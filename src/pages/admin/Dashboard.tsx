@@ -5,6 +5,7 @@ import SchoolComponent from './SchoolComponent';
 import { motion } from 'framer-motion';
 import { collegeConfigs, CollegeType } from '../../data/colleges';
 import { LogOut } from 'lucide-react';
+import NotificationsTable from './NotificationsTable';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState<CollegeType | 'admins'>('engineering');
@@ -15,6 +16,7 @@ const Dashboard = () => {
     { id: 'engineering', label: collegeConfigs.engineering.displayName },
     { id: 'management', label: collegeConfigs.management.displayName },
     { id: 'polytechnic', label: collegeConfigs.polytechnic.displayName },
+    { id: 'notifications', label: 'Notifications' },
     { id: 'admins', label: 'Manage Admins' },
   ];
 
@@ -77,11 +79,13 @@ const Dashboard = () => {
 
       {/* Tab Content */}
       <div className="mt-8 bg-white rounded-2xl shadow-xl p-6 md:p-10 transition-all duration-300 ease-in-out">
-        {activeTab === 'admins' ? (
-          <ManageAdmins />
-        ) : (
-          <SchoolComponent collegeType={activeTab} />
-        )}
+      {activeTab === 'admins' ? (
+      <ManageAdmins />
+    ) : activeTab === 'notifications' ? (
+      <NotificationsTable />
+    ) : (
+      <SchoolComponent collegeType={activeTab} />
+    )}
       </div>
 
       {/* Logout Confirmation Modal */}
@@ -96,7 +100,7 @@ const Dashboard = () => {
           >
             <h3 className="text-xl font-semibold mb-4">Confirm Logout</h3>
             <p className="text-gray-600 mb-6">
-              Are you sure you want to log out? You will be redirected to the login page.
+              Are you sure you want to log out? You will be redirected to the Home page.
             </p>
             <div className="flex justify-end gap-3">
               <button

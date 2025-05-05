@@ -1,13 +1,15 @@
 import Departments from "../components/Departments";
 import Hero from "../components/Hero";
+import NotificationComponent from "../components/NotificationComponent";
 import QuickLinksPanel from "../components/QuickLinksPanel";
 
 const Home = () => {
   return (
     <main className="bg-gray-50">
       <Hero />
-      <Departments/>
-      <QuickLinksPanel/>
+      <Departments />
+      <QuickLinksPanel />
+      {/* <NotificationComponent /> */}
     </main>
   );
 };

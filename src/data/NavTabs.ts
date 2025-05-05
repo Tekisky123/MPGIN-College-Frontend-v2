@@ -1,26 +1,13 @@
 export const NAV_ITEMS = [
   { name: "Home", path: "/" },
 
-  {
-    name: "Departments",
-    path: "/departments",
-  },
+
   {
     name: "Courses",
     path: "/courses",
   },
   {
-
-    name: "Gallery", path: "/gallery"
-
-  },
-  {
-    name: "Faculty", path: "/faculty"
-  },
-
-
-  {
-    name: "Academics",
+    name: "Departments",
     subItems: [
       {
         name: "Applied Science & Humanities",
@@ -61,67 +48,67 @@ export const NAV_ITEMS = [
     subItems: [
       {
         name: "Academic Cell",
-        path: "/cells-committees4d7b?section=AcademicCell",
+        path: "/cells-committees?section=academic-cell",
       },
       {
         name: "Admission Cell",
-        path: "/cells-committeesc1b1?section=AdmissionCell",
+        path: "/cells-committees?section=admission-cell",
       },
       {
         name: "Anti Ragging Squad",
-        path: "/cells-committees7af5?section=AntiRaggingSquad",
+        path: "/cells-committees?section=anti-ragging-squad",
       },
       {
         name: "Anti Ragging Committee",
-        path: "/cells-committeesb062?section=AntiRaggingCommittee",
+        path: "/cells-committees?section=anti-ragging-committee",
       },
-      { name: "CASERP Cell", path: "/cells-committeesef6c?section=CASERPCell" },
+      { name: "CASERP Cell", path: "/cells-committees?section=CASERPCell" },
       {
         name: "College Development Committee",
-        path: "/cells-committees5f13?section=CollegeDevelopmentCommittee",
+        path: "/cells-committees?section=college-development-committee",
       },
       {
         name: "Cultural Committee",
-        path: "/cells-committees5bfb?section=CulturalCommittee",
+        path: "/cells-committees?section=cultural-committee",
       },
       {
         name: "Examination Cell",
-        path: "/cells-committees6df9?section=ExaminationCell",
+        path: "/cells-committees?section=examination-cell",
       },
       {
         name: "Internal Complaint Committee",
-        path: "/cells-committees297d?section=InternalComplaintCommittee",
+        path: "/cells-committees?section=internal-complaint-committee",
       },
-      { name: "SC/ST Cell", path: "/cells-committees4126?section=SC_STCell" },
+      { name: "SC/ST Cell", path: "/cells-committees?section=SC_STCell" },
       {
         name: "Student Grievance Redressal Committee",
-        path: "/cells-committeescdab?section=StudentGrievanceRedressalCommittee",
+        path: "/cells-committees?section=student-grievance-redressal-committee",
       },
       {
         name: "Training and Placement Cell",
-        path: "/cells-committees8b75?section=TrainingAndPlacementCell",
+        path: "/cells-committees?section=training-and-placementCell",
       },
     ],
   },
-  // {
-  //   name: "Admission",
-  //   subItems: [
-  //     { name: "Under Graduate (B.Tech)", path: "/under-graduate" },
-  //     { name: "Post Graduate (M.Tech)", path: "/post-graduate" },
-  //     { name: "Fee Structure", path: "/fee-structure" },
-  //     { name: "Student Information", path: "/student-information" },
-  //     { name: "Undertaking", path: "/undertaking" },
-  //     {
-  //       name: "Information Brochure 2024-25",
-  //       path: "/InformationBrochureAcademicYear2020-21",
-  //     },
-  //     {
-  //       name: "VidyaLaxmi Portal",
-  //       path: "https://www.vidyalakshmi.co.in/",
-  //       external: true,
-  //     },
-  //   ],
-  // },
+  {
+    name: "Admission",
+    subItems: [
+      { name: "Under Graduate (B.Tech)", path: "/under-graduate" },
+      { name: "Post Graduate (M.Tech)", path: "/post-graduate" },
+      { name: "Fee Structure", path: "/fee-structure" },
+      { name: "Student Information", path: "/student-information" },
+      { name: "Undertaking", path: "/undertaking" },
+      {
+        name: "Information Brochure 2024-25",
+        path: "/InformationBrochureAcademicYear2020-21",
+      },
+      {
+        name: "VidyaLaxmi Portal",
+        path: "https://www.vidyalakshmi.co.in/",
+        external: true,
+      },
+    ],
+  },
   {
     name: "Facilities",
     subItems: [
@@ -139,6 +126,7 @@ export const NAV_ITEMS = [
       { name: "Ekeeda", path: "https://ekeeda.com/", external: true },
     ],
   },
+
   {
     name: "Alumni",
     subItems: [
@@ -147,6 +135,7 @@ export const NAV_ITEMS = [
       { name: "Esteemed Alumni", path: "/esteemed-alumni" },
     ],
   },
+
   {
     name: "Student Activities",
     subItems: [
@@ -163,6 +152,16 @@ export const NAV_ITEMS = [
       { name: "Outdoor Sports Achievements", path: "/outdoor" },
       { name: "Aarohan", path: "/aarohan" },
       { name: "Jhankaar", path: "/jhankaar" },
+    ],
+  },
+  { name: "Campus", path: "/campus" },
+  { name: "Quick Links", path: "/campus" },
+  {
+    name: "Download",
+    subItems: [
+      { name: "Current Advertisement", path: "/current-advertisement" },
+      { name: "NIRF", path: "/nirf" },
+      { name: "Fees Regulatory Authority", path: "/fees" },
     ],
   },
   { name: "Contact", path: "/contact" },

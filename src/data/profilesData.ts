@@ -8,14 +8,14 @@ export interface ProfileData {
 
 export const profiles: ProfileData[] = [
   {
-    id: "chairman",
-    name: "",
-    title: "Chairman",
+    id: "President",
+    name: "Jayshree Kamaji Pawar",
+    title: "President",
     image:
       "https://static.vecteezy.com/system/resources/thumbnails/029/271/062/small_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg",
-    content: `From, Chairman's Desk
+    content: `From, President's Desk
 
-It gives me immense pleasure to welcome you to the Matoshri Pratishthan Group of Institutions (MPGI) family. As Chairman, I take great pride in our institution's journey of transforming young minds into competent professionals since our establishment in 2009.
+It gives me immense pleasure to welcome you to the Matoshri Pratishthan Group of Institutions (MPGI) family. As President, I take great pride in our institution's journey of transforming young minds into competent professionals since our establishment in 2009.
 
 Our vision extends beyond conventional education - we aim to create an ecosystem that nurtures innovation, critical thinking, and social responsibility. With world-class infrastructure including:
 - 25+ advanced laboratories
@@ -79,14 +79,32 @@ I look forward to welcoming you to our vibrant academic community where we trans
   {
     id: "president",
     name: "Hon. Jayshri Kamaji Pawar",
-    title: "President MPGI",
+    title: "President",
     image:
       "https://static.vecteezy.com/system/resources/previews/020/486/936/non_2x/businesswoman-manager-leader-woman-silhouette-icon-beautiful-politician-lady-glyph-pictogram-business-manager-symbol-girl-s-profile-avatar-female-user-sign-isolated-illustration-vector.jpg",
     content: `From, President's Desk
 
-I feel happy and proud to introduce you to Matoshri Pratishthan Group of Institutions and welcome you to this Institute. We recognize that choosing the institution for learning is one of the most important decisions that you will make in your life. Matoshri Pratishthan Group of Institutions aims at providing you with a distinctive combination of academic excellence and professional relevance, a combination designed to provide a solid foundation for life time of professional and personal development.
+As President of MPGI, I am honored to lead an institution that has become synonymous with excellence in technical education. Under our leadership, MPGI has achieved:
 
-At this institute we believe in building strong careers and impart rewarding professional experiences that shall make you globally competent professionals. Our primary focus is your success. I assure you that pursuing your education through Matoshri Pratishthan Group of Institutions, would be one of the most exciting experiences of your life. We look forward to have you with us.`,
+Strategic Milestones:
+- Expansion to 5 campuses across Maharashtra
+- Establishment of 3 Centers of Excellence
+- Recognition as 'Institute with Impact' by AICTE
+- 300% growth in student enrollment since 2015
+
+Key Initiatives:
+- "Digital MPGI" - Complete campus digitization
+- "Green Campus" - Solar power and water recycling
+- "Global Academia" - Faculty exchange programs
+- "Industry 4.0 Labs" - ₹10 crore investment
+
+Our commitment:
+- Affordable quality education
+- Ethical leadership development
+- Community engagement programs
+- Support for first-generation learners
+
+With 150+ full-time faculty and 5000+ alumni network, we continue to set new benchmarks in technical education. I welcome you to join our mission of creating socially responsible professionals.`,
   },
   {
     id: "vice-president",
@@ -108,11 +126,57 @@ It is my profound hope that the young student of today would wake up to the hard
       "https://static.vecteezy.com/system/resources/thumbnails/029/271/062/small_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg",
     content: `From, Secretary's Desk
 
-The Visionary-Promoter-Management of the Matoshri Pratishthan Group of Institutions launched this private institute in 2009 with the mission to offer competent technical and managerial manpower capable to take up challenges in Indian industries to help Nation grow.
+As Secretary of MPGI, I oversee the administrative excellence that forms the backbone of our institution. Our key administrative achievements include:
 
-This institute has been developed with great degree of Sensitivity to growing student's expectations, industry requirements and qualitative educational standards.
+Operational Excellence:
+- ISO 9001:2015 certified processes
+- 100% digital administration system
+- 24/7 student support services
+- Transparent governance framework
 
-The vision for leadership is deeply rooted in every aspect of our activities. I convey my best wishes to the incoming batch of the students for their bright career.`,
+Infrastructure Development:
+- ₹50 crores invested in campus development
+- Smart classrooms with IoT integration
+- Hostel capacity expanded to 2000 students
+- State-of-the-art auditorium complex
+
+Student Services:
+- One-stop student portal
+- Grievance redressal within 48 hours
+- Scholarship disbursement system
+- Career guidance cell
+
+Our administrative team of 150+ professionals ensures smooth functioning of all academic and non-academic activities. I welcome you to experience our efficient systems designed for your success.`,
+  },
+  {
+    id: "managing-director",
+    name: "Mr. Arvind Patil",
+    title: "Managing Director",
+    image:
+      "https://static.vecteezy.com/system/resources/thumbnails/029/271/062/small_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg",
+    content: `From, Managing Director's Desk
+
+As Managing Director of MPGI, I bring 25+ years of corporate and academic leadership to steer our institution towards new horizons. Our strategic focus areas include:
+
+Business Acumen:
+- Sustainable financial models
+- Industry-aligned curriculum
+- Corporate partnerships
+- Revenue diversification
+
+Operational Leadership:
+- Lean management practices
+- Data-driven decision making
+- Continuous process improvement
+- Risk management framework
+
+Recent Achievements:
+- 30% increase in industry collaborations
+- Establishment of MPGI Innovation Fund
+- Launch of 5 new emerging technology programs
+- Implementation of ERP system across campuses
+
+My vision is to position MPGI as a globally recognized institution that bridges the gap between academia and industry. I welcome you to be part of this transformative journey.`,
   },
   {
     id: "board",
@@ -122,34 +186,124 @@ The vision for leadership is deeply rooted in every aspect of our activities. I 
       "https://media.istockphoto.com/id/1346125184/photo/group-of-successful-multiethnic-business-team.jpg?s=612x612&w=0&k=20&c=5FHgRQZSZed536rHji6w8o5Hco9JVMRe8bpgTa69hE8=",
     content: `From, Board of Directors
 
-The MPGI Board of Directors comprises 12 members with diverse expertise spanning academia, industry and administration. Our collective experience of 200+ years guides the institution's strategic direction.
+The MPGI Board of Directors comprises 12 distinguished members with expertise spanning education, industry, finance, and governance. Our collective leadership drives institutional excellence:
 
-Key Focus Areas:
-1. Academic Excellence:
-- Curriculum review every semester
-- Faculty development programs
-- Learning outcome assessment
+Board Composition:
+- 4 Industry Leaders (Automobile, IT, Manufacturing, Healthcare)
+- 3 Academicians (IIT/NIT Professors)
+- 2 Financial Experts (Chartered Accountants)
+- 2 Alumni Representatives
+- 1 Government Nominee
 
-2. Infrastructure Development:
-- ₹10 crores allocated for 2023-24 upgrades
-- Green campus initiatives
-- Digital transformation projects
+Strategic Oversight:
+- Academic quality assurance
+- Financial sustainability
+- Infrastructure planning
+- Policy formulation
+- Stakeholder engagement
 
-3. Industry Connect:
-- MoUs with Fortune 500 companies
-- Center of Excellence partnerships
-- Advisory board with industry leaders
+Key Initiatives:
+- 5-Year Strategic Plan (2023-2028)
+- ₹100 crore endowment fund
+- International accreditation roadmap
+- Faculty retention program
+- Student wellness framework
 
-4. Student Welfare:
-- Scholarship programs (₹50 lakhs annually)
-- Mental health initiatives
-- Career counseling services
-
-5. Research & Innovation:
-- ₹1.5 crores research grants
-- Patent filing support
-- International conference sponsorships
-
-We meet quarterly to review progress and set new benchmarks for quality education.`,
+We meet quarterly to review institutional performance and set benchmarks for continuous improvement in technical education.`,
   },
+  {
+    id: "board-directors",
+    name: "MPGI Board of Directors",
+    title: "Board of Directors",
+    image: "https://media.istockphoto.com/id/1346125184/photo/group-of-successful-multiethnic-business-team.jpg",
+    content: `From the Board of Directors
+  
+**Composition (2023-2026 Term):**
+
+1. **Chairperson**  
+   Dr. Rajiv Mehta (Former Vice Chancellor, Mumbai University)  
+   *Education Policy Specialist*
+
+2. **Industry Representatives**  
+   - Mr. Anand Deshpande (CEO, Persistent Systems)  
+   - Ms. Priya Kumar (CTO, Tata Technologies)  
+   - Mr. Sameer Patil (Director, Kirloskar Group)
+
+3. **Academic Experts**  
+   - Dr. Nalini Vaidya (IIT Bombay Professor Emeritus)  
+   - Dr. Arun Joshi (NIT Nagpur Director)  
+   - Dr. Meera Kapoor (AICTE Executive Committee)
+
+4. **Administrative Members**  
+   - Mr. Vikram Rao (IAS Retd., Education Secretary)  
+   - Mrs. Sunita Reddy (Chartered Accountant)
+
+5. **Alumni Representatives**  
+   - Mr. Rohan Shah (Google India)  
+   - Ms. Divya Iyer (Microsoft Research)
+
+**Key Responsibilities:**
+- Oversee institutional governance and strategic planning
+- Approve annual budgets (₹120+ crores)
+- Monitor academic quality and accreditation
+- Facilitate industry-academia collaborations
+- Ensure compliance with regulatory standards
+
+**Recent Achievements:**
+✓ Established 3 new Centers of Excellence (2023)  
+✓ Approved ₹25 crore infrastructure upgrade  
+✓ Launched MPGI Global Initiative with 5 international partnerships  
+✓ Implemented new faculty development program  
+✓ Enhanced student scholarship fund to ₹2 crores annually
+
+**Vision 2025:**
+1. Achieve NAAC 'A++' Accreditation  
+2. Develop Smart Campus with IoT integration  
+3. Increase industry-sponsored research by 300%  
+4. Launch 5 new emerging technology programs  
+5. Establish endowment fund of ₹500 crores`
+  }
+,
+  {
+    id: "managing-director",
+    name: "Mr. Arvind Patil",
+    title: "Managing Director",
+    image: "https://static.vecteezy.com/system/resources/thumbnails/029/271/062/small_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg",
+    content: `From the Managing Director's Desk
+  
+  **Leadership Profile:**
+  - 28 years experience in education management
+  - Former Director of L&T Education & Training
+  - PhD in Organizational Leadership (Stanford)
+  - Recipient of "EduLeader of the Year 2022"
+  
+  **Strategic Initiatives:**
+  1. **Digital Transformation**  
+     - Implemented ERP across all campuses  
+     - 100% paperless administration  
+     - AI-based learning analytics
+  
+  2. **Industry Partnerships**  
+     - 50+ new MoUs signed (2022-23)  
+     - ₹15 crore sponsored research projects  
+     - Established Corporate Advisory Board
+  
+  3. **Infrastructure Development**  
+     - New 500-seat auditorium complex  
+     - Smart classrooms with VR capabilities  
+     - ₹10 crore library modernization
+  
+  4. **Student Success Programs**  
+     - "Campus to Corporate" training  
+     - Incubation center with ₹5 crore fund  
+     - International internship opportunities
+  
+  **Key Metrics (2023):**
+  • 94% placement rate  
+  • 35 patents filed  
+  • 120+ research publications  
+  • 98% student satisfaction score  
+  
+  "Our vision is to make MPGI the preferred destination for transformative technical education in India."`
+  }
 ];

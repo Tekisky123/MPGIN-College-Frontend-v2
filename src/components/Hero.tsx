@@ -1,7 +1,7 @@
 import Slider, { Settings, CustomArrowProps } from "react-slick";
-import campus from "../assets/images/campus.avif";
-import homeimage from "../assets/images/homeimage.avif";
-import labs from "../assets/images/labs.avif";
+import img1 from "../assets/images/mainSlider1.jpg"
+import img2 from "../assets/images/mainSlider2.jpg";
+import img3 from "../assets/images/mainSlider3.jpg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -17,7 +17,7 @@ const NextArrow = ({ onClick }: CustomArrowProps) => (
     aria-label="Next slide"
   >
     <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m9 5 7 7-7 7"/>
+      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m9 5 7 7-7 7" />
     </svg>
   </button>
 );
@@ -29,13 +29,13 @@ const PrevArrow = ({ onClick }: CustomArrowProps) => (
     aria-label="Previous slide"
   >
     <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 19-7-7 7-7"/>
+      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 19-7-7 7-7" />
     </svg>
   </button>
 );
 
 const Hero = () => {
-  const slides: Slide[] = [{ img: campus }, { img: labs }, { img: homeimage }];
+  const slides: Slide[] = [{ img: img1 }, { img: img3 }, { img: img2 }];
 
   const sliderSettings: Settings = {
     dots: true,
@@ -68,7 +68,7 @@ const Hero = () => {
         breakpoint: 480,
         settings: {
           arrows: true,
-          dots: false // Hide dots on very small screens if needed
+          dots: false 
         }
       }
     ]
@@ -85,7 +85,7 @@ const Hero = () => {
                   src={slide.img}
                   alt={`Slide ${index + 1}`}
                   className="w-full h-full object-cover"
-                  loading={index === 0 ? "eager" : "lazy"} // Lazy load non-first images
+                  loading={index === 0 ? "eager" : "lazy"} 
                 />
                 <div className="absolute inset-0 bg-black/20" />
               </div>
