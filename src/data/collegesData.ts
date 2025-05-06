@@ -7,6 +7,12 @@ export interface Department {
   facilities: string[];
   facultyCount: number;
   gallery: string[];
+  labs: {
+    srNo: number;
+    labName: string;
+    area: string;
+    incharge: string;
+  }[];
 }
 
 export interface College {
@@ -45,6 +51,11 @@ export const colleges: College[] = [
         ],
         facultyCount: 15,
         gallery: ["/images/mech-1.jpg", "/images/mech-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Automotive Workshop", area: "2000+ sq.ft", incharge: "Mr. Ramesh Patil" },
+          { srNo: 2, labName: "CAD/CAM Lab", area: "1000 sq.ft", incharge: "Dr. Anil Deshmukh" },
+          { srNo: 3, labName: "Mechatronics Lab", area: "800 sq.ft", incharge: "Prof. Neha Singh" },
+        ],
       },
       {
         id: "civil",
@@ -65,6 +76,11 @@ export const colleges: College[] = [
         ],
         facultyCount: 12,
         gallery: ["/images/civil-1.jpg", "/images/civil-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Automotive Workshop", area: "2000+ sq.ft", incharge: "Mr. Ramesh Patil" },
+          { srNo: 2, labName: "CAD/CAM Lab", area: "1000 sq.ft", incharge: "Dr. Anil Deshmukh" },
+          { srNo: 3, labName: "Mechatronics Lab", area: "800 sq.ft", incharge: "Prof. Neha Singh" },
+        ],
       },
       {
         id: "electrical",
@@ -85,6 +101,11 @@ export const colleges: College[] = [
         ],
         facultyCount: 10,
         gallery: ["/images/electrical-1.jpg", "/images/electrical-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Automotive Workshop", area: "2000+ sq.ft", incharge: "Mr. Ramesh Patil" },
+          { srNo: 2, labName: "CAD/CAM Lab", area: "1000 sq.ft", incharge: "Dr. Anil Deshmukh" },
+          { srNo: 3, labName: "Mechatronics Lab", area: "800 sq.ft", incharge: "Prof. Neha Singh" },
+        ],
       },
       {
         id: "computer",
@@ -105,6 +126,11 @@ export const colleges: College[] = [
         ],
         facultyCount: 9,
         gallery: ["/images/computer-1.jpg", "/images/computer-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Automotive Workshop", area: "2000+ sq.ft", incharge: "Mr. Ramesh Patil" },
+          { srNo: 2, labName: "CAD/CAM Lab", area: "1000 sq.ft", incharge: "Dr. Anil Deshmukh" },
+          { srNo: 3, labName: "Mechatronics Lab", area: "800 sq.ft", incharge: "Prof. Neha Singh" },
+        ],
       },
       {
         id: "it",
@@ -125,6 +151,11 @@ export const colleges: College[] = [
         ],
         facultyCount: 8,
         gallery: ["/images/it-1.jpg", "/images/it-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Automotive Workshop", area: "2000+ sq.ft", incharge: "Mr. Ramesh Patil" },
+          { srNo: 2, labName: "CAD/CAM Lab", area: "1000 sq.ft", incharge: "Dr. Anil Deshmukh" },
+          { srNo: 3, labName: "Mechatronics Lab", area: "800 sq.ft", incharge: "Prof. Neha Singh" },
+        ],
       },
       {
         id: "ece",
@@ -145,6 +176,11 @@ export const colleges: College[] = [
         ],
         facultyCount: 10,
         gallery: ["/images/ece-1.jpg", "/images/ece-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Automotive Workshop", area: "2000+ sq.ft", incharge: "Mr. Ramesh Patil" },
+          { srNo: 2, labName: "CAD/CAM Lab", area: "1000 sq.ft", incharge: "Dr. Anil Deshmukh" },
+          { srNo: 3, labName: "Mechatronics Lab", area: "800 sq.ft", incharge: "Prof. Neha Singh" },
+        ],
       },
     ],
   },
@@ -176,6 +212,11 @@ export const colleges: College[] = [
         ],
         facultyCount: 18,
         gallery: ["/images/cse-1.jpg", "/images/cse-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Networking Lab", area: "900 sq.ft", incharge: "Mr. Rohit Jain" },
+          { srNo: 2, labName: "App Development Lab", area: "700 sq.ft", incharge: "Ms. Sneha Mehta" },
+          { srNo: 3, labName: "Cloud Computing Lab", area: "850 sq.ft", incharge: "Dr. Arun Dubey" },
+        ],
       },
       {
         id: "mech",
@@ -197,6 +238,11 @@ export const colleges: College[] = [
         ],
         facultyCount: 16,
         gallery: ["/images/mech-engg-1.jpg", "/images/mech-engg-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Networking Lab", area: "900 sq.ft", incharge: "Mr. Rohit Jain" },
+          { srNo: 2, labName: "App Development Lab", area: "700 sq.ft", incharge: "Ms. Sneha Mehta" },
+          { srNo: 3, labName: "Cloud Computing Lab", area: "850 sq.ft", incharge: "Dr. Arun Dubey" },
+        ],
       },
       {
         id: "eee",
@@ -218,6 +264,11 @@ export const colleges: College[] = [
         ],
         facultyCount: 14,
         gallery: ["/images/eee-1.jpg", "/images/eee-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Networking Lab", area: "900 sq.ft", incharge: "Mr. Rohit Jain" },
+          { srNo: 2, labName: "App Development Lab", area: "700 sq.ft", incharge: "Ms. Sneha Mehta" },
+          { srNo: 3, labName: "Cloud Computing Lab", area: "850 sq.ft", incharge: "Dr. Arun Dubey" },
+        ],
       },
       {
         id: "civil",
@@ -239,6 +290,11 @@ export const colleges: College[] = [
         ],
         facultyCount: 13,
         gallery: ["/images/soe-civil-1.jpg", "/images/soe-civil-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Networking Lab", area: "900 sq.ft", incharge: "Mr. Rohit Jain" },
+          { srNo: 2, labName: "App Development Lab", area: "700 sq.ft", incharge: "Ms. Sneha Mehta" },
+          { srNo: 3, labName: "Cloud Computing Lab", area: "850 sq.ft", incharge: "Dr. Arun Dubey" },
+        ],
       },
       {
         id: "ece",
@@ -260,6 +316,11 @@ export const colleges: College[] = [
         ],
         facultyCount: 15,
         gallery: ["/images/ece-1.jpg", "/images/ece-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Networking Lab", area: "900 sq.ft", incharge: "Mr. Rohit Jain" },
+          { srNo: 2, labName: "App Development Lab", area: "700 sq.ft", incharge: "Ms. Sneha Mehta" },
+          { srNo: 3, labName: "Cloud Computing Lab", area: "850 sq.ft", incharge: "Dr. Arun Dubey" },
+        ],
       },
     ],
   },
@@ -290,6 +351,7 @@ export const colleges: College[] = [
         ],
         facultyCount: 20,
         gallery: ["/images/mba-1.jpg", "/images/mba-2.jpg"],
+        labs: []
       },
       {
         id: "bba",
@@ -309,6 +371,7 @@ export const colleges: College[] = [
         ],
         facultyCount: 18,
         gallery: ["/images/bba-1.jpg", "/images/bba-2.jpg"],
+        labs: []
       },
       {
         id: "finance-management",
@@ -328,6 +391,7 @@ export const colleges: College[] = [
         ],
         facultyCount: 15,
         gallery: ["/images/finance-1.jpg", "/images/finance-2.jpg"],
+        labs: []
       },
       {
         id: "marketing-management",
@@ -347,6 +411,7 @@ export const colleges: College[] = [
         ],
         facultyCount: 17,
         gallery: ["/images/marketing-1.jpg", "/images/marketing-2.jpg"],
+        labs: []
       },
     ],
   },

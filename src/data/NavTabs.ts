@@ -155,7 +155,7 @@ export const NAV_ITEMS = [
     ],
   },
   { name: "Campus", path: "/campus" },
-  { name: "Quick Links", path: "/campus" },
+  { name: "Quick Links", path: "/quick-links" },
   {
     name: "Download",
     subItems: [

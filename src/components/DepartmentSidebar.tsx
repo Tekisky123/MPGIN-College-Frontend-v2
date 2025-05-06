@@ -16,6 +16,7 @@ const DepartmentSidebar = ({ college, department }: Props) => {
     { id: "overview", label: "Overview" },
     { id: "faculty", label: "Faculty" },
     { id: "gallery", label: "Gallery" },
+    { id: "labs", label: "Labs" },
     // { id: "infrastructure", label: "Infrastructure" },
   ];
 

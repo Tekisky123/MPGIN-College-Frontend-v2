@@ -5,6 +5,7 @@ import DepartmentPage from "../pages/DepartmentPage";
 import DepartmentOverview from "../components/DepartmentOverview";
 import DepartmentFaculty from "../components/DepartmentFaculty";
 import DepartmentGallery from "../components/DepartmentGallery";
+import DepartmentLabs from "../components/DepartmentLabs";
 
 
 const DepartmentRoutes = () => (
@@ -15,6 +16,7 @@ const DepartmentRoutes = () => (
       <Route path="overview" element={<DepartmentOverview />} />
       <Route path="faculty" element={<DepartmentFaculty />} />
       <Route path="gallery" element={<DepartmentGallery />} />
+      <Route path="labs" element={<DepartmentLabs />} />
     </Route>
   </Routes>
 );
