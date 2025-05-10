@@ -110,21 +110,22 @@ export const NAV_ITEMS = [
     ],
   },
   {
-    name: "Facilities",
-    subItems: [
-      { name: "Classrooms", path: "/classrooms" },
+    "name": "Facilities",
+    "subItems": [
+      { "name": "Classrooms", "path": "/facilities/classrooms" },
       {
-        name: "Astronomy and Space Technology",
-        path: "/astronomy-space-technology",
+        "name": "Girls and Boys Hostel",
+        "path": "/facilities/girls-boys-hostel"
       },
-      { name: "Hostels", path: "/hostels" },
-      { name: "Infrastructure", path: "/infrastructure" },
-      { name: "Library", path: "/library" },
-      { name: "Laboratories", path: "/laboratories" },
-      { name: "Sports", path: "/sports" },
-      { name: "Remote Center", path: "/remote-center" },
-      { name: "Ekeeda", path: "https://ekeeda.com/", external: true },
-    ],
+      { "name": "Infrastructure", "path": "/facilities/infrastructure" },
+      { "name": "Library", "path": "/facilities/library" },
+      { "name": "Virtual Labs", "path": "/facilities/virtual-labs" },
+      { "name": "Sports", "path": "/facilities/sports" },
+      { "name": "Remote Center", "path": "/facilities/remote-center" },
+      // { "name": "Ekeeda", "path": "https://ekeeda.com/", "external": true },
+      { "name": "Bus Facilities", "path": "/facilities/bus-facilities" },
+      { "name": "WiFi Enable Campus", "path": "/facilities/wifi" },
+    ]
   },
 
   {

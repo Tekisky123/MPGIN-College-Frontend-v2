@@ -30,25 +30,25 @@ const VALID_SCHOOLS = [
 // Department mappings for different schools
 const DEPARTMENT_MAPPINGS: Record<string, Array<{ name: string; path: string }>> = {
   'vishwabharati-polytechnic-institute': [
-    { name: "Mechanical Engineering", path: "/departments/mechanical/overview" },
-    { name: "Civil Engineering", path: "/departments/civil/overview" },
-    { name: "Electrical Engineering", path: "/departments/electrical/overview" },
-    { name: "Computer Engineering", path: "/departments/computer/overview" },
-    { name: "Information Technology", path: "/departments/it/overview" },
-    { name: "Electronics and Telecommunication", path: "/departments/ece/overview" }
+    { name: "Mechanical Engineering", path: "/departments/mechanical/profile" },
+    { name: "Civil Engineering", path: "/departments/civil/profile" },
+    { name: "Electrical Engineering", path: "/departments/electrical/profile" },
+    { name: "Computer Engineering", path: "/departments/computer/profile" },
+    { name: "Information Technology", path: "/departments/it/profile" },
+    { name: "Electronics and Telecommunication", path: "/departments/ece/profile" }
   ],
   'school-of-management': [
-    { name: "MBA Program", path: "/departments/mba/overview" },
-    { name: "BBA Program", path: "/departments/bba/overview" },
-    { name: "Finance Management", path: "/departments/finance-management/overview" },
-    { name: "Marketing Management", path: "/departments/marketing-management/overview" }
+    { name: "MBA Program", path: "/departments/mba/profile" },
+    { name: "BBA Program", path: "/departments/bba/profile" },
+    { name: "Finance Management", path: "/departments/finance-management/profile" },
+    { name: "Marketing Management", path: "/departments/marketing-management/profile" }
   ],
   'school-of-engineering': [
-    { name: "Computer Science & Engineering", path: "/departments/cse/overview" },
-    { name: "Mechanical Engineering", path: "/departments/mech/overview" },
-    { name: "Electrical Engineering", path: "/departments/eee/overview" },
-    { name: "Civil Engineering", path: "/departments/civil/overview" },
-    { name: "Electronics and Telecommunication Engineering", path: "/departments/ece/overview" }
+    { name: "Computer Science & Engineering", path: "/departments/cse/profile" },
+    { name: "Mechanical Engineering", path: "/departments/mech/profile" },
+    { name: "Electrical Engineering", path: "/departments/eee/profile" },
+    { name: "Civil Engineering", path: "/departments/civil/profile" },
+    { name: "Electronics and Telecommunication Engineering", path: "/departments/ece/profile" }
   ]
 };
 

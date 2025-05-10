@@ -12,6 +12,7 @@ const QuickLinksPanel = () => {
   const navItems = [
     { label: "President", id: 'President' },
     { label: "Secretary", id: 'secretary' },
+    // { label: "Joint Secretary", id: 'joint-secretary' },
     { label: "Managing Director", id: 'managing-director' },
     { label: "Board of Directors", id: 'board-directors' },
     { label: "Vision & Mission", id: 'vision-mission' },

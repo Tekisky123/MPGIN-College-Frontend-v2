@@ -9,7 +9,7 @@ export interface ProfileData {
 export const profiles: ProfileData[] = [
   {
     id: "President",
-    name: "Jayshree Kamaji Pawar",
+    name: "Sow. Jayshree Kamaji Pawar",
     title: "President",
     image:
       "https://static.vecteezy.com/system/resources/thumbnails/029/271/062/small_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg",
@@ -78,7 +78,7 @@ I look forward to welcoming you to our vibrant academic community where we trans
   },
   {
     id: "president",
-    name: "Hon. Jayshri Kamaji Pawar",
+    name: "Sow. Jayshree Kamaji Pawar",
     title: "President",
     image:
       "https://static.vecteezy.com/system/resources/previews/020/486/936/non_2x/businesswoman-manager-leader-woman-silhouette-icon-beautiful-politician-lady-glyph-pictogram-business-manager-symbol-girl-s-profile-avatar-female-user-sign-isolated-illustration-vector.jpg",
@@ -108,7 +108,7 @@ With 150+ full-time faculty and 5000+ alumni network, we continue to set new ben
   },
   {
     id: "vice-president",
-    name: "Mrs. Alka Satelkar",
+    name: "Sow. Alka Rajeshwar Satelikar",
     title: "Vice President",
     image:
       "https://static.vecteezy.com/system/resources/previews/020/486/936/non_2x/businesswoman-manager-leader-woman-silhouette-icon-beautiful-politician-lady-glyph-pictogram-business-manager-symbol-girl-s-profile-avatar-female-user-sign-isolated-illustration-vector.jpg",
@@ -120,8 +120,38 @@ It is my profound hope that the young student of today would wake up to the hard
   },
   {
     id: "secretary",
-    name: "Hon. Venkat B. Chari",
+    name: "Shri. Venkatchari Bramahachari Verglum",
     title: "Secretary",
+    image:
+      "https://static.vecteezy.com/system/resources/thumbnails/029/271/062/small_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg",
+    content: `From, Secretary's Desk
+
+As Secretary of MPGI, I oversee the administrative excellence that forms the backbone of our institution. Our key administrative achievements include:
+
+Operational Excellence:
+- ISO 9001:2015 certified processes
+- 100% digital administration system
+- 24/7 student support services
+- Transparent governance framework
+
+Infrastructure Development:
+- ₹50 crores invested in campus development
+- Smart classrooms with IoT integration
+- Hostel capacity expanded to 2000 students
+- State-of-the-art auditorium complex
+
+Student Services:
+- One-stop student portal
+- Grievance redressal within 48 hours
+- Scholarship disbursement system
+- Career guidance cell
+
+Our administrative team of 150+ professionals ensures smooth functioning of all academic and non-academic activities. I welcome you to experience our efficient systems designed for your success.`,
+  },
+  {
+    id: "joint-secretary",
+    name: "Shri. Vimal Hanmantrao Sirsat",
+    title: "Joint Secretary",
     image:
       "https://static.vecteezy.com/system/resources/thumbnails/029/271/062/small_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg",
     content: `From, Secretary's Desk

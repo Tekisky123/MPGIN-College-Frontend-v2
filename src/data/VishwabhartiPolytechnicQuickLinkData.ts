@@ -1,8 +1,11 @@
+import polyPrincipal from "../assets/principalImages/Prof. Shahaji Deshmukh Vishwabharati polytechnic.jpg"
+
 export interface ProfileData {
     id: string;
     name: string;
     title: string;
     image: string;
+    education: string;
     content: string;
 }
 
@@ -32,9 +35,10 @@ export const navItems = [
 export const profiles: ProfileData[] = [
     {
         id: "principal",
-        name: "Dr. Rajesh Kumar",
+        name: "Prof. Shahaji Deshmukh",
         title: "Principal",
-        image: "https://static.vecteezy.com/system/resources/thumbnails/029/271/062/small_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg",
+        image: polyPrincipal,
+        education: "PhD. (Pursuing) (Mechanical Engineering)",
         content: `From the Principal's Desk
   
 Welcome to Vishwabharti Polytechnic Institute, a premier technical education institution committed to excellence since 1985.

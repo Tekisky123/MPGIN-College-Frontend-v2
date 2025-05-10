@@ -298,14 +298,10 @@ export const visionMissionData = {
   content: `Our Guiding Principles:
 
 Vision:
-"To be a globally recognized center of excellence in engineering education that nurtures innovative technologists and problem solvers."
+"To Become a Lead Center in the Field of Electrical Engineering to Minimize Human Efforts with an Eye on Environment."
 
 Mission:
-M1: To provide transformative engineering education through innovative pedagogy
-M2: To foster research and innovation for technological solutions
-M3: To develop socially responsible engineers
-M4: To strengthen industry-academia collaboration
-M5: To promote entrepreneurial mindset
+"To Impart Technical Education, Nurture Creativity, Critical Thinking & Application of Comprehensive Engineering Knowledge & Skills to Meet the Global Challenges through Innovation & Research."
 
 Core Values:
 - Excellence

@@ -19,13 +19,15 @@ const Departments = () => {
   const navigate = useNavigate();
 
   const departments: Department[] = [
+
+
     {
-      title: "Vishwabharti Polytechnic Institute",
-      code: "DTE CODE- 2194",
+      title: "School Of Engineering",
+      code: "DTE CODE- 2116",
       content:
-        "Matoshri Pratisthan Vishwabharti Polytechnic Institute was founded on the basic principle of serving the society, to provide affordable and quality education to the students and paves way for a wider variety of career options. The Institute aims to grow as one of the largest educational complexes in Nanded and around Marathwada Region.",
-      icon: <School className="w-6 h-6 text-mpgin-darkBlue" />,
-      route: "/vishwabharati-polytechnic-institute/home",
+        "Matoshri Pratishthan School of Engineering offers full time four years Bachelor's Degree in Engineering approved by the All India Council for Technical Education (AICTE), New Delhi and sanctioned by Govt. of Maharashtra (DTE) and affiliated to DR BABA SAHEB AMBEDKAR TECHNOLOGICA UNIVERSITY LONERE (BATU).",
+      icon: <GraduationCap className="w-6 h-6 text-mpgin-darkBlue" />,
+      route: "/school-of-engineering/home",
     },
     {
       title: "School Of Management",
@@ -35,13 +37,14 @@ const Departments = () => {
       icon: <Building2 className="w-6 h-6 text-mpgin-darkBlue" />,
       route: "/school-of-management/home",
     },
+
     {
-      title: "School Of Engineering",
-      code: "DTE CODE- 2116",
+      title: "Vishwabharti Polytechnic Institute",
+      code: "DTE CODE- 2194",
       content:
-        "Matoshri Pratishthan School of Engineering offers full time four years Bachelor's Degree in Engineering approved by the All India Council for Technical Education (AICTE), New Delhi and sanctioned by Govt. of Maharashtra (DTE) and affiliated to DR BABA SAHEB AMBEDKAR TECHNOLOGICA UNIVERSITY LONERE (BATU).",
-      icon: <GraduationCap className="w-6 h-6 text-mpgin-darkBlue" />,
-      route: "/school-of-engineering/home",
+        "Matoshri Pratisthan Vishwabharti Polytechnic Institute was founded on the basic principle of serving the society, to provide affordable and quality education to the students and paves way for a wider variety of career options. The Institute aims to grow as one of the largest educational complexes in Nanded and around Marathwada Region.",
+      icon: <School className="w-6 h-6 text-mpgin-darkBlue" />,
+      route: "/vishwabharati-polytechnic-institute/home",
     },
   ];
 
@@ -70,7 +73,7 @@ const Departments = () => {
           className="text-center mb-12 lg:mb-16"
         >
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Our Colleges 
+            Our Colleges
           </h1>
           <div className="w-20 h-1 bg-gradient-to-r from-mpgin-blue to-mpgin-darkBlue mx-auto rounded-full"></div>
         </motion.header>

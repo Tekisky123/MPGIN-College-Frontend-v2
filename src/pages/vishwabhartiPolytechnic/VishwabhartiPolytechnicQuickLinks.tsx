@@ -66,7 +66,7 @@ const VishwabhartiPolytechnicQuickLinks = () => {
             className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200 w-full"
           >
             <div className="flex flex-col lg:flex-row">
-              <div className="lg:w-2/3 p-6 sm:p-8 lg:p-10">
+              <div className="lg:w-2/3 p-4 sm:p-8 lg:p-10">
                 <motion.h3
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

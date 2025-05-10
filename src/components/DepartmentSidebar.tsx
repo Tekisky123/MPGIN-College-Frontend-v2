@@ -13,6 +13,7 @@ const DepartmentSidebar = ({ college, department }: Props) => {
 
   // Define tabs and their corresponding routes
   const tabs = [
+    { id: "profile", label: "Profile" },
     { id: "overview", label: "Overview" },
     { id: "faculty", label: "Faculty" },
     { id: "gallery", label: "Gallery" },
@@ -21,7 +22,7 @@ const DepartmentSidebar = ({ college, department }: Props) => {
   ];
 
   // Determine the active tab based on the current route
-  const activeTab = location.pathname.split("/").pop() || "overview";
+  const activeTab = location.pathname.split("/").pop() || "profile";
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-4 lg:p-6">

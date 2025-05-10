@@ -10,7 +10,6 @@ import About from "./pages/About";
 import Programs from "./pages/Programs";
 import Admissions from "./pages/Admissions";
 import Fees from "./pages/Fees";
-import CampusLife from "./pages/CampusLife";
 import Contact from "./pages/Contact";
 import Jobs from "./pages/Jobs";
 import Syllabus from "./pages/Syllabus";
@@ -52,14 +51,13 @@ export default function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/departments" element={<Departments />} />
         <Route path="/features" element={<FeaturesPage />} />
-        <Route path="/facilities" element={<Facilities />} />
+        <Route path="/:collegeId/facilities/:facilityPath" element={<Facilities />} />
         <Route path="/trainings" element={<TrainingPlacement />} />
         <Route path="/:collegeId/campus" element={<Gallery />} />
         <Route path="/:collegeId/faculty" element={<Faculty />} />
         <Route path="/programs" element={<Programs />} />
         <Route path="/admissions" element={<Admissions />} />
         <Route path="/student-portal/fees" element={<Fees />} />
-        <Route path="/campus-life" element={<CampusLife />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/student-portal/placements" element={<Jobs />} />
