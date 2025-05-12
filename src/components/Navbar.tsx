@@ -58,11 +58,11 @@ const Navbar = () => {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [submenuPosition, setSubmenuPosition] = useState<SubmenuPosition>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   // Memoized school prefix calculation
   const schoolPrefix = useMemo(() => {
@@ -145,7 +145,26 @@ const Navbar = () => {
     timeoutRef.current = setTimeout(() => setSubmenuPosition(null), 200);
   }, [cleanup]);
 
+  // Handle click outside mobile menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        closeAllMenus();
+      }
+    };
 
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen, closeAllMenus]);
 
   // Resize observer
   useEffect(() => {
@@ -165,6 +184,7 @@ const Navbar = () => {
       cleanup();
     };
   }, [cleanup]);
+
 
   // Render helpers
   const renderSubmenuItems = useCallback(
@@ -207,7 +227,10 @@ const Navbar = () => {
       ) : (
         <div key={item.name} className="relative">
           <button
-            onClick={isMobile ? () => toggleSubmenu(item.name) : undefined}
+            onClick={isMobile ? (e) => {
+              e.stopPropagation();
+              toggleSubmenu(item.name);
+            } : undefined}
             onMouseEnter={!isMobile ? (e) => handleDesktopSubmenuHover(e, item) : undefined}
             onMouseLeave={!isMobile ? handleDesktopSubmenuLeave : undefined}
             className={`${isMobile ? 'w-full px-6 py-3 text-sm' : 'px-4 py-2.5 text-base'
@@ -220,12 +243,14 @@ const Navbar = () => {
             )}
           >
             <span>{item.name}</span>
-            <ChevronDown
-              className={`w-4 h-4 transition-transform ${(isMobile ? openSubmenu === item.name : submenuPosition?.name === item.name)
-                ? 'rotate-180'
-                : ''
-                }`}
-            />
+            {item.subItems && (
+              <ChevronDown
+                className={`w-4 h-4 transition-transform ${(isMobile ? openSubmenu === item.name : submenuPosition?.name === item.name)
+                  ? 'rotate-180'
+                  : ''
+                  }`}
+              />
+            )}
           </button>
 
           {isMobile && openSubmenu === item.name && item.subItems && (
@@ -256,7 +281,7 @@ const Navbar = () => {
         className={`fixed w-full top-0 z-50 shadow-lg transition-transform duration-300 ease-in-out`}
       >
         {/* Top Section - Logo and Institution Name */}
-        <div className={`py-2 ${isScrolled ? 'hidden' : 'block'} bg-mpgin-darkBlue border-b`}>
+        <div className={`py-2 block bg-mpgin-darkBlue border-b`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-center gap-4">
               <div className="flex items-center gap-4 ">
@@ -285,7 +310,7 @@ const Navbar = () => {
 
         {/* Bottom Navigation - Main Menu */}
         <nav ref={navRef} className="bg-white">
-          <div className=" overflow-auto w-full px-4 sm:px-6 lg:px-8 flex justify-end lg:justify-start">
+          <div className="overflow-auto w-full px-4 sm:px-6 lg:px-8 flex justify-end lg:justify-start">
             <div className="flex items-center justify-between h-16">
               {/* Desktop Navigation */}
               <div className="hidden md:block flex-1">
@@ -326,7 +351,10 @@ const Navbar = () => {
 
           {/* Mobile menu */}
           {isMobileMenuOpen && (
-            <div className="md:hidden bg-white shadow-lg">
+            <div
+              ref={mobileMenuRef}
+              className="md:hidden bg-white shadow-lg max-h-[calc(100vh-80px)] overflow-y-auto"
+            >
               <ul className="divide-y divide-gray-200">
                 {modifiedNavItems.map((item) => (
                   <li key={item.name} className="hover:bg-gray-50 transition-colors">

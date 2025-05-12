@@ -8,7 +8,6 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Programs from "./pages/Programs";
-import Admissions from "./pages/Admissions";
 import Fees from "./pages/Fees";
 import Contact from "./pages/Contact";
 import Jobs from "./pages/Jobs";
@@ -35,6 +34,7 @@ import Dashboard from "./pages/admin/Dashboard";
 import DepartmentRoutes from "./pages/DepartmentRoutes";
 import Faculty from "./pages/Faculty";
 import CellsCommittees from "./pages/CellsCommittees";
+import Admission from "./pages/Admission";
 
 
 export default function App() {
@@ -56,7 +56,7 @@ export default function App() {
         <Route path="/:collegeId/campus" element={<Gallery />} />
         <Route path="/:collegeId/faculty" element={<Faculty />} />
         <Route path="/programs" element={<Programs />} />
-        <Route path="/admissions" element={<Admissions />} />
+        <Route path="/:collegeId/admission/*" element={<Admission />} />
         <Route path="/student-portal/fees" element={<Fees />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />

@@ -54,7 +54,7 @@ const DepartmentSidebar = ({ college, department }: Props) => {
                 }`}
             >
               <Link
-                to={`/${college.id}/departments/${dept.id}/overview`}
+                to={`/${college.id}/departments/${dept.id}/profile`}
                 className={`block px-3 py-2 transition-colors ${dept.id === department.id
                     ? "text-blue-700 font-medium"
                     : "text-gray-600 hover:text-blue-700"

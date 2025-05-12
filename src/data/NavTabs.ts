@@ -93,14 +93,14 @@ export const NAV_ITEMS = [
   {
     name: "Admission",
     subItems: [
-      { name: "Under Graduate (B.Tech)", path: "/under-graduate" },
-      { name: "Post Graduate (M.Tech)", path: "/post-graduate" },
-      { name: "Fee Structure", path: "/fee-structure" },
-      { name: "Student Information", path: "/student-information" },
-      { name: "Undertaking", path: "/undertaking" },
+      { name: "Under Graduate (B.Tech)", path: "/admission/under-graduate" },
+      { name: "Post Graduate (M.Tech)", path: "/admission/post-graduate" },
+      { name: "Fee Structure", path: "/admission/fee-structure" },
+      { name: "Student Information", path: "/admission/student-information" },
+      { name: "Undertaking", path: "/admission/undertaking" },
       {
         name: "Information Brochure 2024-25",
-        path: "/InformationBrochureAcademicYear2020-21",
+        path: "/admission/InformationBrochureAcademicYear2020-21",
       },
       {
         name: "VidyaLaxmi Portal",
