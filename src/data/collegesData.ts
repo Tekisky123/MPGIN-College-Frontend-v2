@@ -1,5 +1,6 @@
 import eceHod from "../assets/hodImages/Dr. Abdullah M.K.Department of Electronics & Telecommunication Engineering.jpeg"
 import eeeHod from "../assets/hodImages/S. Asad HashmiElectrical Engineering.png"
+import polyEceHod from "../assets/hodImages/Ms. Mule A.B. Head of Department - Electronics & Telecommunication Engineering.png"
 import mechHod from "../assets/hodImages/Sayyad Shafik R Mechanical Engineering.png"
 
 export interface Department {
@@ -248,14 +249,60 @@ export const colleges: College[] = [
           { srNo: 3, labName: "Mechatronics Lab", area: "800 sq.ft", incharge: "Prof. Neha Singh" },
         ],
         hod: {
-          name: "Dr. Abdullah M.K.",
+          name: "Ms. Mule A.B.",
           designation: "Head of Department - Electronics & Telecommunication Engineering",
-          message: "Dear students & respected visitors heartiest welcome to all of you. As all of us know that day by day new technologies and new innovative things are developing and today the world is within reach and by pressing on only one click we are getting whole information about the world. All these things are happening because of marvels fruit of Electronics. Electronics & Telecommunication Engineering is continuously growing, changing, widening, and challenging branch of engineering profession, its shapes the fabric of our global society. The department of Electronics and Telecommunication aims to give the excellent knowledge and trained the students as per the industry requirements so that students can successfully face the challenges in their life. We are providing up to date knowledge and technical development in the field of Electronics and Telecommunication, through technically rich and industry experience faculty and well develop technologically update labs. The department has seen a significant growth especially because of the rapid advances in Electronics and Telecommunication. I am confident that the students of the present batch would justify the credibility of the department by showing a high level of professional competence in their respective job areas.",
-          profileImage: eceHod
+          message: `Department of Electronics and Telecommunication Engineering is one of the established departments in the institute. It was started in the year 2023. The Department offers diploma in “Electronics and Telecommunication Engineering” with intake capacity of 30.We have a team of qualified, experienced & dedicated teaching faculty. Department is supported by equally dedicated qualified laboratory staff. The Department has built an excellent reputation for its diploma students in terms of placements. The curriculum offers a balance of theoretical knowledge and practical experience, enabling you to design, develop, and test electronic systems used in fields like telecommunications, aerospace, and healthcare. With robust industry partnerships, research-oriented labs, and a focus on innovation, MPVPI stands out as one of the leading institutes for Electronics and Telecommunication Engineering in Maharashtra.
+                    “Technology can become the “wings” that will allow the educational world to fly farther and faster than ever before – if we allow it”`,
+          profileImage: polyEceHod
         },
-        vision: "To Train the students with solid technical knowledge and impart ethical values, so that the students will be able to deal any challenge in life successfully.",
-        mission: "To provide the excellent and skilled technocrats to the world by providing excellent teaching and training."
-      }
+        vision: "Creation of academic excellence in the field of Electronics & Telecommunication Engineering through value based universal education system to produce proficient professionals for the welfare of mankind around the globe.",
+        mission: `1. To provide quality education in the field of Electronics Engineering.
+2. To conduct practical training as per industry needs to enhance academic standard of the students.
+3. To empower each & every student by providing them all round personality development with latest emerging technology through expert lectures.
+4. To provide electronics engineers to the society for effective contribution towards societal developments with the sense of discipline and dedication.`
+      },
+      {
+  id: "bsh",
+  name: "Basic Sciences and Humanities (FE)",
+  description:
+    "Foundation department focusing on engineering fundamentals, mathematics, physics, chemistry, and communication skills.",
+  image: "https://www.lpu.in/academics/images/department/physics.jpg",
+  about: `The Department of Basic Sciences and Humanities (BSH) forms the cornerstone of engineering education at MPGI Integrated Campus. Established with the vision to provide a strong academic foundation for first-year students, the department plays a vital role in shaping the core competencies required across all streams of engineering. With expert faculty in Mathematics, Physics, Chemistry, and English, the department focuses on bridging the gap between school-level understanding and the advanced requirements of professional technical courses. Our faculty uses innovative pedagogies and modern teaching tools to make fundamental concepts accessible and engaging. We strive to cultivate analytical reasoning, scientific temper, and effective communication skills in students to ensure their seamless transition into branch-specific subjects from the second year onwards.`,
+  courses: [
+    "Engineering Mathematics I & II",
+    "Engineering Physics & Lab",
+    "Engineering Chemistry & Lab",
+    "Environmental Studies",
+    "Communication Skills & Soft Skills"
+  ],
+  facilities: [
+    "Engineering Physics Lab",
+    "Engineering Chemistry Lab",
+    "Language and Communication Lab",
+    "Digital Learning Smart Classrooms"
+  ],
+  facultyCount: 15,
+  gallery: ["/images/bsh-1.jpg", "/images/bsh-2.jpg"],
+  labs: [
+    { srNo: 1, labName: "Physics Lab", area: "900 sq.ft", incharge: "Dr. Prakash Yadav" },
+    { srNo: 2, labName: "Chemistry Lab", area: "850 sq.ft", incharge: "Ms. Shalini Thakur" },
+    { srNo: 3, labName: "Language Lab", area: "750 sq.ft", incharge: "Mr. Vikram Nair" }
+  ],
+  hod: {
+    name: "Dr. Seema Kulkarni",
+    designation: "Head of Department - Basic Sciences and Humanities",
+    message: `The Department of Basic Sciences and Humanities plays a crucial role in laying the groundwork for aspiring engineers. We believe that a strong conceptual base in science and mathematics, coupled with effective communication skills, forms the backbone of successful engineering education. Our faculty members are committed to academic excellence and holistic development of students. Through interactive learning, lab-based experiments, and a focus on critical thinking, we strive to build the intellectual curiosity and problem-solving abilities of our students. At MPGI, we believe that the first year is not just a transition—it is a transformation. 
+
+    “Science is a way of thinking much more than it is a body of knowledge.” – Carl Sagan`,
+    profileImage: "polyBshHod"
+  },
+  vision: "To provide a strong academic foundation and foster critical thinking, scientific inquiry, and effective communication in engineering students for lifelong learning and professional excellence.",
+  mission: `1. To strengthen the fundamental knowledge of science and mathematics among first-year engineering students.
+2. To enhance communication, interpersonal, and analytical skills through skill-based training.
+3. To promote scientific curiosity, ethical reasoning, and sustainable thinking among students.
+4. To nurture a multidisciplinary environment that supports innovation, creativity, and problem-solving.`,
+}
+
 
     ],
   },
@@ -459,7 +506,49 @@ Join us in shaping a dynamic and rewarding career in engineering.`,
         },
         vision: "To Train the students with solid technical knowledge and impart ethical values, so that the students will be able to deal any challenge in life successfully.",
         mission: "To provide the excellent and skilled technocrats to the world by providing excellent teaching and training."
-      }
+      },
+      {
+  id: "bsh",
+  name: "Basic Sciences and Humanities (FE)",
+  description:
+    "Foundation department focusing on engineering fundamentals, mathematics, physics, chemistry, and communication skills.",
+  image: "https://www.lpu.in/academics/images/department/physics.jpg",
+  about: `The Department of Basic Sciences and Humanities (BSH) forms the cornerstone of engineering education at MPGI Integrated Campus. Established with the vision to provide a strong academic foundation for first-year students, the department plays a vital role in shaping the core competencies required across all streams of engineering. With expert faculty in Mathematics, Physics, Chemistry, and English, the department focuses on bridging the gap between school-level understanding and the advanced requirements of professional technical courses. Our faculty uses innovative pedagogies and modern teaching tools to make fundamental concepts accessible and engaging. We strive to cultivate analytical reasoning, scientific temper, and effective communication skills in students to ensure their seamless transition into branch-specific subjects from the second year onwards.`,
+  courses: [
+    "Engineering Mathematics I & II",
+    "Engineering Physics & Lab",
+    "Engineering Chemistry & Lab",
+    "Environmental Studies",
+    "Communication Skills & Soft Skills"
+  ],
+  facilities: [
+    "Engineering Physics Lab",
+    "Engineering Chemistry Lab",
+    "Language and Communication Lab",
+    "Digital Learning Smart Classrooms"
+  ],
+  facultyCount: 15,
+  gallery: ["/images/bsh-1.jpg", "/images/bsh-2.jpg"],
+  labs: [
+    { srNo: 1, labName: "Physics Lab", area: "900 sq.ft", incharge: "Dr. Prakash Yadav" },
+    { srNo: 2, labName: "Chemistry Lab", area: "850 sq.ft", incharge: "Ms. Shalini Thakur" },
+    { srNo: 3, labName: "Language Lab", area: "750 sq.ft", incharge: "Mr. Vikram Nair" }
+  ],
+  hod: {
+    name: "Dr. Seema Kulkarni",
+    designation: "Head of Department - Basic Sciences and Humanities",
+    message: `The Department of Basic Sciences and Humanities plays a crucial role in laying the groundwork for aspiring engineers. We believe that a strong conceptual base in science and mathematics, coupled with effective communication skills, forms the backbone of successful engineering education. Our faculty members are committed to academic excellence and holistic development of students. Through interactive learning, lab-based experiments, and a focus on critical thinking, we strive to build the intellectual curiosity and problem-solving abilities of our students. At MPGI, we believe that the first year is not just a transition—it is a transformation. 
+
+    “Science is a way of thinking much more than it is a body of knowledge.” – Carl Sagan`,
+    // profileImage: polyBshHod
+  },
+  vision: "To provide a strong academic foundation and foster critical thinking, scientific inquiry, and effective communication in engineering students for lifelong learning and professional excellence.",
+  mission: `1. To strengthen the fundamental knowledge of science and mathematics among first-year engineering students.
+2. To enhance communication, interpersonal, and analytical skills through skill-based training.
+3. To promote scientific curiosity, ethical reasoning, and sustainable thinking among students.
+4. To nurture a multidisciplinary environment that supports innovation, creativity, and problem-solving.`,
+}
+
     ],
   },
 

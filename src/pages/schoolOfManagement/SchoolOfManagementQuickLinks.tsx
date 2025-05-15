@@ -15,9 +15,26 @@ import {
 
 const renderContent = (content: string) => {
   return content.split('\n').map((paragraph, index) => (
-    <p key={index} className="mb-4">
-      {paragraph || <br />}
-    </p>
+    <div key={index} className="mb-4">
+      {paragraph.startsWith('-') ? (
+        <ul className="list-disc pl-6 space-y-1 text-gray-700 font-semibold">
+          {paragraph.slice(1).split(', ').map((item, i) => (
+            <li key={i}>{item.trim()}</li>
+          ))}
+        </ul>
+      ) : paragraph.startsWith('## ') || paragraph.startsWith('### ') ? (
+        <h3 className="text-xl font-bold text-mpgin-darkBlue mt-4 mb-2">{paragraph.slice(3)}</h3>
+      ) : paragraph.startsWith('# ') ? (
+        <h2 className="text-2xl font-bold text-mpgin-darkBlue mt-6 mb-3 border-b pb-2 border-gray-300">{paragraph.slice(2)}</h2>
+      ) : paragraph.startsWith('**') && paragraph.endsWith('**') ? (
+        <p className="font-bold text-gray-800">{paragraph.slice(2, -2)}</p>
+      ) :
+        paragraph.startsWith('*') || paragraph.endsWith('*') ? (
+          <p className="font-bold text-gray-800 italic">{paragraph.slice(1, -1)}</p>
+        ) : (
+          <p className="text-gray-700 ">{paragraph}</p>
+        )}
+    </div>
   ));
 };
 
@@ -65,7 +82,7 @@ const SchoolOfManagementQuickLinks = () => {
             className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200 w-full"
           >
             <div className="flex flex-col lg:flex-row">
-              <div className="lg:w-2/3 p-6 sm:p-8 lg:p-10">
+              <div className="lg:w-2/3 p-4 sm:p-8 lg:p-10">
                 <motion.h3
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -78,7 +95,7 @@ const SchoolOfManagementQuickLinks = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
-                  className="space-y-4 text-gray-700 font-semibold leading-relaxed"
+                  className="space-y-4 text-gray-700 leading-relaxed"
                 >
                   {principal?.content && renderContent(principal.content)}
                 </motion.div>
@@ -98,13 +115,12 @@ const SchoolOfManagementQuickLinks = () => {
                 </motion.div>
                 <div className="text-center">
                   <h2 className="text-2xl font-bold text-mpgin-darkBlue">{principal?.name}</h2>
-                  <p className="mt-2 text-lg font-semibold text-mpgin-blue">{principal?.title}</p>
+                  <p className="mt-2 text-lg  text-mpgin-blue">{principal?.title}</p>
                 </div>
               </div>
             </div>
           </motion.div>
         );
-
 
       case 'placements':
         return (
@@ -126,7 +142,7 @@ const SchoolOfManagementQuickLinks = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="prose max-w-none text-gray-700 font-semibold whitespace-pre-line"
+              className="prose max-w-none text-gray-700  whitespace-pre-line"
             >
               {renderContent(placementData.content)}
             </motion.div>
@@ -153,7 +169,7 @@ const SchoolOfManagementQuickLinks = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="prose max-w-none font-semibold text-gray-700 whitespace-pre-line"
+              className="prose max-w-none  text-gray-700 whitespace-pre-line"
             >
               {renderContent(achievementData.content)}
             </motion.div>
@@ -180,7 +196,7 @@ const SchoolOfManagementQuickLinks = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="prose max-w-none font-semibold text-gray-700 whitespace-pre-line"
+              className="prose max-w-none text-gray-700 whitespace-pre-line"
             >
               {renderContent(nirfData.content)}
             </motion.div>
@@ -207,7 +223,7 @@ const SchoolOfManagementQuickLinks = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="prose max-w-none font-semibold text-gray-700 whitespace-pre-line"
+              className="prose max-w-none  text-gray-700 whitespace-pre-line"
             >
               {renderContent(mandatoryDisclosureData.content)}
             </motion.div>
@@ -234,7 +250,7 @@ const SchoolOfManagementQuickLinks = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="prose max-w-none font-semibold text-gray-700 whitespace-pre-line"
+              className="prose max-w-none  text-gray-700 whitespace-pre-line"
             >
               {renderContent(iqacData.content)}
             </motion.div>
@@ -261,7 +277,7 @@ const SchoolOfManagementQuickLinks = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="prose max-w-none font-semibold text-gray-700 whitespace-pre-line"
+              className="prose max-w-none  text-gray-700 whitespace-pre-line"
             >
               {renderContent(visionMissionData.content)}
             </motion.div>

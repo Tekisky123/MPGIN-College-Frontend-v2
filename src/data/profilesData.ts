@@ -182,32 +182,26 @@ Our administrative team of 150+ professionals ensures smooth functioning of all 
     id: "managing-director",
     name: "Mr. Arvind Patil",
     title: "Managing Director",
-    image:
-      "https://static.vecteezy.com/system/resources/thumbnails/029/271/062/small_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg",
+    image: "https://static.vecteezy.com/system/resources/thumbnails/029/271/062/small_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg",
     content: `From, Managing Director's Desk
 
-As Managing Director of MPGI, I bring 25+ years of corporate and academic leadership to steer our institution towards new horizons. Our strategic focus areas include:
+Dear Students, Faculty, Staff, and Parents,
 
-Business Acumen:
-- Sustainable financial models
-- Industry-aligned curriculum
-- Corporate partnerships
-- Revenue diversification
+As the Managing Director of Mahoshini Pratishthan Group of Institutions, I am filled with pride and excitement to see our institute continue to thrive. Our mission remains steadfast: to provide a cutting-edge technical education that prepares our students to become leaders in their respective fields. We are committed to fostering a learning environment that encourages innovation, critical thinking, and collaboration.
 
-Operational Leadership:
-- Lean management practices
-- Data-driven decision making
-- Continuous process improvement
-- Risk management framework
+Our faculty is comprised of highly qualified professionals who are dedicated to imparting knowledge. They consistently stay abreast of the latest trends in instruction. We are also proud to have established strong industry partnerships with the aim of providing our students with practical exposure, internships, apprenticeships, and future employment opportunities.
 
-Recent Achievements:
-- 30% increase in industry collaborations
-- Establishment of MPGI Innovation Fund
-- Launch of 5 new emerging technology programs
-- Implementation of ERP system across campuses
+We are not just focused on technical skills. We also strive to develop well-rounded individuals who are capable of contributing to society in meaningful ways. We encourage our students to explore their interests beyond the classroom through co-curricular and extracurricular activities that help build leadership and communication skills.
 
-My vision is to position MPGI as a globally recognized institution that bridges the gap between academia and industry. I welcome you to be part of this transformative journey.`,
-  },
+I would like to express my sincere gratitude to our faculty, staff, students, and parents for their unwavering dedication and support. Without their selfless efforts, our institute would not be the success it is today.
+
+I am confident that with your continued support, we will continue to make a significant impact and help shape the knowledgeable minds of our future leaders.
+
+Sincerely,  
+Mr. Arvind Patil  
+Managing Director`
+  }
+  ,
   {
     id: "board",
     name: "MPGI Board of Directors",
@@ -293,7 +287,7 @@ We meet quarterly to review institutional performance and set benchmarks for con
 4. Launch 5 new emerging technology programs  
 5. Establish endowment fund of ₹500 crores`
   }
-,
+  ,
   {
     id: "managing-director",
     name: "Mr. Arvind Patil",

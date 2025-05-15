@@ -70,6 +70,8 @@ const ProfilePage = ({ id }: { id: string }) => {
             className="space-y-4 text-gray-700  leading-relaxed"
           >
             {renderContent(profile.content)}
+            <p className="italic text-right text-mpgin-darkBlue font-semibold">– {profile.name}</p>
+
           </motion.div>
         </div>
 
@@ -91,6 +93,7 @@ const ProfilePage = ({ id }: { id: string }) => {
             <h2 className="text-xl font-bold text-mpgin-darkBlue">{profile.name}</h2>
             <p className="mt-2 text-md  text-mpgin-blue">{profile.title}</p>
           </div>
+
         </div>
       </div>
     </motion.div>

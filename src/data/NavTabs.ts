@@ -2,10 +2,10 @@ export const NAV_ITEMS = [
   { name: "Home", path: "/" },
 
 
-  {
-    name: "Courses",
-    path: "/courses",
-  },
+  // {
+  //   name: "Courses",
+  //   path: "/courses",
+  // },
   {
     name: "Departments",
     subItems: [
@@ -46,55 +46,30 @@ export const NAV_ITEMS = [
   {
     name: "Cells & Committees",
     subItems: [
-      {
-        name: "Academic Cell",
-        path: "/cells-committees?section=academic-cell",
-      },
-      {
-        name: "Admission Cell",
-        path: "/cells-committees?section=admission-cell",
-      },
-      {
-        name: "Anti Ragging Squad",
-        path: "/cells-committees?section=anti-ragging-squad",
-      },
+
+
       {
         name: "Anti Ragging Committee",
         path: "/cells-committees?section=anti-ragging-committee",
       },
-      { name: "CASERP Cell", path: "/cells-committees?section=CASERPCell" },
       {
-        name: "College Development Committee",
-        path: "/cells-committees?section=college-development-committee",
+        name: "Anti Sexual Harassment Cell",
+        path: "/cells-committees?section=anti-sexual-harassment-cell",
       },
       {
-        name: "Cultural Committee",
-        path: "/cells-committees?section=cultural-committee",
+        name: "Women's Guidance Cell",
+        path: "/cells-committees?section=womens-guidance-cell",
       },
       {
-        name: "Examination Cell",
-        path: "/cells-committees?section=examination-cell",
-      },
-      {
-        name: "Internal Complaint Committee",
-        path: "/cells-committees?section=internal-complaint-committee",
-      },
-      { name: "SC/ST Cell", path: "/cells-committees?section=SC_STCell" },
-      {
-        name: "Student Grievance Redressal Committee",
-        path: "/cells-committees?section=student-grievance-redressal-committee",
-      },
-      {
-        name: "Training and Placement Cell",
-        path: "/cells-committees?section=training-and-placementCell",
+        name: "SC/ST Cell",
+        path: "/cells-committees?section=sc-st-cell",
       },
     ],
   },
   {
     name: "Admission",
     subItems: [
-      { name: "Under Graduate (B.Tech)", path: "/admission/under-graduate" },
-      { name: "Post Graduate (M.Tech)", path: "/admission/post-graduate" },
+      { name: "Courses", path: "/admission/courses" },
       { name: "Fee Structure", path: "/admission/fee-structure" },
       { name: "Student Information", path: "/admission/student-information" },
       { name: "Undertaking", path: "/admission/undertaking" },
@@ -102,6 +77,7 @@ export const NAV_ITEMS = [
         name: "Information Brochure 2024-25",
         path: "/admission/InformationBrochureAcademicYear2020-21",
       },
+      { name: "SBI Collect", path: "https://www.onlinesbi.sbi/sbicollect/" , external: true, },
       {
         name: "VidyaLaxmi Portal",
         path: "https://www.vidyalakshmi.co.in/",

@@ -16,9 +16,26 @@ import NotificationComponent from "../../components/NotificationComponent";
 
 const renderContent = (content: string) => {
   return content.split('\n').map((paragraph, index) => (
-    <p key={index} className="mb-4">
-      {paragraph || <br />}
-    </p>
+    <div key={index} className="mb-4">
+      {paragraph.startsWith('-') ? (
+        <ul className="list-disc pl-6 space-y-1 text-gray-700 font-semibold">
+          {paragraph.slice(1).split(', ').map((item, i) => (
+            <li key={i}>{item.trim()}</li>
+          ))}
+        </ul>
+      ) : paragraph.startsWith('## ') || paragraph.startsWith('### ') ? (
+        <h3 className="text-xl font-bold text-mpgin-darkBlue mt-4 mb-2">{paragraph.slice(3)}</h3>
+      ) : paragraph.startsWith('# ') ? (
+        <h2 className="text-2xl font-bold text-mpgin-darkBlue mt-6 mb-3 border-b pb-2 border-gray-300">{paragraph.slice(2)}</h2>
+      ) : paragraph.startsWith('**') && paragraph.endsWith('**') ? (
+        <p className="font-bold text-gray-800">{paragraph.slice(2, -2)}</p>
+      ) :
+        paragraph.startsWith('*') || paragraph.endsWith('*') ? (
+          <p className="font-bold text-gray-800 italic">{paragraph.slice(1, -1)}</p>
+        ) : (
+          <p className="text-gray-700 ">{paragraph}</p>
+        )}
+    </div>
   ));
 };
 

@@ -40,7 +40,7 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-mpgin-blue mt-1 flex-shrink-0" />
                 <address className="text-gray-300 not-italic">
-                  MIDC Area, Nanded - 431603,
+                  Khupsarwadi, Nanded - 431606,
                   <br />
                   Maharashtra, India
                 </address>

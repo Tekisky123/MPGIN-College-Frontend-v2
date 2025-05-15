@@ -1,15 +1,13 @@
 import { motion } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import NotificationComponent from "../../components/NotificationComponent";
 import {
   achievementData,
   navItems,
   placementData,
   profiles,
-  Department,
-  departments,
+
   nirfData,
   mandatoryDisclosureData,
   iqacData,
@@ -17,15 +15,28 @@ import {
   visionMissionData
 } from '../../data/SchoolOfEngineeringQuickLinkData';
 
+// Helper function to render content with line breaks and markdown-like formatting
 const renderContent = (content: string) => {
   return content.split('\n').map((paragraph, index) => (
-    <p key={index} className="mb-4">
-      {paragraph || <br />}
-    </p>
+    <div key={index} className="mb-4">
+      {paragraph.startsWith('-') ? (
+        <ul className="list-disc pl-6 space-y-1 text-gray-700 font-semibold">
+          {paragraph.slice(1).split(', ').map((item, i) => (
+            <li key={i}>{item.trim()}</li>
+          ))}
+        </ul>
+      ) : paragraph.startsWith('## ') || paragraph.startsWith('### ') ? (
+        <h3 className="text-xl font-bold text-mpgin-darkBlue mt-4 mb-2">{paragraph.slice(3)}</h3>
+      ) : paragraph.startsWith('# ') ? (
+        <h2 className="text-2xl font-bold text-mpgin-darkBlue mt-6 mb-3 border-b pb-2 border-gray-300">{paragraph.slice(2)}</h2>
+      ) : paragraph.startsWith('**') && paragraph.endsWith('**') || paragraph.startsWith('*') && paragraph.endsWith('*') ? (
+        <p className="font-bold text-gray-800">{paragraph.slice(1, -1)}</p>
+      ) : (
+        <p className="text-gray-700 ">{paragraph}</p>
+      )}
+    </div>
   ));
 };
-
-
 
 const SchoolOfEngineeringQuickLinks = () => {
   const [activeId, setActiveId] = useState('principal');
@@ -33,6 +44,7 @@ const SchoolOfEngineeringQuickLinks = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
+  // Handle outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -48,6 +60,7 @@ const SchoolOfEngineeringQuickLinks = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Handle ESC key
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsSidebarOpen(false);
@@ -82,12 +95,11 @@ const SchoolOfEngineeringQuickLinks = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
-                  className="space-y-4 text-gray-700 font-semibold leading-relaxed"
+                  className="space-y-4 text-gray-700  leading-relaxed"
                 >
                   {principal?.content && renderContent(principal.content)}
                 </motion.div>
               </div>
-
               <div className="lg:w-1/3 p-6 sm:p-8 lg:p-10 border-l border-gray-200 flex flex-col items-center bg-gray-50">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
@@ -108,9 +120,6 @@ const SchoolOfEngineeringQuickLinks = () => {
             </div>
           </motion.div>
         );
-
-    
-
       case 'placements':
         return (
           <motion.div
@@ -137,7 +146,6 @@ const SchoolOfEngineeringQuickLinks = () => {
             </motion.div>
           </motion.div>
         );
-
       case 'achievements':
         return (
           <motion.div
@@ -158,13 +166,12 @@ const SchoolOfEngineeringQuickLinks = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="prose max-w-none font-semibold text-gray-700 whitespace-pre-line"
+              className="prose max-w-none  text-gray-700 whitespace-pre-line"
             >
               {renderContent(achievementData.content)}
             </motion.div>
           </motion.div>
         );
-
       case 'nirf':
         return (
           <motion.div
@@ -191,7 +198,6 @@ const SchoolOfEngineeringQuickLinks = () => {
             </motion.div>
           </motion.div>
         );
-
       case 'mandatory-disclosure':
         return (
           <motion.div
@@ -218,7 +224,6 @@ const SchoolOfEngineeringQuickLinks = () => {
             </motion.div>
           </motion.div>
         );
-
       case 'iqac':
         return (
           <motion.div
@@ -245,7 +250,6 @@ const SchoolOfEngineeringQuickLinks = () => {
             </motion.div>
           </motion.div>
         );
-
       case 'swayam-nptel':
         return (
           <motion.div
@@ -272,7 +276,6 @@ const SchoolOfEngineeringQuickLinks = () => {
             </motion.div>
           </motion.div>
         );
-
       case 'vision-mission':
         return (
           <motion.div
@@ -299,7 +302,6 @@ const SchoolOfEngineeringQuickLinks = () => {
             </motion.div>
           </motion.div>
         );
-
       default:
         return (
           <motion.div
@@ -341,7 +343,6 @@ const SchoolOfEngineeringQuickLinks = () => {
           {isSidebarOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
-
       <div className="w-full mx-auto flex flex-col lg:flex-row gap-6">
         <aside
           className={`lg:w-1/4 xl:w-1/5 bg-gray-50 p-4 rounded-lg shadow-md transition-all duration-300 fixed lg:static z-50 lg:z-auto h-full overflow-y-auto ${isSidebarOpen ? 'block inset-0' : 'hidden lg:block'}`}
@@ -362,21 +363,20 @@ const SchoolOfEngineeringQuickLinks = () => {
                   setActiveId(item.id);
                   setIsSidebarOpen(false);
                 }}
-                className={`block w-full border border-gray-200 text-left py-3 px-4 transition-all duration-200 font-bold text-lg md:text-base ${activeId === item.id
-                  ? 'bg-mpgin-darkBlue text-mpgin-blue underline'
-                  : 'bg-mpgin-blue hover:bg-mpgin-darkBlue hover:text-white text-mpgin-darkBlue'
-                  }`}
+                className={`block w-full border border-gray-200 text-left py-3 px-4 transition-all duration-200 font-bold text-lg md:text-base ${
+                  activeId === item.id
+                    ? 'bg-mpgin-darkBlue text-mpgin-blue underline'
+                    : 'bg-mpgin-blue hover:bg-mpgin-darkBlue hover:text-white text-mpgin-darkBlue'
+                }`}
               >
                 {item.label}
               </motion.button>
             ))}
           </nav>
         </aside>
-
         <main className="flex-1 lg:w-2/4 xl:w-3/5">
           {renderMainContent()}
         </main>
-
         <aside className="lg:w-1/4 xl:w-1/5">
           <div className="sticky top-44">
             <NotificationComponent />

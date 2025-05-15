@@ -35,6 +35,7 @@ import DepartmentRoutes from "./pages/DepartmentRoutes";
 import Faculty from "./pages/Faculty";
 import CellsCommittees from "./pages/CellsCommittees";
 import Admission from "./pages/Admission";
+import ContactPage from "./pages/ContactPage";
 
 
 export default function App() {
@@ -58,11 +59,11 @@ export default function App() {
         <Route path="/programs" element={<Programs />} />
         <Route path="/:collegeId/admission/*" element={<Admission />} />
         <Route path="/student-portal/fees" element={<Fees />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/student-portal/placements" element={<Jobs />} />
         <Route path="/student-portal/syllabus" element={<Syllabus />} />
         <Route path="/student-portal/*" element={<StudentPortal />} />
+        <Route path="/:collegeId/contact" element={<ContactPage />} />
 
         <Route
           path="/school-of-engineering/home"
