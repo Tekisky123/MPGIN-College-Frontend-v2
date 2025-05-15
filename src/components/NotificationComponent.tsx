@@ -23,26 +23,27 @@ const NotificationCard = ({ items }: { items: Notification[] }) => {
 
   const tripledItems = items.length > 0 ? [...items, ...items, ...items] : [];
 
+  // Measure item height on mount and resize
   useEffect(() => {
-    if (itemRef.current) {
-      setItemHeight(itemRef.current.clientHeight);
-    }
-
-    const handleResize = () => {
+    const updateItemHeight = () => {
       if (itemRef.current) {
         setItemHeight(itemRef.current.clientHeight);
       }
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    updateItemHeight();
+    window.addEventListener("resize", updateItemHeight);
+    return () => window.removeEventListener("resize", updateItemHeight);
   }, []);
 
+  // Animate scroll on mount and when items change
   useEffect(() => {
-    if (items.length === 0) return;
+    if (items.length === 0 || itemHeight === 0) return;
 
-    const animate = async () => {
-      while (true) {
+    let cancelled = false;
+
+    const animateScroll = async () => {
+      while (!cancelled) {
         await controls.start({
           y: [0, -itemHeight * items.length],
           transition: {
@@ -50,15 +51,16 @@ const NotificationCard = ({ items }: { items: Notification[] }) => {
             ease: "linear",
           },
         });
-        controls.set({ y: 0 });
+        if (!cancelled) controls.set({ y: 0 });
       }
     };
 
-    const animationPromise = animate();
+    animateScroll();
     return () => {
-      animationPromise.then(() => controls.stop());
+      cancelled = true;
+      controls.stop();
     };
-  }, [itemHeight, controls, items.length]);
+  }, [itemHeight, controls, items]);
 
   if (items.length === 0) {
     return (
@@ -87,7 +89,7 @@ const NotificationCard = ({ items }: { items: Notification[] }) => {
           {tripledItems.map((notification, index) => (
             <div
               key={`${notification._id}-${index}`}
-              ref={index === 0 ? itemRef : undefined}
+              ref={index === 0 ? itemRef : null}
               className="flex-shrink-0 border-b border-gray-200 last:border-0 hover:bg-gray-50 transition-colors cursor-pointer px-5 py-4"
             >
               <div className="flex-1">
@@ -128,7 +130,7 @@ const NotificationComponent = () => {
   const getCollegeFromRoute = () => {
     const path = location.pathname.toLowerCase();
     if (path.includes('polytechnic')) return 'polytechnic';
-    return 'polytechnic'; // default for this component
+    return 'polytechnic'; // Default fallback
   };
 
   useEffect(() => {
@@ -140,8 +142,8 @@ const NotificationComponent = () => {
         const response = await api.get(`/notifications/college/${college}`);
 
         if (response.data?.success) {
-          const newsAndEvents = response.data.data?.filter((n: Notification) =>
-            n.category === 'News & Events'
+          const newsAndEvents = response.data.data?.filter(
+            (n: Notification) => n.category === 'News & Events'
           ) || [];
           setNotifications(newsAndEvents);
         } else {
