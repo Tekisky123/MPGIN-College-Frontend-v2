@@ -27,11 +27,7 @@ const VALID_SCHOOLS = [
   "vishwabharati-polytechnic-institute"
 ];
 
-// Department mappings for different schools
-const DEPARTMENT_MAPPINGS: Record<
-  string,
-  Array<{ name: string; path: string }>
-> = {
+const DEPARTMENT_MAPPINGS: Record<string, Array<{ name: string; path: string }>> = {
   "vishwabharati-polytechnic-institute": [
     { name: "Mechanical Engineering", path: "/departments/mechanical/profile" },
     { name: "Civil Engineering", path: "/departments/civil/profile" },
@@ -67,19 +63,20 @@ const Navbar = () => {
   const navRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const resizeObserverRef = useRef<ResizeObserver | null>(null);
 
   // Memoized school prefix calculation
   const schoolPrefix = useMemo(() => {
-    const parts = pathname.split("/").filter((p) => p);
-    return VALID_SCHOOLS.find((school) => school === parts[0]) || null;
+    const parts = pathname.split("/").filter(p => p);
+    return VALID_SCHOOLS.find(school => school === parts[0]) || null;
   }, [pathname]);
 
   // Memoized path prefixing
   const getPrefixedPath = useCallback(
     (originalPath: string, isExternal?: boolean) => {
       if (isExternal || !schoolPrefix) return originalPath;
-      return originalPath === "/"
-        ? `/${schoolPrefix}/home`
+      return originalPath === "/" 
+        ? `/${schoolPrefix}/home` 
         : `/${schoolPrefix}${originalPath}`;
     },
     [schoolPrefix]
@@ -101,13 +98,13 @@ const Navbar = () => {
 
   // Get department items based on current school
   const getDepartmentItems = useCallback(() => {
-    if (!schoolPrefix) return NAV_ITEMS.find((item) => item.name === "Departments")?.subItems || [];
+    if (!schoolPrefix) return [];
     return DEPARTMENT_MAPPINGS[schoolPrefix] || [];
   }, [schoolPrefix]);
 
   // Create modified NAV_ITEMS with dynamic departments
   const modifiedNavItems = useMemo(() => {
-    return NAV_ITEMS.map((item) => {
+    return NAV_ITEMS.map(item => {
       if (item.name === "Departments" && schoolPrefix) {
         return {
           ...item,
@@ -136,7 +133,7 @@ const Navbar = () => {
 
   // Toggle mobile submenu
   const toggleSubmenu = useCallback((name: string) => {
-    setOpenSubmenu((prev) => (prev === name ? null : name));
+    setOpenSubmenu(prev => (prev === name ? null : name));
   }, []);
 
   // Desktop submenu handlers
@@ -160,95 +157,129 @@ const Navbar = () => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node)
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        !(event.target as Element).closest('button[aria-label="Toggle navigation menu"]')
       ) {
         closeAllMenus();
       }
     };
+
     if (isMobileMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "";
     };
   }, [isMobileMenuOpen, closeAllMenus]);
 
-  // Resize observer
+  // Resize observer with throttling
   useEffect(() => {
     const updateHeaderHeight = () => {
       if (headerRef.current) {
         setHeaderHeight(headerRef.current.offsetHeight);
       }
     };
-    const resizeObserver = new ResizeObserver(updateHeaderHeight);
+
+    const throttleResize = (fn: Function, delay: number) => {
+      let lastCall = 0;
+      return (...args: any[]) => {
+        const now = new Date().getTime();
+        if (now - lastCall < delay) return;
+        lastCall = now;
+        fn(...args);
+      };
+    };
+
+    const throttledUpdate = throttleResize(updateHeaderHeight, 100);
+
+    resizeObserverRef.current = new ResizeObserver(throttledUpdate);
     if (headerRef.current) {
-      resizeObserver.observe(headerRef.current);
+      resizeObserverRef.current.observe(headerRef.current);
     }
+
     return () => {
-      resizeObserver.disconnect();
+      resizeObserverRef.current?.disconnect();
       cleanup();
     };
   }, [cleanup]);
 
+  // Cancel pending timeouts on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   // Render helpers
   const renderSubmenuItems = useCallback(
     (subItems: NavItem["subItems"], isMobile: boolean) =>
-      subItems?.map((subItem) => (
-        <li key={subItem.name}>
-          {subItem.external ? (
-            <a
-              href={getPrefixedPath(subItem.path || "#", subItem.external)}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={closeAllMenus}
-              className={`block ${
-                isMobile ? "px-6 py-3 text-sm" : "px-4 py-2 text-base"
-              } font-medium ${
-                pathname === getPrefixedPath(subItem.path || "", subItem.external)
-                  ? `${isMobile ? "text-mpgin-darkBlue bg-mpgin-blue underline" : "text-mpgin-darkBlue bg-mpgin-blue underline"}`
-                  : `${isMobile ? "text-gray-600 hover:text-mpgin-blue" : "text-gray-700 hover:bg-gray-50"}`
-              }`}
-            >
-              {subItem.name}
-            </a>
-          ) : (
-            <Link
-              to={getPrefixedPath(subItem.path || "#", subItem.external)}
-              onClick={closeAllMenus}
-              className={`block ${
-                isMobile ? "px-6 py-3 text-sm" : "px-4 py-2 text-base"
-              } font-medium ${
-                pathname === getPrefixedPath(subItem.path || "", subItem.external)
-                  ? `${isMobile ? "text-mpgin-darkBlue bg-mpgin-blue underline" : "text-mpgin-darkBlue bg-mpgin-blue underline"}`
-                  : `${isMobile ? "text-gray-600 hover:text-mpgin-blue" : "text-gray-700 hover:bg-gray-50"}`
-              }`}
-            >
-              {subItem.name}
-            </Link>
-          )}
-        </li>
-      )),
+      subItems?.map(subItem => {
+        const path = getPrefixedPath(subItem.path || "#", subItem.external);
+        const isActive = pathname === path;
+        
+        return (
+          <li key={subItem.name}>
+            {subItem.external ? (
+              <a
+                href={path}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeAllMenus}
+                className={`block ${
+                  isMobile ? "px-6 py-3 text-sm" : "px-4 py-2 text-base"
+                } font-medium ${
+                  isActive
+                    ? `${isMobile ? "text-mpgin-darkBlue bg-mpgin-blue underline" : "text-mpgin-darkBlue bg-mpgin-blue underline"}`
+                    : `${isMobile ? "text-gray-600 hover:text-mpgin-blue" : "text-gray-700 hover:bg-gray-50"}`
+                }`}
+              >
+                {subItem.name}
+              </a>
+            ) : (
+              <Link
+                to={path}
+                onClick={closeAllMenus}
+                className={`block ${
+                  isMobile ? "px-6 py-3 text-sm" : "px-4 py-2 text-base"
+                } font-medium ${
+                  isActive
+                    ? `${isMobile ? "text-mpgin-darkBlue bg-mpgin-blue underline" : "text-mpgin-darkBlue bg-mpgin-blue underline"}`
+                    : `${isMobile ? "text-gray-600 hover:text-mpgin-blue" : "text-gray-700 hover:bg-gray-50"}`
+                }`}
+              >
+                {subItem.name}
+              </Link>
+            )}
+          </li>
+        );
+      }),
     [closeAllMenus, pathname, getPrefixedPath]
   );
 
   const renderNavItem = useCallback(
     (item: NavItem, isMobile: boolean) => {
-      const isActive = pathname === getPrefixedPath(item.path || "", item.external);
+      const path = getPrefixedPath(item.path || "", item.external);
+      const isActive = pathname === path;
+      
       return item.path ? (
         item.external ? (
           <a
-            href={getPrefixedPath(item.path, item.external)}
+            href={path}
             target="_blank"
             rel="noopener noreferrer"
             onClick={closeAllMenus}
             className={`${isMobile ? "px-6 py-3 text-sm" : "px-4 py-2.5 text-base"}
-              font-medium flex items-center ${isActive
-                ? `${isMobile ? "text-mpgin-darkBlue bg-mpgin-blue underline" : "text-mpgin-darkBlue bg-mpgin-blue underline"}`
-                : "text-gray-700 hover:bg-gray-50"
+              font-medium flex items-center ${
+                isActive
+                  ? `${isMobile ? "text-mpgin-darkBlue bg-mpgin-blue underline" : "text-mpgin-darkBlue bg-mpgin-blue underline"}`
+                  : "text-gray-700 hover:bg-gray-50"
               }`}
           >
             {item.name}
@@ -256,12 +287,13 @@ const Navbar = () => {
         ) : (
           <Link
             key={item.name}
-            to={getPrefixedPath(item.path, item.external)}
+            to={path}
             onClick={closeAllMenus}
             className={`${isMobile ? "px-6 py-3 text-sm" : "px-4 py-2.5 text-base"}
-              font-medium flex items-center ${isActive
-                ? `${isMobile ? "text-mpgin-darkBlue bg-mpgin-blue underline" : "text-mpgin-darkBlue bg-mpgin-blue underline"}`
-                : "text-gray-700 hover:bg-gray-50"
+              font-medium flex items-center ${
+                isActive
+                  ? `${isMobile ? "text-mpgin-darkBlue bg-mpgin-blue underline" : "text-mpgin-darkBlue bg-mpgin-blue underline"}`
+                  : "text-gray-700 hover:bg-gray-50"
               }`}
           >
             {item.name}
@@ -322,10 +354,10 @@ const Navbar = () => {
     <>
       <header
         ref={headerRef}
-        className={`fixed w-full top-0 z-50 shadow-lg transition-transform duration-300 ease-in-out`}
+        className="fixed w-full top-0 z-50 shadow-lg bg-white"
       >
         {/* Top Section - Logo and Institution Name */}
-        <div className={`py-2 block bg-mpgin-darkBlue border-b`}>
+        <div className="py-2 block bg-mpgin-darkBlue border-b">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-center gap-4">
               <div className="flex items-center gap-4">
@@ -351,6 +383,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+
         {/* Bottom Navigation - Main Menu */}
         <nav ref={navRef} className="bg-white">
           <div className="overflow-auto w-full px-4 sm:px-6 lg:px-8 flex justify-end lg:justify-start">
@@ -374,6 +407,7 @@ const Navbar = () => {
                   </ul>
                 </div>
               </div>
+
               {/* Mobile menu button */}
               <div className="md:hidden flex items-center ml-auto">
                 <button
@@ -391,6 +425,7 @@ const Navbar = () => {
               </div>
             </div>
           </div>
+
           {/* Mobile menu */}
           {isMobileMenuOpen && (
             <div
@@ -398,7 +433,7 @@ const Navbar = () => {
               className="md:hidden bg-white shadow-lg max-h-[calc(100vh-80px)] overflow-y-auto"
             >
               <ul className="divide-y divide-gray-200">
-                {modifiedNavItems.map((item) => (
+                {modifiedNavItems.map(item => (
                   <li key={item.name} className="hover:bg-gray-50 transition-colors">
                     {renderNavItem(item, true)}
                   </li>
@@ -408,6 +443,7 @@ const Navbar = () => {
           )}
         </nav>
       </header>
+
       {/* Portal for desktop submenus */}
       {submenuPosition &&
         ReactDOM.createPortal(
@@ -422,12 +458,13 @@ const Navbar = () => {
             aria-label={`${submenuPosition.name} submenu`}
           >
             {renderSubmenuItems(
-              modifiedNavItems.find((item) => item.name === submenuPosition.name)?.subItems,
+              modifiedNavItems.find(item => item.name === submenuPosition.name)?.subItems,
               false
             )}
           </ul>,
           document.body
         )}
+
       {/* Header height spacer */}
       {headerHeight > 0 && (
         <div style={{ height: headerHeight, transition: "height 0.3s ease" }} />
