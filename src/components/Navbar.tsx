@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import ReactDOM from "react-dom";
 import logo from "../assets/images/logo-circle.png";
 import { NAV_ITEMS } from "../data/NavTabs";
+import { COMMITTEE_MAPPINGS } from "../data/CommitteeMappings";
 
 type NavItem = {
   name: string;
@@ -62,16 +63,11 @@ const Navbar = () => {
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const resizeObserverRef = useRef<ResizeObserver | null>(null);
-
-  // Memoized school prefix calculation
   const schoolPrefix = useMemo(() => {
     const parts = pathname.split("/").filter(p => p);
     return VALID_SCHOOLS.find(school => school === parts[0]) || null;
   }, [pathname]);
 
-  // Memoized path prefixing
   const getPrefixedPath = useCallback(
     (originalPath: string, isExternal?: boolean) => {
       if (isExternal || !schoolPrefix) return originalPath;
@@ -82,7 +78,6 @@ const Navbar = () => {
     [schoolPrefix]
   );
 
-  // Memoized school heading
   const schoolHeading = useMemo(() => {
     switch (schoolPrefix) {
       case "school-of-management":
@@ -96,26 +91,39 @@ const Navbar = () => {
     }
   }, [schoolPrefix]);
 
-  // Get department items based on current school
   const getDepartmentItems = useCallback(() => {
     if (!schoolPrefix) return [];
     return DEPARTMENT_MAPPINGS[schoolPrefix] || [];
   }, [schoolPrefix]);
 
-  // Create modified NAV_ITEMS with dynamic departments
+  const getCommitteeItems = useCallback(() => {
+    if (!schoolPrefix) return [];
+    return (
+      COMMITTEE_MAPPINGS[schoolPrefix as keyof typeof COMMITTEE_MAPPINGS]?.map(committee => ({
+        name: committee.title,
+        path: `/cells-committees?section=${committee.id}`
+      })) || []
+    );
+  }, [schoolPrefix]);
+
   const modifiedNavItems = useMemo(() => {
     return NAV_ITEMS.map(item => {
-      if (item.name === "Departments" && schoolPrefix) {
+      if (item.name === "Departments") {
         return {
           ...item,
           subItems: getDepartmentItems()
         };
       }
+      if (item.name === "Cells & Committees") {
+        return {
+          ...item,
+          subItems: getCommitteeItems()
+        };
+      }
       return item;
     });
-  }, [schoolPrefix, getDepartmentItems]);
+  }, [schoolPrefix, getDepartmentItems, getCommitteeItems]);
 
-  // Cleanup function
   const cleanup = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -123,7 +131,6 @@ const Navbar = () => {
     }
   }, []);
 
-  // Close all menus
   const closeAllMenus = useCallback(() => {
     setIsMobileMenuOpen(false);
     setOpenSubmenu(null);
@@ -131,12 +138,10 @@ const Navbar = () => {
     cleanup();
   }, [cleanup]);
 
-  // Toggle mobile submenu
   const toggleSubmenu = useCallback((name: string) => {
     setOpenSubmenu(prev => (prev === name ? null : name));
   }, []);
 
-  // Desktop submenu handlers
   const handleDesktopSubmenuHover = useCallback(
     (e: React.MouseEvent, item: NavItem) => {
       if (!item.subItems) return;
@@ -152,7 +157,6 @@ const Navbar = () => {
     timeoutRef.current = setTimeout(() => setSubmenuPosition(null), 200);
   }, [cleanup]);
 
-  // Handle click outside mobile menu
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -163,28 +167,24 @@ const Navbar = () => {
         closeAllMenus();
       }
     };
-
     if (isMobileMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "";
     };
   }, [isMobileMenuOpen, closeAllMenus]);
 
-  // Resize observer with throttling
   useEffect(() => {
     const updateHeaderHeight = () => {
       if (headerRef.current) {
         setHeaderHeight(headerRef.current.offsetHeight);
       }
     };
-
     const throttleResize = (fn: Function, delay: number) => {
       let lastCall = 0;
       return (...args: any[]) => {
@@ -194,21 +194,17 @@ const Navbar = () => {
         fn(...args);
       };
     };
-
     const throttledUpdate = throttleResize(updateHeaderHeight, 100);
-
-    resizeObserverRef.current = new ResizeObserver(throttledUpdate);
+    const resizeObserver = new ResizeObserver(throttledUpdate);
     if (headerRef.current) {
-      resizeObserverRef.current.observe(headerRef.current);
+      resizeObserver.observe(headerRef.current);
     }
-
     return () => {
-      resizeObserverRef.current?.disconnect();
+      resizeObserver.disconnect();
       cleanup();
     };
   }, [cleanup]);
 
-  // Cancel pending timeouts on unmount
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
@@ -217,13 +213,11 @@ const Navbar = () => {
     };
   }, []);
 
-  // Render helpers
   const renderSubmenuItems = useCallback(
     (subItems: NavItem["subItems"], isMobile: boolean) =>
       subItems?.map(subItem => {
         const path = getPrefixedPath(subItem.path || "#", subItem.external);
-        const isActive = pathname === path;
-        
+        const isActive = pathname.includes(path);
         return (
           <li key={subItem.name}>
             {subItem.external ? (
@@ -267,7 +261,6 @@ const Navbar = () => {
     (item: NavItem, isMobile: boolean) => {
       const path = getPrefixedPath(item.path || "", item.external);
       const isActive = pathname === path;
-      
       return item.path ? (
         item.external ? (
           <a

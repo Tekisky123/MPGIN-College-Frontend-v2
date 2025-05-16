@@ -77,7 +77,7 @@ export const NAV_ITEMS = [
         name: "Information Brochure 2024-25",
         path: "/admission/InformationBrochureAcademicYear2020-21",
       },
-      { name: "SBI Collect", path: "https://www.onlinesbi.sbi/sbicollect/" , external: true, },
+      { name: "SBI Collect", path: "https://www.onlinesbi.sbi/sbicollect/", external: true, },
       {
         name: "VidyaLaxmi Portal",
         path: "https://www.vidyalakshmi.co.in/",

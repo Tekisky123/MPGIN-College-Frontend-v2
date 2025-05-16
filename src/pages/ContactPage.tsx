@@ -10,7 +10,7 @@ const CONTACT_DATA = {
     title: "Contact - School of Engineering",
     contacts: [
       {
-        name: "Principal",
+        name: "",
         email: "principal@engineering.mp.edu.in",
         phones: ["+91 9876543210", "+91 9765432109"],
       },
@@ -30,7 +30,7 @@ const CONTACT_DATA = {
     title: "Contact - School of Management",
     contacts: [
       {
-        name: "Principal",
+        name: "",
         email: "principal@management.mp.edu.in",
         phones: ["+91 9876543210", "+91 9765432109"],
       },
@@ -50,7 +50,7 @@ const CONTACT_DATA = {
     title: "Contact - Vishwabharati Polytechnic Institute",
     contacts: [
       {
-        name: "Principal",
+        name: "",
         email: "1151principal@msbte.ac.in",
         phones: ["+91 9881321000"],
       },
