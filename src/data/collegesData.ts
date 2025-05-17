@@ -2,6 +2,7 @@ import eceHod from "../assets/hodImages/Dr. Abdullah M.K.Department of Electroni
 import eeeHod from "../assets/hodImages/S. Asad HashmiElectrical Engineering.png"
 import polyEceHod from "../assets/hodImages/Ms. Mule A.B. Head of Department - Electronics & Telecommunication Engineering.png"
 import mechHod from "../assets/hodImages/Sayyad Shafik R Mechanical Engineering.png"
+import cseHod from "../assets/hodImages/Mr B.A Khansole Computer Science & Engineering.png"
 
 export interface Department {
   id: string;
@@ -262,46 +263,46 @@ export const colleges: College[] = [
 4. To provide electronics engineers to the society for effective contribution towards societal developments with the sense of discipline and dedication.`
       },
       {
-  id: "bsh",
-  name: "Basic Sciences and Humanities (FE)",
-  description:
-    "Foundation department focusing on engineering fundamentals, mathematics, physics, chemistry, and communication skills.",
-  image: "https://www.lpu.in/academics/images/department/physics.jpg",
-  about: `The Department of Basic Sciences and Humanities (BSH) forms the cornerstone of engineering education at MPGI Integrated Campus. Established with the vision to provide a strong academic foundation for first-year students, the department plays a vital role in shaping the core competencies required across all streams of engineering. With expert faculty in Mathematics, Physics, Chemistry, and English, the department focuses on bridging the gap between school-level understanding and the advanced requirements of professional technical courses. Our faculty uses innovative pedagogies and modern teaching tools to make fundamental concepts accessible and engaging. We strive to cultivate analytical reasoning, scientific temper, and effective communication skills in students to ensure their seamless transition into branch-specific subjects from the second year onwards.`,
-  courses: [
-    "Engineering Mathematics I & II",
-    "Engineering Physics & Lab",
-    "Engineering Chemistry & Lab",
-    "Environmental Studies",
-    "Communication Skills & Soft Skills"
-  ],
-  facilities: [
-    "Engineering Physics Lab",
-    "Engineering Chemistry Lab",
-    "Language and Communication Lab",
-    "Digital Learning Smart Classrooms"
-  ],
-  facultyCount: 15,
-  gallery: ["/images/bsh-1.jpg", "/images/bsh-2.jpg"],
-  labs: [
-    { srNo: 1, labName: "Physics Lab", area: "900 sq.ft", incharge: "Dr. Prakash Yadav" },
-    { srNo: 2, labName: "Chemistry Lab", area: "850 sq.ft", incharge: "Ms. Shalini Thakur" },
-    { srNo: 3, labName: "Language Lab", area: "750 sq.ft", incharge: "Mr. Vikram Nair" }
-  ],
-  hod: {
-    name: "Dr. Seema Kulkarni",
-    designation: "Head of Department - Basic Sciences and Humanities",
-    message: `The Department of Basic Sciences and Humanities plays a crucial role in laying the groundwork for aspiring engineers. We believe that a strong conceptual base in science and mathematics, coupled with effective communication skills, forms the backbone of successful engineering education. Our faculty members are committed to academic excellence and holistic development of students. Through interactive learning, lab-based experiments, and a focus on critical thinking, we strive to build the intellectual curiosity and problem-solving abilities of our students. At MPGI, we believe that the first year is not just a transition—it is a transformation. 
+        id: "bsh",
+        name: "Basic Sciences and Humanities (FE)",
+        description:
+          "Foundation department focusing on engineering fundamentals, mathematics, physics, chemistry, and communication skills.",
+        image: "https://www.lpu.in/academics/images/department/physics.jpg",
+        about: `The Department of Basic Sciences and Humanities (BSH) forms the cornerstone of engineering education at MPGI Integrated Campus. Established with the vision to provide a strong academic foundation for first-year students, the department plays a vital role in shaping the core competencies required across all streams of engineering. With expert faculty in Mathematics, Physics, Chemistry, and English, the department focuses on bridging the gap between school-level understanding and the advanced requirements of professional technical courses. Our faculty uses innovative pedagogies and modern teaching tools to make fundamental concepts accessible and engaging. We strive to cultivate analytical reasoning, scientific temper, and effective communication skills in students to ensure their seamless transition into branch-specific subjects from the second year onwards.`,
+        courses: [
+          "Engineering Mathematics I & II",
+          "Engineering Physics & Lab",
+          "Engineering Chemistry & Lab",
+          "Environmental Studies",
+          "Communication Skills & Soft Skills"
+        ],
+        facilities: [
+          "Engineering Physics Lab",
+          "Engineering Chemistry Lab",
+          "Language and Communication Lab",
+          "Digital Learning Smart Classrooms"
+        ],
+        facultyCount: 15,
+        gallery: ["/images/bsh-1.jpg", "/images/bsh-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Physics Lab", area: "900 sq.ft", incharge: "Dr. Prakash Yadav" },
+          { srNo: 2, labName: "Chemistry Lab", area: "850 sq.ft", incharge: "Ms. Shalini Thakur" },
+          { srNo: 3, labName: "Language Lab", area: "750 sq.ft", incharge: "Mr. Vikram Nair" }
+        ],
+        hod: {
+          name: "Dr. Seema Kulkarni",
+          designation: "Head of Department - Basic Sciences and Humanities",
+          message: `The Department of Basic Sciences and Humanities plays a crucial role in laying the groundwork for aspiring engineers. We believe that a strong conceptual base in science and mathematics, coupled with effective communication skills, forms the backbone of successful engineering education. Our faculty members are committed to academic excellence and holistic development of students. Through interactive learning, lab-based experiments, and a focus on critical thinking, we strive to build the intellectual curiosity and problem-solving abilities of our students. At MPGI, we believe that the first year is not just a transition—it is a transformation. 
 
     “Science is a way of thinking much more than it is a body of knowledge.” – Carl Sagan`,
-    profileImage: "polyBshHod"
-  },
-  vision: "To provide a strong academic foundation and foster critical thinking, scientific inquiry, and effective communication in engineering students for lifelong learning and professional excellence.",
-  mission: `1. To strengthen the fundamental knowledge of science and mathematics among first-year engineering students.
+          profileImage: "polyBshHod"
+        },
+        vision: "To provide a strong academic foundation and foster critical thinking, scientific inquiry, and effective communication in engineering students for lifelong learning and professional excellence.",
+        mission: `1. To strengthen the fundamental knowledge of science and mathematics among first-year engineering students.
 2. To enhance communication, interpersonal, and analytical skills through skill-based training.
 3. To promote scientific curiosity, ethical reasoning, and sustainable thinking among students.
 4. To nurture a multidisciplinary environment that supports innovation, creativity, and problem-solving.`,
-}
+      }
 
 
     ],
@@ -332,23 +333,44 @@ export const colleges: College[] = [
           "Industry-aligned Certification Courses",
           "100+ Computing Workstations",
         ],
-        about: `MPGI Integrated Campus is one of the premier technical institutions of the Region. The Department of Electronics and Telecommunication, MPGI Integrated Campus, was established in the year 2023 with an intake of 30 students. It is among the finest in the college having qualified faculty and well-equipped laboratories. The department has always strived to inculcate the very best in the students so that they can face the challenges offered by the industry. The department offers a B.Tech degree course in Electronics and Telecommunication Engineering. The preeminence of the department can be understood by the ever-increasing demands for its fresh graduates. Close interaction with the industry has led to the evolution of a teaching system, which produces diligent and erudite engineers. The young engineers have excelled both in higher education and in the industry.`,
+        about: `MPGI Integrated Campus is recognized as one of the premier technical institutions in the region. The Department of Computer Science and Engineering was established in the year 2009 with an initial intake of 30 students. Since its inception, the department has emerged as one of the most distinguished in the institution, supported by a team of well-qualified faculty members and equipped with modern, state-of-the-art laboratories.
+
+The department is committed to nurturing students with strong academic foundations and practical skills to prepare them for the dynamic challenges of the IT industry. By fostering a culture of innovation, critical thinking, and problem-solving, the department ensures that students are industry-ready upon graduation.
+
+The excellence of the department is reflected in the consistent demand for its graduates in both industry and academia. Strong ties with the industry have shaped a forward-looking teaching methodology that blends theoretical knowledge with hands-on experience. As a result, our graduates have gone on to excel in higher education and secure successful careers in leading organizations.`,
 
         facultyCount: 18,
         gallery: ["/images/cse-1.jpg", "/images/cse-2.jpg"],
         labs: [
-          { srNo: 1, labName: "Networking Lab", area: "900 sq.ft", incharge: "Mr. Rohit Jain" },
-          { srNo: 2, labName: "App Development Lab", area: "700 sq.ft", incharge: "Ms. Sneha Mehta" },
-          { srNo: 3, labName: "Cloud Computing Lab", area: "850 sq.ft", incharge: "Dr. Arun Dubey" },
+          {
+            srNo: 1, labName: `1.Database System &  Software       
+ Engineering Laboratory:`, area: "-", incharge: "Mr. K. A. Mistry "
+          },
+          { srNo: 2, labName: `Project Phase internship & Project in Industry`, area: "-", incharge: "Mr. K.D. Ibitkar" },
+          { srNo: 3, labName: `Natural Language   Processing  &  Data Engineering lab`, area: "-", incharge: "Miss. Maliha Sayyad." },
+          { srNo: 4, labName: `Programing & Machine Learning Lab`, area: "-", incharge: "Mr. K.A. Mistry" },
+          { srNo: 5, labName: `Deep Learning & Machine Learning Lab`, area: "-", incharge: "Mrs. Jyoti Sarode" },
+          { srNo: 6, labName: `Data Structures & Object-Oriented Lab`, area: "-", incharge: "Miss. Maliha Sayyad" },
+          { srNo: 7, labName: `Operating System & Python Programing Lab`, area: "-", incharge: "Mrs. Jyoti Sarode" },
         ],
         hod: {
-          name: "Dr. Rajesh Kumar",
-          designation: "Head of Department - Mechanical Engineering",
-          message: "We are committed to shaping future-ready mechanical engineers through hands-on learning and industry exposure.",
-          profileImage: "https://example.com/images/dr-rajesh-kumar.jpg "
+          name: "Mr B.A Khansole",
+          designation: "Associate Professor & H.O.D",
+          message: `Dear Students and Respected Visitors,
+
+A warm and heartfelt welcome to all of you.
+
+As we are all aware, the world of technology is evolving rapidly with new innovations and advancements emerging every day. In response to this dynamic landscape, the Department of Computer Science and Engineering at MPGI Integrated Campus is committed to providing students with up-to-date knowledge and technical skills. This is achieved through our highly qualified faculty, who bring rich industry experience, and through our well-developed, technologically advanced laboratories.
+
+The department has witnessed significant growth, particularly due to the rapid developments in the field of Computer Science and Engineering. We continuously strive to adapt our teaching methods and curriculum to align with current industry standards and future technological trends.
+
+I am confident that our current batch of students will uphold the department’s reputation by demonstrating a high level of professional competence and making meaningful contributions in their respective careers.
+
+Wishing all our students great success in their academic and professional journeys.`,
+          profileImage: cseHod
         },
-        vision: "To be a globally recognized center of excellence in mechanical engineering education and research.",
-        mission: "To produce skilled professionals who contribute effectively to industrial development and technological innovation."
+        vision: `The Department of Computer Science and Engineering at MPGI Integrated Campus envisions becoming a leading center of excellence in computing education, research, and innovation. The department is committed to nurturing technically proficient, ethically grounded, and socially responsible professionals who can thrive in a rapidly evolving technological world. By fostering a spirit of innovation, continuous learning, and global awareness, the department aims to empower students to make meaningful contributions to industry, academia, and society at large. `,
+        mission: `The mission of the Department of Computer Science and Engineering is to deliver high-quality education that blends theoretical knowledge with practical skills in computer science and related technologies. The department seeks to develop students’ analytical thinking, problem-solving capabilities, and creativity through a curriculum that is responsive to the latest industry trends and technological advancements. Through collaborations with industry and research organizations, the department ensures experiential learning opportunities such as internships, projects, and workshops. It also places strong emphasis on ethical practices, effective communication, leadership, and teamwork, preparing students to excel in diverse professional environments. Continuous improvement in faculty development, infrastructure, and academic delivery remains a core focus in the department’s pursuit of excellence.`
       },
       {
         id: "mech",
@@ -508,46 +530,46 @@ Join us in shaping a dynamic and rewarding career in engineering.`,
         mission: "To provide the excellent and skilled technocrats to the world by providing excellent teaching and training."
       },
       {
-  id: "bsh",
-  name: "Basic Sciences and Humanities (FE)",
-  description:
-    "Foundation department focusing on engineering fundamentals, mathematics, physics, chemistry, and communication skills.",
-  image: "https://www.lpu.in/academics/images/department/physics.jpg",
-  about: `The Department of Basic Sciences and Humanities (BSH) forms the cornerstone of engineering education at MPGI Integrated Campus. Established with the vision to provide a strong academic foundation for first-year students, the department plays a vital role in shaping the core competencies required across all streams of engineering. With expert faculty in Mathematics, Physics, Chemistry, and English, the department focuses on bridging the gap between school-level understanding and the advanced requirements of professional technical courses. Our faculty uses innovative pedagogies and modern teaching tools to make fundamental concepts accessible and engaging. We strive to cultivate analytical reasoning, scientific temper, and effective communication skills in students to ensure their seamless transition into branch-specific subjects from the second year onwards.`,
-  courses: [
-    "Engineering Mathematics I & II",
-    "Engineering Physics & Lab",
-    "Engineering Chemistry & Lab",
-    "Environmental Studies",
-    "Communication Skills & Soft Skills"
-  ],
-  facilities: [
-    "Engineering Physics Lab",
-    "Engineering Chemistry Lab",
-    "Language and Communication Lab",
-    "Digital Learning Smart Classrooms"
-  ],
-  facultyCount: 15,
-  gallery: ["/images/bsh-1.jpg", "/images/bsh-2.jpg"],
-  labs: [
-    { srNo: 1, labName: "Physics Lab", area: "900 sq.ft", incharge: "Dr. Prakash Yadav" },
-    { srNo: 2, labName: "Chemistry Lab", area: "850 sq.ft", incharge: "Ms. Shalini Thakur" },
-    { srNo: 3, labName: "Language Lab", area: "750 sq.ft", incharge: "Mr. Vikram Nair" }
-  ],
-  hod: {
-    name: "Dr. Seema Kulkarni",
-    designation: "Head of Department - Basic Sciences and Humanities",
-    message: `The Department of Basic Sciences and Humanities plays a crucial role in laying the groundwork for aspiring engineers. We believe that a strong conceptual base in science and mathematics, coupled with effective communication skills, forms the backbone of successful engineering education. Our faculty members are committed to academic excellence and holistic development of students. Through interactive learning, lab-based experiments, and a focus on critical thinking, we strive to build the intellectual curiosity and problem-solving abilities of our students. At MPGI, we believe that the first year is not just a transition—it is a transformation. 
+        id: "bsh",
+        name: "Basic Sciences and Humanities (FE)",
+        description:
+          "Foundation department focusing on engineering fundamentals, mathematics, physics, chemistry, and communication skills.",
+        image: "https://www.lpu.in/academics/images/department/physics.jpg",
+        about: `The Department of Basic Sciences and Humanities (BSH) forms the cornerstone of engineering education at MPGI Integrated Campus. Established with the vision to provide a strong academic foundation for first-year students, the department plays a vital role in shaping the core competencies required across all streams of engineering. With expert faculty in Mathematics, Physics, Chemistry, and English, the department focuses on bridging the gap between school-level understanding and the advanced requirements of professional technical courses. Our faculty uses innovative pedagogies and modern teaching tools to make fundamental concepts accessible and engaging. We strive to cultivate analytical reasoning, scientific temper, and effective communication skills in students to ensure their seamless transition into branch-specific subjects from the second year onwards.`,
+        courses: [
+          "Engineering Mathematics I & II",
+          "Engineering Physics & Lab",
+          "Engineering Chemistry & Lab",
+          "Environmental Studies",
+          "Communication Skills & Soft Skills"
+        ],
+        facilities: [
+          "Engineering Physics Lab",
+          "Engineering Chemistry Lab",
+          "Language and Communication Lab",
+          "Digital Learning Smart Classrooms"
+        ],
+        facultyCount: 15,
+        gallery: ["/images/bsh-1.jpg", "/images/bsh-2.jpg"],
+        labs: [
+          { srNo: 1, labName: "Physics Lab", area: "900 sq.ft", incharge: "Dr. Prakash Yadav" },
+          { srNo: 2, labName: "Chemistry Lab", area: "850 sq.ft", incharge: "Ms. Shalini Thakur" },
+          { srNo: 3, labName: "Language Lab", area: "750 sq.ft", incharge: "Mr. Vikram Nair" }
+        ],
+        hod: {
+          name: "Dr. Seema Kulkarni",
+          designation: "Head of Department - Basic Sciences and Humanities",
+          message: `The Department of Basic Sciences and Humanities plays a crucial role in laying the groundwork for aspiring engineers. We believe that a strong conceptual base in science and mathematics, coupled with effective communication skills, forms the backbone of successful engineering education. Our faculty members are committed to academic excellence and holistic development of students. Through interactive learning, lab-based experiments, and a focus on critical thinking, we strive to build the intellectual curiosity and problem-solving abilities of our students. At MPGI, we believe that the first year is not just a transition—it is a transformation. 
 
     “Science is a way of thinking much more than it is a body of knowledge.” – Carl Sagan`,
-    // profileImage: polyBshHod
-  },
-  vision: "To provide a strong academic foundation and foster critical thinking, scientific inquiry, and effective communication in engineering students for lifelong learning and professional excellence.",
-  mission: `1. To strengthen the fundamental knowledge of science and mathematics among first-year engineering students.
+          // profileImage: polyBshHod
+        },
+        vision: "To provide a strong academic foundation and foster critical thinking, scientific inquiry, and effective communication in engineering students for lifelong learning and professional excellence.",
+        mission: `1. To strengthen the fundamental knowledge of science and mathematics among first-year engineering students.
 2. To enhance communication, interpersonal, and analytical skills through skill-based training.
 3. To promote scientific curiosity, ethical reasoning, and sustainable thinking among students.
 4. To nurture a multidisciplinary environment that supports innovation, creativity, and problem-solving.`,
-}
+      }
 
     ],
   },

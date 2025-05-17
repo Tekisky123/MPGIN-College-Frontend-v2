@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import api from "../data/Api";
-import { 
-  UserCircle2, 
-  GraduationCap, 
-  Briefcase, 
+import {
+  UserCircle2,
+  GraduationCap,
+  Briefcase,
   CalendarDays,
   Contact2,
   AlertCircle,
@@ -36,7 +36,7 @@ const DepartmentFaculty = () => {
         const response = await api.get<FacultyMember[]>(
           `/faculty/college/${collegeId}/department/${departmentId}`
         );
-        
+
         if (!response.data) throw new Error("No faculty data available");
         setFaculty(response.data);
       } catch (err) {
@@ -110,7 +110,7 @@ const FacultyCard = ({ member }: { member: FacultyMember }) => (
             }}
           />
         </div>
-        
+
         <div className="flex-1 min-w-0">
           <h3 className="text-lg font-semibold text-gray-800 ">{member.name}</h3>
           <div className="flex items-center gap-2 text-sm text-gray-600 mt-1">
@@ -142,11 +142,14 @@ const FacultyCard = ({ member }: { member: FacultyMember }) => (
           <div className="flex-1">
             <p className="font-medium text-gray-700">Joined Date</p>
             <p>
-              {new Date(member.dateOfJoining).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
+              {
+                member.dateOfJoining ? new Date(member.dateOfJoining).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                }) : "-"
+              }
+
             </p>
           </div>
         </div>

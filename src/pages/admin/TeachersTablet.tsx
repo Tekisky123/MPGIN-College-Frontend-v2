@@ -109,7 +109,6 @@ const TeachersTable = ({ collegeType }: Props) => {
     if (!formData.qualification.trim()) newErrors.qualification = 'Qualification is required';
     if (!formData.experience.trim()) newErrors.experience = 'Experience is required';
     if (!formData.designation.trim()) newErrors.designation = 'Designation is required'; // New field
-    if (!formData.dateOfJoining.trim()) newErrors.dateOfJoining = 'Date of joining is required'; // New field
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
