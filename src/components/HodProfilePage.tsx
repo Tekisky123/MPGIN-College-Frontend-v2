@@ -18,6 +18,8 @@ const HodProfilePage = () => {
         <div className="w-full md:w-2/3 bg-white ">
           <h1 className="text-2xl font-bold mb-5">{name}</h1>
           <p className="text-gray-700 leading-relaxed">{hod.message}</p>
+                      <p className="italic text-right text-mpgin-darkBlue font-semibold">– {hod.name}</p>
+
         </div>
 
         {/* HOD Profile (Right Side) */}
